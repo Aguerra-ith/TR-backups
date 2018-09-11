@@ -7,8 +7,8 @@ Suite_ids= ['3557', '4892', '4401']
 
 
 # API variables.
-TR_USERNAME='aguerra@intouchhealth.com'
-TR_PASSWORD='Afg*101295.'
+TR_USERNAME="iris@intouchhealth.com"
+TR_PASSWORD="X2QdBu4MXpJcs9usi9iig07E"
 BASE_URL='https://intouch.testrail.com'
 
 Suite_ids.each do |suite_id|
