@@ -2,34 +2,28 @@ require 'json'
 require 'csv'
 require_relative './testrail'
 
-# Set required variables and open files
-sectionsFile = open("tr_sections.json")
-casesFile = open("tr_cases.json")
-resultFile = File.new("json/result.json", "w")
-sectionsParsed = JSON.parse(sectionsFile.read)
-casesParsed = JSON.parse(casesFile.read)
-hierarchy = Hash.new
+# API variables.
+
 PROJECT_ID='18'
 SUITE_ID='4401'
-
-# API variables.
 TR_USERNAME='aguerra@intouchhealth.com'
 TR_PASSWORD='Afg*101295.'
 BASE_URL='https://intouch.testrail.com'
 
 
 
-
+# Get sections and cases and parse them
 client = TestRail::APIClient.new(BASE_URL)
 client.user = TR_USERNAME
 client.password = TR_PASSWORD
-c = client.send_get('get_sections/' + PROJECT_ID + '&suite_id=' + SUITE_ID)
-puts c 
-
-
+tr_sections = client.send_get('get_sections/' + PROJECT_ID + '&suite_id=' + SUITE_ID).to_json
+tr_cases = client.send_get('get_cases/' + PROJECT_ID + '&suite_id=' + SUITE_ID).to_json
+sectionsParsed = JSON.parse(tr_sections)
+casesParsed = JSON.parse(tr_cases)
 
 
 # Create a new hash for easier merging later
+hierarchy = Hash.new
 sectionsParsed.each do |section|
      section.each do |key, value|
         hierarchy.merge!({section["id"] => {"section_hierarchy" => section["name"], "section_parent_id" => section["parent_id"], "section_description" => section["description"]}})
@@ -51,12 +45,13 @@ casesParsed.each do |trCase|
         trCase.merge!(hierarchy[trCase["section_id"]])
 end
 
-# Save results as json
-resultFile.write(casesParsed.to_json)
-
 
 # Convert to csv and save
-CSV.open('csv/test.csv', 'w') do |csv|
+
+directory_name = "Results"
+Dir.mkdir(directory_name) unless File.exists?(directory_name)
+
+CSV.open('Results/result1.csv', 'w') do |csv|
     headers = casesParsed.first.keys
     csv << headers
     casesParsed.each do |item|
