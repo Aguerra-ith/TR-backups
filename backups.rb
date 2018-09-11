@@ -2,24 +2,29 @@ require 'json'
 require 'csv'
 require_relative './testrail'
 
-# API variables.
+# Add suite ids to backup here
+Suite_ids= ['3557', '4892', '4401']
 
-PROJECT_ID='18'
-SUITE_ID='4401'
+
+# API variables.
 TR_USERNAME='aguerra@intouchhealth.com'
 TR_PASSWORD='Afg*101295.'
 BASE_URL='https://intouch.testrail.com'
 
-
-
+Suite_ids.each do |suite_id|
 # Get sections and cases and parse them
+
 client = TestRail::APIClient.new(BASE_URL)
 client.user = TR_USERNAME
 client.password = TR_PASSWORD
-tr_sections = client.send_get('get_sections/' + PROJECT_ID + '&suite_id=' + SUITE_ID).to_json
-tr_cases = client.send_get('get_cases/' + PROJECT_ID + '&suite_id=' + SUITE_ID).to_json
+tr_suite = client.send_get("get_suite/#{suite_id}").to_json
+suiteParsed = JSON.parse(tr_suite)
+puts "Backing up #{suiteParsed['name']}"
+tr_sections = client.send_get("get_sections/#{suiteParsed['project_id']}&suite_id=#{suite_id}").to_json
+tr_cases = client.send_get("get_cases/#{suiteParsed['project_id']}&suite_id=#{suite_id}").to_json
 sectionsParsed = JSON.parse(tr_sections)
 casesParsed = JSON.parse(tr_cases)
+
 
 
 # Create a new hash for easier merging later
@@ -47,11 +52,9 @@ end
 
 
 # Convert to csv and save
-
-directory_name = "Results"
-Dir.mkdir(directory_name) unless File.exists?(directory_name)
-
-CSV.open('Results/result1.csv', 'w') do |csv|
+datetime = Time.new.strftime("%Y-%m-%d %H-%M-%S")
+Dir.mkdir("Results") unless File.exists?("Results")
+CSV.open("Results/#{suiteParsed['name']} #{datetime}.csv", 'w') do |csv|
     headers = casesParsed.first.keys
     csv << headers
     casesParsed.each do |item|
@@ -63,3 +66,5 @@ CSV.open('Results/result1.csv', 'w') do |csv|
     csv << printable_values
     end
 end
+end
+puts "Done!"
