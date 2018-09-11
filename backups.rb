@@ -9,9 +9,9 @@ Suite_ids= ['3557', '4892', '4401']
 # API variables.
 TR_USERNAME=ENV['TR_USERNAME']
 TR_PASSWORD=ENV['TR_PASSWORD']
+
 BASE_URL='https://intouch.testrail.com'
 
-puts ENV['TR_USERNAME']
 
 Suite_ids.each do |suite_id|
 
