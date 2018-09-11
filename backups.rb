@@ -11,6 +11,7 @@ TR_USERNAME=ENV['TR_USERNAME']
 TR_PASSWORD=ENV['TR_PASSWORD']
 BASE_URL='https://intouch.testrail.com'
 
+# Create backup dir and setup testrail calls.
 client = TestRail::APIClient.new(BASE_URL)
 client.user = TR_USERNAME
 client.password = TR_PASSWORD
@@ -18,7 +19,7 @@ Dir.mkdir("VE-Backups") unless File.exists?("VE-Backups")
 
 puts "Starting..."
 
-
+# Iterate over project ids making a dir and getting project names and suites in the process.
 Projects.each do |tr_project_id|
   tr_project_suites = JSON.parse(client.send_get("get_suites/#{tr_project_id}").to_json)
   tr_project_name = JSON.parse(client.send_get("get_project/#{tr_project_id}").to_json)['name']
@@ -26,7 +27,7 @@ Projects.each do |tr_project_id|
   Dir.mkdir("VE-Backups/#{tr_project_name}") unless File.exists?("VE-Backups/#{tr_project_name}")
 
 
-  # Create array containing Suite IDs
+  # Iterate over al the project suites getting cases and sections, and later merging those two.
   tr_project_suites.each do |suite|
     puts "Backing up #{suite['name']}"
     tr_sections = JSON.parse(client.send_get("get_sections/#{suite['project_id']}&suite_id=#{suite['id']}").to_json)
@@ -34,7 +35,7 @@ Projects.each do |tr_project_id|
 
 
 
-    # Create a new hash for easier merging later
+    # Create a new hash for easier merging
     hierarchy = Hash.new
     tr_sections.each do |section|
       section.each do |key, value|
@@ -52,13 +53,13 @@ Projects.each do |tr_project_id|
       end
     end
 
-    # Add section hierarchy to the cases
+    # Merge section hierarchy to the cases
     tr_cases.each do |trCase|
       trCase.merge!(hierarchy[trCase["section_id"]])
     end
 
 
-    # Convert to csv and save
+    # Convert to csv and save appending current datetime
     datetime = Time.new.strftime("%Y-%m-%d %H-%M-%S")
     CSV.open("VE-Backups/#{tr_project_name}/#{suite['name']} #{datetime}.csv", 'w') do |csv|
       headers = tr_cases.first.keys
