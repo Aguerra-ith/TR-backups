@@ -7,13 +7,15 @@ Suite_ids= ['3557', '4892', '4401']
 
 
 # API variables.
-TR_USERNAME="iris@intouchhealth.com"
-TR_PASSWORD="X2QdBu4MXpJcs9usi9iig07E"
+TR_USERNAME=ENV['TR_USERNAME']
+TR_PASSWORD=ENV['TR_PASSWORD']
 BASE_URL='https://intouch.testrail.com'
 
-Suite_ids.each do |suite_id|
-# Get sections and cases and parse them
+puts ENV['TR_USERNAME']
 
+Suite_ids.each do |suite_id|
+
+# Get sections and cases and parse them
 client = TestRail::APIClient.new(BASE_URL)
 client.user = TR_USERNAME
 client.password = TR_PASSWORD
