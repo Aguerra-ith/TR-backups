@@ -55,8 +55,8 @@ end
 
 # Convert to csv and save
 datetime = Time.new.strftime("%Y-%m-%d %H-%M-%S")
-Dir.mkdir("Results") unless File.exists?("Results")
-CSV.open("Results/#{suiteParsed['name']} #{datetime}.csv", 'w') do |csv|
+Dir.mkdir("VE-Backups") unless File.exists?("VE-Backups")
+CSV.open("VE-Backups/#{suiteParsed['name']} #{datetime}.csv", 'w') do |csv|
     headers = casesParsed.first.keys
     csv << headers
     casesParsed.each do |item|
