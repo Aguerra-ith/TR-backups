@@ -1,5 +1,5 @@
 # TR-backups
-This Script will take an array containing TR suite ids, then it will make an importable csv file for each one of them.
+This Script will take an array containing TR project ids, then it will make an importable csv file for each suite in them.
 
 # Usage
 - Add to your bashrc file
