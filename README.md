@@ -6,7 +6,7 @@ This Script will take an array containing TR project ids, then it will make an i
   - export TR_USERNAME="test rail username"
   - export TR_PASSWORD="test rail password"
   
-- Add suite ids in the backups.rb file
+- Add project ids in the backups.rb file (line 6)
 
 # Execute
 > ruby backups.rb
