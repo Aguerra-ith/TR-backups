@@ -1,4 +1,0 @@
-id,title,section_id,template_id,type_id,priority_id,milestone_id,refs,created_by,created_on,updated_by,updated_on,estimate,estimate_forecast,suite_id,custom_automation_type,custom_description,custom_preconds,custom_steps,custom_expected,custom_steps_separated,custom_mission,custom_goals,section_hierarchy,section_parent_id,section_description
-3687778,should fail get read missing file,94992,1,7,2,"","",11,1536353946,11,1536353946,"","",5233,0,"","","","","","","",files_controller_test.rb,"",""
-3687779,should fail get read unsanitary path,94992,1,7,2,"","",11,1536353994,11,1536353994,"","",5233,0,"","","","","","","",files_controller_test.rb,"",""
-3687780,should succeed get read,94992,1,7,2,"","",11,1536354022,11,1536354022,"","",5233,0,"","","","","","","",files_controller_test.rb,"",""
