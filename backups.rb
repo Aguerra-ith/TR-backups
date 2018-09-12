@@ -15,16 +15,18 @@ BASE_URL='https://intouch.testrail.com'
 client = TestRail::APIClient.new(BASE_URL)
 client.user = TR_USERNAME
 client.password = TR_PASSWORD
-Dir.mkdir("VE-Backups") unless File.exists?("VE-Backups")
+AppRoot = File.expand_path(File.dirname(__FILE__))
+Dir.mkdir("#{AppRoot}/VE-Backups") unless File.exists?("#{AppRoot}/VE-Backups")
 
 puts "Starting..."
+
 
 # Iterate over project ids making a dir and getting project names and suites in the process.
 Projects.each do |tr_project_id|
   tr_project_suites = JSON.parse(client.send_get("get_suites/#{tr_project_id}").to_json)
   tr_project_name = JSON.parse(client.send_get("get_project/#{tr_project_id}").to_json)['name']
   puts ">>>>>>>>>> #{tr_project_name} <<<<<<<<<<"
-  Dir.mkdir("VE-Backups/#{tr_project_name}") unless File.exists?("VE-Backups/#{tr_project_name}")
+  Dir.mkdir("#{AppRoot}/VE-Backups/#{tr_project_name}") unless File.exists?("#{AppRoot}/VE-Backups/#{tr_project_name}")
 
 
   # Iterate over al the project suites getting cases and sections, and later merging those two.
@@ -61,7 +63,7 @@ Projects.each do |tr_project_id|
 
     # Convert to csv and save appending current datetime
     datetime = Time.new.strftime("%Y-%m-%d %H-%M-%S")
-    CSV.open("VE-Backups/#{tr_project_name}/#{suite['name']} #{datetime}.csv", 'w') do |csv|
+    CSV.open("#{AppRoot}/VE-Backups/#{tr_project_name}/#{suite['name']} #{datetime}.csv", 'w') do |csv|
       headers = tr_cases.first.keys
       csv << headers
       tr_cases.each do |item|
