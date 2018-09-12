@@ -1,0 +1,492 @@
+id,title,section_id,template_id,type_id,priority_id,milestone_id,refs,created_by,created_on,updated_by,updated_on,estimate,estimate_forecast,suite_id,custom_automation_type,custom_description,custom_preconds,custom_steps,custom_expected,custom_steps_separated,custom_mission,custom_goals,section_hierarchy,section_parent_id,section_description
+3423242,Purge all certs from Git history,58645,1,7,2,"",TURN-130,9,1517260513,9,1525117792,"","",3557,0,"","","1. Go to https://github.com/IntouchHealth/Turnstyle
+2. Search for `certificates`
+3. Open `IO/config/certificates/.gitignore` file","* The `/config/certificates/` directory in GitHub repo is empty.
+* `IO/config/certificates/.gitignore` file contains these lines:
+  * `*`
+  * `!.gitignore`","","","",General,"",""
+3523959,As a user I want to land on a home page that explains IO,58645,1,7,2,"","TURN-156,TURN-158",9,1521857362,9,1522165354,"","",3557,0,"","","1. Visit the IO website
+2. Login
+3. Click the IO logo in the top left corner
+4. Log out","* When a user visits IO they land on a home page that explains the app.
+* When a user is not logged in, there is a 'Log in' link in the top right.
+* When they log in, they are taken to the topics page
+* When they click the IO logo in the top left they can see the home page whether or not they are logged in.
+* When they log out, they are taken to the home page.","","","",General,"",""
+3679841,As a user I want to view the User API documentation,58645,1,7,2,"","TURN-61,TURN-277",9,1531419754,23,1531422768,"","",3557,0,"","","1. Login to IO as any user.
+2. Click the **API Docs** link at the top-right of the screen.","You will be directed to a slate page, where you can browse the API docs. Make sure you can see the **Management API** (ex user api)","","","",General,"",""
+3130022,As a user I am able to log in and out of Turnstyle on the web,14793,1,7,2,"","TURN-2,TURN-248",9,1501542694,9,1531432746,"","",3557,0,"","","1. Log in with a valid user
+2. Click your name and then `Sign Out` (top right corner)
+3. Attempt to login with invalid user account or credentials","* Logged out users are always redirected to the homepage.
+* Users can log in with valid email/password combination.
+* Users can log out.
+* Logged in users see a log out link.","","","",Web,"",""
+3135963,As a user I want to see all pages rendered within a usable layout,14793,1,7,2,"","TURN-13,TURN-262",9,1502138906,9,1531432886,"","",3557,0,"","","1. Log in with valid credentials
+2. Reduce the browser window's size
+3. Login from an iPad","1. The layout includes a header with
+    - app name
+    - user profile link (labeled as user's first name)
+         - `Profile` link
+         - `API Keys` link
+         - `Sign Out` link
+    - API docs link
+    - page links (`Clients`, `Topics`, `Accounts`, `Users`, `Outputs`)
+2. Header collapses to hamburger button in small viewports.
+3. Layout includes a footer with ITH logo.","","","",Web,"",""
+3135964,As a user I can use Turnstyle according to my role,14793,1,7,2,"","TURN-17,TURN-265",9,1502139350,9,1531433001,"","",3557,0,"","","1. Login as a super user
+2. Create a new super user
+3. Create an admin account user","1. Users have a role of either super admin or account admin.
+2. Account admins belong to one account.
+3. Super admins do not belong to an account.","","","",Web,"",""
+3141195,"As a user, I want to see an aesthetically pleasing web interface",14793,1,7,2,"","TURN-46,TURN-245",9,1502904401,9,1531344756,"","",3557,0,"","","1. Go to `Clients` and click `New Client`
+2. Go to `Users` and click `New User`
+3. As a super admin edit a user
+4. Click you name in the top right corner
+5. Click Profile
+6. Change your first, last name, email and password","1. The select box for accounts on the new clients page has `Choose one`
+2. The select box for roles and accounts on create user page has `Choose one`
+3. Link and title to new client/user page says 'New Client/User' and submit button says 'Create Client/User'
+4. Super admins see role select box on edit user page
+5. All buttons are centered and well spaced
+6. Glyphicons are right justified and well spaced
+7. All pages have a title in the browser tab
+8. The roles appear as Super administrator and Account administrator to the user
+9. Super admins can also update role and account
+10. Users can update their first name, last name, email, and password","","","",Web,"",""
+3679840,As a user I want to view the Client API documentation,14793,1,7,2,"","TURN-60,TURN-260",9,1531417668,23,1531422381,"","",3557,0,"","","1. Login to IO as any user.
+2. Click the **API Docs** link at the top-right of the screen.
+","You will be directed to a slate page, where you can browse the API docs. Make sure you can see the **Messages API** (ex client api)","","","",Web,"",""
+3136524,Admin users can list clients,15274,1,7,2,"","TURN-7,TURN-261",9,1502232067,9,1531432847,"","",3557,0,"","","1. As an account admin click `Clients`
+2. As a super admin click `Clients`","1. Account admins see a list of the clients in their account.
+2. Super admins see all clients in all accounts.","","","",Web > Clients,14793,""
+3136525,Admin users can create clients,15274,1,7,2,"","TURN-7,TURN-261",9,1502232077,9,1531432847,"","",3557,0,"","","1. As an admin account go to `Clients`
+2. Click `New Client`
+3. As a super admin go to `Clients`
+4. Click `New Client`
+5. Create a client checking `Generate client ID` and `Generate client secret` toggles","1. Users have a `New Client` button on the client index page which directs the user to a form to create a new client.
+2. User has the option either to fill in the client secret and id or they will be automatically generated, this is also displayed in a message to the user.
+3. Super admins have an option to select which account the client belongs to.
+4. A one-time pop-up flash shows message telling the user to save their client secret because they will not be able to retrieve it again.
+5. Automatically generated Client IDs and Client secrets are both 30 character random url-safe base64 strings.","","","",Web > Clients,14793,""
+3136526,Admin users can delete clients,15274,1,7,2,"","TURN-7,TURN-261",9,1502232084,9,1531432847,"","",3557,0,"","","1. As a super admin go to `Clients`
+2. Choose a client and click the delete button
+3. Repeat steps with an account admin user","1. Each client on the index page has a button (glyphicon) to delete it
+2. The user is prompted for confirmation before deleting","","","",Web > Clients,14793,""
+3144387,As an account admin I want to be able to enter existing client IDs and secrets,15274,1,7,2,"","TURN-42,TURN-270",9,1502990525,9,1531433129,"","",3557,0,"","","1. As a super admin go to `Clients`
+2. Create/Edit a client
+3. Enter your existing client ID and secret
+4. Repeat steps with an account admin user","* There is a form to enter a client ID and client secret when creating a new client.
+* If the `Generate client ID/secret` toggle is checked, a value is automatically generated for that attribute.","","","",Web > Clients,14793,""
+3337596,As a user I want to edit a client,15274,1,7,2,"",TURN-90,9,1513278839,9,1525124617,"","",3557,0,"","","1. As a super admin go to `Clients`
+2. Click the edit button
+3. Edit these fields and update:
+    * Client ID
+    * Client secret
+    * Client tags
+4. Repeat steps using an account admin user","* Users can use this page to edit:
+    * Client ID
+    * Client secret
+    * Client tags
+* Whatever list of tags is shown on the page when the form is submitted is saved as the complete list of the ciient's tags.","","","",Web > Clients,14793,""
+3337608,As a user I want to create tags for clients,15274,1,7,2,"","TURN-64,TURN-279",9,1513281268,9,1531425004,"","",3557,0,"","","1. As a super admin go to `Clients`
+2. Create/Edit a client
+3. Add a KEY/VALUE pair
+4. Click `Add Tag` and add another pair
+5. Click `Add Tag` and leave the fields empty
+6. Click `Create/Update Client`
+7. Repeat steps using an account admin user","1. On the clients create form, there is an 'ADD TAG' button that enables users to add custom tags to a client before submitting the form.
+2. Each time the user clicks 'ADD TAG', two fields appear with labels 'KEY' and 'VALUE'.
+3. When the user submits the form, tag records are created that belong to the client being created.
+4. Empty key/value form fields are ignored.","","","",Web > Clients,14793,""
+3337598,As a user I want to see a client's name on the index page,15274,1,7,2,"",TURN-108,9,1513279753,9,1525124684,"","",3557,0,"","","1. As a super user Create or Edit a client
+2. Add a tag with `key = 'name'` (case insensitive)
+3. Go to Clients Index page
+4. Repeat steps using an account admin user","For each client on the index page, if the client has a tag with key `name` (case insensitive) then it is displayed next to the client ID.","","","",Web > Clients,14793,""
+3137580,Admin users can list topics,15275,1,7,2,"","TURN-3,TURN-249",9,1502309255,9,1531432792,"","",3557,0,"","","1. As an account admin click `Topics`
+2. As a super admin click `Topics`","1. Account admins see a list of the topics in their account.
+2. Super admins see all topics in all accounts.","","","",Web > Topics,14793,""
+3137581,Admin users can create topics,15275,1,7,2,"","TURN-3,TURN-249",9,1502309255,9,1531432792,"","",3557,0,"","","1. As an admin account go to `Topics`
+2. Click `New Topic`
+3. As a super admin go to `Topics`
+4. Click `New Topic`
+5. Create a client checking `Generate client ID` and `Generate client secret` toggles","1. There is a form at the bottom of the topics index page for creating new topics.
+2. Names of new topics are unique within an account.
+3. Account admins can create topics for their account while super admins can create topics for any account.","","","",Web > Topics,14793,""
+3137582,Admin users can delete topics,15275,1,7,2,"","TURN-3,TURN-249",9,1502309255,9,1531432792,"","",3557,0,"","","1. As a super admin go to `Topics`
+2. Choose a topic and click the delete button
+3. Repeat steps with an account admin user","1. Every topic on the topics index page has a delete button (glyphicon) next to it that users can click on to delete a topic.
+2. Users are prompted to confirm before topic is deleted.","","","",Web > Topics,14793,""
+3337597,As a user I want to edit a topic,15275,1,7,2,"",TURN-91,9,1513279546,9,1525126900,"","",3557,0,"","","1. As a super admin go to `Clients`
+2. Click the edit button
+3. Edit these fields and update:
+    * Topic name
+    * Account (only super admin)
+    * Topic tags
+4. Repeat steps using an account admin user","* Users can use this page to edit:
+    * Topic tags
+    * Topic name
+    * Account (only super admin)
+* Whatever list of tags is shown on the page when the form is submitted is saved as the complete list of the topic's tags.","","","",Web > Topics,14793,""
+3337609,As a user I want to create tags for topics,15275,1,7,2,"",TURN-80,9,1513281356,9,1525127320,"","",3557,0,"","","1. As a super admin go to `Topics`
+2. Create/Edit a topic
+3. Add a KEY/VALUE pair
+4. Click `Add Tag` and add another pair
+5. Click `Add Tag` and leave the fields empty
+6. Click `Create/Update Topic`
+7. Repeat steps using an account admin user
+","1. On the topic create form, there is an 'ADD TAG' button that enables users to add custom tags to a client before submitting the form.
+2. Each time the user clicks 'ADD TAG', two fields appear with labels 'KEY' and 'VALUE'.
+3. When the user submits the form, tag records are created that belong to the topic being created.
+4. Empty key/value form fields are ignored.","","","",Web > Topics,14793,""
+3679843,As a user I want to be taken to a new page to create topics,15275,1,7,2,"","TURN-78,TURN-283",9,1531425455,23,1531430369,"","",3557,0,As a user I want to be taken to a another page so that I can create new topics.,"","1. Login to IO.
+2. Go to /topics page.
+","* Both Super Admins and Account Admins can access this 'Topic page' to create and delete Topics. 
+* Account Admins can only view/create/delete Topics in their own account.","","","",Web > Topics,14793,""
+3138694,Admin users can list users,15276,1,7,2,"","TURN-16,TURN-264",9,1502487473,9,1531432957,"","",3557,0,"","","1. Login as Account Admin.
+2. Go to the *Users* page.","1. Account admins can click the *USERS* tab in the app header and be taken to a list of users in their account.
+2. The current user is included in the list of users. The label **(me)** should be displayed next to it.","","","",Web > Users,14793,""
+3138695,Admin users can create users,15276,1,7,2,"","TURN-16,TURN-264",9,1502487478,9,1531432957,"","",3557,0,"","","1. Login as account admin.
+2. Go to *Users* page and click **new user**.
+3. Enter valid data in the fields and submit.
+4. Repeat steps 1-3 for a Super Admin role.","1. Account admins can click a button on the users index page that takes them to the *CREATE USER* page.
+2. After creating a user, users are redirected back to the users index page.
+3. Super admins can do this for all users.
+    - They have a *ROLE* select box to determine the role of the user they are creating.
+    - They have an *ACCOUNT* select box if they are creating an account admin.","","","",Web > Users,14793,""
+3138696,Admin users can delete users,15276,1,7,2,"","TURN-16,TURN-264",9,1502487482,9,1531432957,"","",3557,0,"","","Verify that:
+
+1. On the account index page, there is a delete button (glyphicon) next to each user.
+2. Account admins can click the delete button and are then asked for confirmation before deleting.
+3. Super admins can do this for all users.","1. On the account index page, there is a delete button (glyphicon) next to each user.
+2. Account admins can click the delete button and are then asked for confirmation before deleting.
+3. Super admins can do this for all users.","","","",Web > Users,14793,""
+3141193,As a user I want to update my information,15276,1,7,2,"","TURN-15,TURN-263",9,1502902228,9,1531432917,"","",3557,0,"","","1. Login as Account Admin.
+2. Click on your name at the top-right corner.
+3. Select **Profile**
+4. Change your info and submit.
+5. Login as super admin and repeat steps 2-4.
+6. Go to *Users*
+7. Click the edit 'pencil' icon.","1. Users can click on their name in the app header and they are taken to their edit page.
+2. Users can submit the form on the edit page to update their information.
+3. Super admins see edit icons on the users index page for each user. They can click the icon for a given user to be taken to that user's edit page.","","","",Web > Users,14793,""
+3144389,As a user I want my password strength enforced,15276,1,7,2,"","TURN-47,TURN-275",9,1502991120,9,1531433425,"","",3557,0,"","","Verify that: 
+
+* In development, staging and production environments, passwords must:
+    - not be blank
+    - be at least 8 characters long
+    - contain at least one upper case letter, one lower case letter, and one number
+* Users are informed about password requirements when creating/updating passwords.","* In development, staging and production environments, passwords must:
+    - not be blank
+    - be at least 8 characters long
+    - contain at least one upper case letter, one lower case letter, and one number
+* Users are informed about password requirements when creating/updating passwords.","","","",Web > Users,14793,""
+3152059,As a user I want to see 'Info updated!' when I update my info,15276,1,7,2,"","TURN-70,TURN-281",9,1503429442,9,1531425231,"","",3557,0,"","","1. Login as any user.
+2. Go to the user edit page.
+3. Update some info and submit.",Users see a flash message with 'Info updated!' when successfully updating their info.,"","","",Web > Users,14793,""
+3679864,As a user I want to view other account admins' usernames,15276,1,7,2,"","TURN-86,TURN-285",9,1531503306,24,1531505130,"","",3557,0,"Next to each user's name on the users index page is that user's username.
+The username is separated by a '|' (pipe) character and shown in gray font color (see API keys index page for reference).","1. have a Super Admin created.
+2. have an Account Admin created.","1. Login to IO app
+2. go to /Users page
+3. inspect the list of users on that page.",- Make sure both Super Admins and Account Admins can see the corresponding 'username' next to each user's full name on '/Users' page.,"","","",Web > Users,14793,""
+3138693,As a super admin I want to view a list of all Turnstyle accounts,15277,1,7,2,"","TURN-43,TURN-271",9,1502487288,9,1531433158,"","",3557,0,"","","1. Login as Super Admin.
+2. Go to the accounts page.",As a super admin I want to view a list of all IO accounts.,"","","",Web > Accounts,14793,""
+3141194,As a super admin I want to create accounts,15277,1,7,2,"","TURN-44,TURN-272",9,1502904079,24,1531501579,"","",3557,0,"","","1. Login as Super Admin.
+2. Go to the accounts page.
+3. Fill in the *Namespace* field.
+3. Click in the **Create Account** button.",Super admins can use a form on the accounts index page to create new accounts.,"","","",Web > Accounts,14793,""
+3144388,As a super admin I want to delete accounts,15277,1,7,2,"","TURN-45,TURN-273",9,1502990856,9,1531433323,"","",3557,0,"","","1. Login as Super User.
+2. Go to the accounts page.
+3. Click the delete button next to an account.","* Every account on the accounts index page has a delete icon which super admins can click to delete the corresponding account.
+* Users are asked to confirm before account deletion.
+* All users, clients, and topics in the account are deleted.","","","",Web > Accounts,14793,""
+3153768,As a user I want to manage a set of API keys,17963,1,7,2,"","TURN-49,TURN-276",9,1503517191,9,1531433442,"","",3557,0,"","","1. Login as Super user.
+2. Click on your name and select 'API Keys'.
+3. Create an API key.
+","1. Users see a 'API KEYS' link  when logged in.
+2. The 'API KEYS' link takes users to their API key index page.
+3. From their index page, users can view, create, and delete API keys.
+4. When users create an API key:
+    - The API key's value is autogenerated.
+    - The API key's name and value are shown in a flash message.
+    - The user is warned that they will not be able to retrieve the value later.","","","",Web > API Keys,14793,""
+3597925,Output model has good validations,84327,1,7,2,"","TURN-157, TURN-186, TURN-187, TURN-209",24,1524867372,9,1525095899,"","",3557,0,"","","1. Login to IO
+2. Go to Outputs page
+3. Click on New Output
+4. Try different inputs and/or leave blank some fields to 'break the form'
+(i.e.:  
+- don't select an account
+- leave output name blank
+- set output name to a 300 character string
+- leave headers blank 
+- leave HOST and PATH blank
+- add an invalid PATH
+- etc.)
+
+5. Try the use of variables on the PATH like this: `/api/v1/{my_variable}`","4. Output form should be robust and let the user know about the erroneous input and what the problem is.
+
+5. Output model validation should handle the use of variables.","","","",Web > Outputs,14793,""
+3597926,Output CRUD,84327,1,7,2,"","TURN-157, TURN-188",24,1524868001,24,1525036972,"","",3557,0,"","","1. Log into IO
+
+2. click 'Outputs' in the header.
+
+3. Verify that CRUD operations work as expected
+(i.e.:
+- 'Create' an output and verify its correct creation
+- 'Read' the output without making any change to verify correctness
+- 'Update' the output and verify changes were applied correctly
+- 'Delete' the output and check is not listed in outputs page nor available in Topic form)
+
+4. Verify that you can associate topics with outputs from BOTH the topics form and the outputs form.","- The 'index' page shows a list of the outputs in your account (or all accounts for super admins).
+
+- The 'new' and 'edit' pages have forms that make sense.
+
+- The 'edit' and 'delete' buttons work properly.
+
+- When you are a super admin, and you select an account on the outputs form, the appropriate topics appear for association. 
+
+- Outputs can be associated to topics through both Topics form and outputs form.","","","",Web > Outputs,14793,""
+3597927,Produced messages are sent to outputs,84327,1,7,2,"","TURN-157, TURN-189, TURN-229, TURN-292",24,1524868013,9,1531939230,"","",3557,0,"","- Have an account on DM
+- Have a topic created on IO
+- Both IO and DM must be running during this test","1. Login to IO
+
+2. Create an output on IO
+- Go to outputs page
+- Select 'New Output'
+- Select the account and enter a name for the output
+- Select the type of request the output is going to perform (i.e.: POST)
+- Fill in 'HOST' (i.e.: your_IP/your_port)
+- Fill in 'PATH' (i.e.: /api/v1/devices)
+- Fill in the 'HEADERS' (these are the same headers used on DM's API to -in this case- create a Device)
+- Associate the output with the topic
+- The rest is optional
+- Click 'Create Output'
+
+3. Post a message to the Topic
+- Follow the usual steps to create a message on IO's API
+- The 'BODY' of the message must match the body of a valid DM's API 'Create Device' request.
+(i.e.:
+{ 
+  'name': 'new_device',
+  'device_uid': 'new_device_uid',
+  'device_type': 'existing_device_type' | note: since we are going to 'create a device' we need to have a 'device_type' created on DM
+})
+- Send the request
+
+4. verify device creation on DM
+- Login to DM
+- Go to 'Device' page","- For '2.': The output should be created without any problem
+- For '3.': The response should be 'Success: true'
+- For '4.': The device 'new_device' should appear listed on the devices page","","","",Web > Outputs,14793,""
+3597928,Outputs configured with variables can take in variable values,84327,1,7,2,"","TURN-186, TURN-210, TURN-229, TURN-292",24,1524868066,9,1531939191,"","",3557,0,"","- Have an account on DM
+- Have a topic created on IO
+- Both IO and DM must be running during this test
+","1. Login to IO
+2. Create an output on IO
+- Go to outputs page
+- Select 'New Output'
+- Select the account and enter a name for the output
+- Select the type of request the output is going to perform (i.e.: POST)
+- Fill in 'HOST' (i.e.: your_IP/your_port)
+- Fill in 'PATH' with a variable defined between {} (i.e.: /api/v1/{my_variable})
+- Fill in the 'HEADERS' (these are the same headers used on DM's API to -in this case- create a Device)
+- Associate the output with the topic
+- The rest is optional
+- Click 'Create Output'
+
+3. Post a message to the Topic
+- Follow the usual steps to create a message on IO's API but add an extra header
+- The extra header key should be 'ITH-Var-variableName' (i.e.: ITH-Var-my_variable)
+- The value of 'ITH-Var-variableName' will replace the variable on the further request to DM's API (i.e.: value = 'devices')
+- The 'BODY' of the message must match the body of a valid DM's API 'Create Device' request.
+(i.e.:
+{ 
+  'name': 'new_device',
+  'device_uid': 'new_device_uid',
+  'device_type': 'existing_device_type' | note: since we are going to 'create a device' we need to have a 'device_type' created on DM
+})
+- send the request
+4. Verify device creation on DM
+- Login to DM
+- Go to 'Device' page","- For '2.': The output should be created without any problem, despite the use of variables
+
+- For '3.': The request should work with the extra header. The response should be 'Success: true'
+
+- For '4.': The device 'new_device' should appear listed on the devices page","","","",Web > Outputs,14793,""
+3337599,As a user I want to create clients,20931,1,7,2,"","TURN-19,TURN-267",9,1513280251,9,1531433052,"","",3557,0,"Users can send a POST request to create a client.
+Credentials (client Id & client secret) that aren't provided by the user are automatically generated and included in the response.","","1. Send a POST request to: user_api/vi/clients
+
+(This request is described in the User API documentation.)","1. Account admins can only create clients in their account
+2. Super admins can create clients in any account.
+","","","",User API > Client,20930,""
+3337600,As a user I want to create tags for clients,20931,1,7,2,"","TURN-66,TURN-280",9,1513280349,9,1531425120,"","",3557,0,Users can send a POST request to create tags when they create a client which store custom metadata about the client.,"","1. Send a POST request to: user_api/vi/clients
+
+(This request is described in the User API documentation.)","1. Account admins can create tags for clients in their account.
+2. Super admins can create tags for clients in all accounts.","","","",User API > Client,20930,""
+3337606,As a user I want to delete clients,20931,1,7,2,"",TURN-51,9,1513281078,24,1525295516,"","",3557,0,"Users can send a DELETE request to delete a client.
+",1. Have a Client created.,"1. Send a DELETE request to: user_api/vi/clients/{account}/{client_ID} 
+
+(This request is described in the User API documentation.)","1. Account admins can only delete clients in their account.
+2. Super admins can delete clients in any account.","","","",User API > Client,20930,""
+3679838,As a user I want to list clients,20931,1,7,2,"","TURN-54,TURN-254",9,1531416836,23,1531430103,"","",3557,0,Users can send a GET request to list clients.,"","1. Send a GET request to: /management_api/v1/clients
+
+_(This request is described in the User API documentation.)_","1. Account admins can only list clients in their account.
+2. Super admins can list clients in any account.","","","",User API > Client,20930,""
+3337604,As a user I want to be authenticated with an API key I own,20932,1,7,2,"","TURN-18,TURN-266",9,1513280864,9,1531433029,"","",3557,0,Users can successfully send requests to the User API with their email and an API key they own.,"
+","1. Make requests to the User API using API keys the user owns
+
+2. Make requests using any other value ","for 1. verify successful response
+
+for 2. verify Unsuccessful response.","","","",User API > User,20930,""
+3337605,As a user I want to create users,20932,1,7,2,"","TURN-22,TURN-269",9,1513280990,9,1531433099,"","",3557,0,Users can send a POST request to create a user.,"","1. Send a POST request to: user_api/vi/users
+
+(This request is described in the User API documentation.)","1. Account admins can only create other account admins in their account.
+2. Super Admins can create other Super Admins and also Account Admins in any account.","","","",User API > User,20930,""
+3337607,As a user I want to update users,20932,1,7,2,"",TURN-56,9,1513281156,24,1525296879,"","",3557,0,Users can send a PATCH request to update a user.,"","1. Send a PATCH request to: user_api/vi/users/{user_email}
+
+(This request is described in the User API documentation.)","1. Account admins can only update themselves.
+2. Super admins can update any user.","","","",User API > User,20930,""
+3679836,As a user I want to delete users,20932,1,7,2,"","TURN-52,TURN-252",9,1531415574,23,1531422662,"","",3557,0,Users can send a DELETE request to delete a user.,"","
+Send a DELETE request to: /management_api/v1/users/{ith_user_id}
+
+_(This request is described in the User API documentation.)_",User is deleted.,"","","",User API > User,20930,""
+3337603,As a user I want to list users,45660,1,7,2,"",TURN-55,9,1513280715,24,1525296815,"","",3557,0,Users can send a GET request to get a list of users.,1. have a couple of users created.,"1. Send a GET request to: user_api/vi/users
+
+(This request is described in the User API documentation.)","1. Account admins receive a list of only the users in their account.
+2. Super admins receive a list of users in all accounts.","","","",User API > User > List Users,20932,""
+3185306,Account admins can see another user's name in their same account.,21500,1,7,2,"","TURN-75,TURN-282",24,1505331385,9,1531425334,"","",3557,0,Account Admins can only see another user's name in their same account.,1. Have at least an Account Admin created.,"1. Send a GET request to: `/user_api/vi/users/{user_email}`
+
+_(This request is described in the User API documentation.)_","Account Admins can only see another user's name in their same account. The Account is implied, hence not included in the response.","","","",User API > User > Show User,20932,""
+3185307,Super admins can see any user's name and account.,21500,1,7,2,"",TURN-75,24,1505331400,24,1525296571,"","",3557,0,Super admin can see any user's name and account.,1. have a at least a SuperAdmin created.,"1. Send a GET request to: user_api/vi/users/{user_email}
+
+(This request is described in the User API documentation.)",Super admins can see any user's info from any account. Even other Super Admins.,"","","",User API > User > Show User,20932,""
+3337601,As a user I want to create topics,21502,1,7,2,"","TURN-20,TURN-268",9,1513280455,9,1531433078,"","",3557,0,Users can send a POST request to create a new topic.,"","1. Send a POST request to: user_api/vi/topics/{account_name}
+
+(This request is described in the User API documentation.)","1. Account admins can only create topics in their account.
+2. Super admins can create topics in any account.","","","",User API > Topics,20930,""
+3337602,As a user I want to create tags for topics,21502,1,7,2,"",TURN-93,9,1513280494,24,1525297737,"","",3557,0,Users can send a POST request to create tags when they create a topic which store custom metadata about the topic.,"","1. Send a POST request to: user_api/vi/topics/{account_name}
+
+make sure to include TAGS keys and values in the BODY, along with the topic-to-be info.
+
+(This request is described in the User API documentation.)","1. Account admins can create tags for topics in their account.
+2. Super admins can create tags for topics in all accounts.","","","",User API > Topics,20930,""
+3679835,As a user I want to delete topics,21502,1,7,2,"","TURN-50,TURN-250",9,1531414834,23,1531432167,"","",3557,0,"","","1. Send a DELETE request to: /management_api/v1//topics/{account}/{topic}
+
+_(This request is described in the User API documentation.)_","1. Account admins can only delete topics in their account.
+2. Super admins can delete topics in any account.","","","",User API > Topics,20930,""
+3679837,As a user I want to list topics,21502,1,7,2,"","TURN-53,TURN-253",9,1531415784,24,1531501872,"","",3557,0,"Super Admins can list ALL topics from ALL accounts.
+Account Admin can ONLY list topics from their own account.","1. have a set of Super Admin API Key credentials
+2. have a set of Account Admin API Key credentials","1. Send a GET request to: /management_api/v1/topics
+
+_(This request is described in the User API documentation.)_","1. Super Admins can list ALL topics from ALL accounts.
+2. Account Admin can ONLY list topics from their own account.","","","",User API > Topics,20930,""
+3679839,As a super admin I want to create accounts,21503,1,7,2,"","TURN-57,TURN-257",9,1531417117,23,1531423394,"","",3557,0,"","","1. With Super admin key, send a POST request to: /management_api/v1/accounts
+
+_(This request is described in the Super Admin API documentation.)_","* Account should be created if using a super admin key.
+* Account is not created if using account admin key.","","","",User API > Accounts,20930,""
+3185308,Super admins can send a GET request to get a list of all accounts.,21706,1,7,2,"",TURN-59,24,1505331838,24,1525297455,"","",3557,0,Super admin can send a GET request to get a list of all accounts.,1. have an account created.,"1. Send a GET request to: user_api/vi/accounts
+
+(This request is described in the User API documentation.)",Super admins can send a GET request to get a list of all accounts.,"","","",User API > Accounts > Index Accounts,21503,""
+3185435,Super admins can send a DELETE request to delete an account.,21762,1,7,2,"",TURN-58,24,1505336108,24,1525297388,"","",3557,0,Super admin can send a DELETE request to delete an account.,1. have an account created.,"1. Send a DELETE request to: user_api/vi/accounts/{account_name}
+
+(This request is described in the User API documentation.)",Super admins can send a DELETE request to delete an account.,"","","",User API > Accounts > Delete Account,21503,""
+3125168,Clients can call the Client API,14399,1,7,2,"","TURN-1,TURN-247",9,1501106713,9,1531432682,"","",3557,0,"","POST to */client/v1/messages*
+
+*Headers:*
+
+* ITH-Client-ID:	<client_id>
+* ITH-Client-Secret:	<client_secret>
+* ITH-Topics:	<topic1,topic2,...topicN>
+* ITH-Account:	<account>
+* ITH-Var-varname	<value for variable>
+
+*Body:* message to be sent",Verify that clients can call the Client API,Clients can call the Client API,"","","",Client API > Create Message,21501,""
+3125169,Clients can only post with valid Client-ID/Client-Secret values in the header,14399,1,7,2,"","TURN-1,TURN-247",9,1501106718,9,1531432682,"","",3557,0,"","POST to */client/v1/messages*
+
+*Headers:*
+
+* ITH-Client-ID:	<client_id>
+* ITH-Client-Secret:	<client_secret>
+* ITH-Topics:	<topic1,topic2,...topicN>
+* ITH-Account:	<account>
+* ITH-Var-varname	<value for variable>
+
+*Body:* message to be sent",Verify that clients can only post with valid Client-ID/Client-Secret values in the header,Clients can only post with valid Client-ID/Client-Secret values in the header,"","","",Client API > Create Message,21501,""
+3125170,Clients cannot post to topics not included in their account's topic list.,14399,1,7,2,"","TURN-1,TURN-247",9,1501106727,9,1531432682,"","",3557,0,"","POST to */client/v1/messages*
+
+*Headers:*
+
+* ITH-Client-ID:	<client_id>
+* ITH-Client-Secret:	<client_secret>
+* ITH-Topics:	<topic1,topic2,...topicN>
+* ITH-Account:	<account>
+* ITH-Var-varname	<value for variable>
+
+*Body:* message to be sent",Verify that clients cannot post to topics not included in their account's topic list.,Clients cannot post to topics not included in their account's topic list.,"","","",Client API > Create Message,21501,""
+3125167,Clients cannot post with invalid request format,14399,1,7,2,"","TURN-1,TURN-247",9,1501106462,9,1531432682,"","",3557,0,"","POST to */client/v1/messages*
+
+*Headers:*
+
+* ITH-Client-ID:	<client_id>
+* ITH-Client-Secret:	<client_secret>
+* ITH-Topics:	<topic1,topic2,...topicN>
+* ITH-Account:	<account>
+* ITH-Var-varname	<value for variable>
+
+*Body:* message to be sent",Verify that clients cannot post with invalid request format,Clients cannot post with invalid request format,"","","",Client API > Create Message,21501,""
+3412074,As a client I want to consume a batch of messages from the ITH message bus,56888,1,7,2,"","TURN-62,TURN-278",9,1516719384,9,1531420544,"","",3557,0,"","* POST to */client_api/v1/messages*
+
+* Headers:
+    * ITH-Client-ID: <client_id>
+    * ITH-Client-Secret: <client_secret>
+    * ITH-Topic: <topic>
+    * ITH-Account: <account>
+
+* `base64_script.rb`:
+	require 'base64'
+	message = 'put your message here'
+	puts Base64.decode64(message)","1. Produce some messages to a topic of your choice. Include some non-ASCII characters
+2. Call the consume path as described in the Client API doc on Turnstyle web
+3. Use the ruby script (base64_script.rb) to decode the messages and verify that they match the messages you produced
+4. Call the consume path again and verify that you get no new messages","* The response contains all the messages you produced
+* The messages are base64 encoded
+* The messages in the array are in the order you produced them
+","","","",Client API > Consume Messages,21501,""
+3604429,As a user I want to have API documentation available and up-to-date,84851,1,7,2,"",TURN-211,24,1525113013,23,1531350550,"","",3557,0,"","","1. Go to IO's login page
+
+2. Open IO-slate to check the content.","1. The link to IO-slate should appear at the login page as 'API Docs' under the 'Where can i learn more?' section.
+
+2. The documentation on IO-slate should present the following sections:
+
+- Introduction
+
+    * Getting started
+    * Authentication
+
+- Messages API
+
+    * Produce Message
+    * Consume Message
+
+- Management API
+
+    * List Clients
+    * Create Client
+    * Delete Client
+    * List Topics
+    * Create Topic
+    * Delete Topic
+    * List Users
+    * Show User
+    * Create User
+    * Update User
+    * Delete User
+
+
+
+Also check:
+
+1. Introduction section should include a description for 'Outputs'
+
+2. Messages API / Produce Message section should cover the use of variables. (Which means having an optional 5th header: ITH-VAR-var_name)
+
+3. All requests should have examples in cURL format, Ruby and Python (shown on last column on the right)","","","",IO-slate,"",""

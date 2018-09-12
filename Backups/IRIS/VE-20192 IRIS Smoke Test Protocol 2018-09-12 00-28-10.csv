@@ -1,0 +1,1578 @@
+id,title,section_id,template_id,type_id,priority_id,milestone_id,refs,created_by,created_on,updated_by,updated_on,estimate,estimate_forecast,suite_id,custom_automation_type,custom_description,custom_preconds,custom_steps,custom_expected,custom_steps_separated,custom_mission,custom_goals,section_hierarchy,section_parent_id,section_description
+3684469,As a SSM super admin I can delete a Work Order,94776,1,9,2,"","IRIS-800,IRIS-945",9,1533748395,9,1533748395,"","",5225,0,As a SSM super admin I can delete a Work Order,Log in as a super admin user.,"1. Go to the WO page.
+2. Click the *Delete* button next to the WO.
+3. Confirm the warning.",The WO is deleted,"","","",Work Order,"",""
+3684470,Capture all assignments of QCs and Techs. Along with who did the assignment with timestamps,94776,1,9,2,"","IRIS-485,IRIS-668",9,1533748395,9,1533748395,"","",5225,0,As a QC or Tech I have audit information (who did what and when) and revision information in the review JSON,"","1. As an Admin assign a Tech to a WO
+2. As an Admin assign a QC to a WO","The review JSON should contain the following attributes:
+
+|||:Name|:Description
+||  Timestamp | The time the assignment was made. 
+|| Actor | The username of the user who assigned the Tech/QC.
+|| Metadata | The username of the user who has been assigned to the work order.
+|| Event_Type | 'STUDY_ASSIGNED_TECH' or 'STUDY_ASSIGNED_QC'","","","",Work Order,"",""
+3684472,The current state of the work order is updated in the review json,94776,1,9,2,"","IRIS-485,IRIS-670",9,1533748395,9,1533748395,"","",5225,0,The current state of the work order is updated in the review json,"","1. Create a WO with a Physician account
+2. Login with a Super admin and Wait until it is Original Ready.
+3. Check the json by clicking the _download JSON_ button, check the current state.
+4. Assing a tech.
+5. Download the JSON again.",The new state is updated in the review JSON *State*,"","","",Work Order,"",""
+3684488,"When creating a new work order, a field for notes to the segmentation team called 'Instructions' is on the new work order page",94776,1,9,2,"","IRIS-1220, IRIS-1131",9,1533748395,9,1533748395,"","",5225,0,"When creating a new work order, a field for notes to the segmentation team called 'Instructions' is on the new work order page","","1. As a physician go to the new work order page
+2. Verify that there is an **Instruction** text field",The user sees an **Instruction** field in the new work order page.,"","","",Work Order,"",""
+3684489,'Anatomy toggles' are named 'Select Segmentation Types' in the Create Work Order page,94776,1,9,2,"","IRIS-385,IRIS-645",9,1533748395,9,1533748395,"","",5225,0,'Anatomy toggles' are named 'Select Segmentation Types' in the Create Work Order page,"","1. As a physician go to the new work order page
+2. Verify that the list of toggles is named **Select Segmentation Types**",*Anatomy toggles* are named **Select Segmentation Types**,"","","",Work Order,"",""
+3684492,All data in the AWS S3 buckets is encrypted at rest,94776,1,9,2,"","IRIS-357,IRIS-633",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login to Amazon, select US-West Oregon tenant.
+2. Go to S3.
+3. Go to the IRIS-Staging bucket.
+4. Navigate the preporcess, postporcess, qc and package folders, clicking over the packets inside them.
+5. A description menu should pop-up, you can check the encryption info there.","Verify that files in preprocess, postprocess, qc and package buckets are encrypted to **AES-256**","","","",Work Order,"",""
+3684493,"As an SSM work order, If the gateway through which I will send the information is disabled, then no information will be sent to AAT",94776,1,9,2,"","IRIS-342,IRIS-597",9,1533748395,9,1533748395,"","",5225,0,The SSM shall only communicate with AATs that are enabled. No information shall be sent from the SSM to the AAT until communication is allowed. WO creation is only allowed for enabled gateways,"","1. Disable Gateway A
+2. Attempt to submit a Work Order through Gateway A ",Work order creation is only allowed if Gateway A is enabled.,"","","",Work Order,"",""
+3684496,Super admins can assign a Tech when ORIGINAL_READY or SEGMENTED_QC_REJECTED,94776,1,9,2,"",IRIS-939,9,1533748395,9,1533748395,"","",5225,0,Super admins can assign a Tech when ORIGINAL\_READY or SEGMENTED\_QC\_REJECTED,"","As super admin:
+
+1. Assign a Tech user when the WO state is **ORIGINAL\_READY**
+2. Assign a Tech user when the WO state is **SEGMENTED\_QC\_REJECTED**
+3. Try to assign a Tech user in another WO state","Super admins can only assign Tech users when the WO state is
+
+* ORIGINAL\_READY
+* SEGMENTED\_QC\_REJECTED","","","",Work Order,"",""
+3684497,Super admins can unassign a Tech when STUDY_ASSIGNED_TECH,94776,1,9,2,"",IRIS-939,9,1533748395,9,1533748395,"","",5225,0,Super admins can unassign a Tech when STUDY\_ASSIGNED\_TECH,"","As super admin:
+
+1. Un-assign a Tech user when the WO state is **STUDY\_ASSIGNED\_TECH**
+2. Try to un-assign a Tech user in another WO state",Super admins can unassign a Tech only when the WO state is **STUDY\_ASSIGNED\_TECH**.,"","","",Work Order,"",""
+3684498,Super admins can assign a QC when QC_PACKAGE_READY,94776,1,9,2,"",IRIS-939,9,1533748395,9,1533748395,"","",5225,0,Super admins can assign a QC when QC\_PACKAGE\_READY,"","As super admin:
+
+1. Assign a QC user when the WO state is **QC\_PACKAGE\_READY**
+2. Try to assign a QC user in another WO state",Super admins can only assign QC users when the WO state is **QC\_PACKAGE\_READY**,"","","",Work Order,"",""
+3684499,Super admins can unassign a QC when STUDY_ASSIGNED_QC,94776,1,9,2,"",IRIS-939,9,1533748395,9,1533748395,"","",5225,0,Super admins can unassign a QC when STUDY_ASSIGNED_QC,"","As super admin:
+
+1. Un-assign a QC user when the WO state is **STUDY\_ASSIGNED\_QC**
+2. Try to un-assign a QC user in another WO state",Super admins can unassign a QC only when the WO state is **STUDY\_ASSIGNED\_QC**.,"","","",Work Order,"",""
+3684500,Segmentation Admins can fail a WO at any time except when the WO is in special state,94776,1,9,2,"","IRIS-328,IRIS-890",9,1533748395,9,1533748395,"","",5225,0,"Segmentation Admins can fail a WO at any time except when the WO is in one of these states: CANCELLED, FAILED, PHYSICIAN_ACCEPTED or PHYSICIAN_REJECTED.","","1. As a segmentation admin try to fail a work when its state is: 
+
+    * CANCELLED
+    * FAILED
+    * PHYSICIAN\_ACCEPTED
+    * PHYSICIAN\_REJECTED.
+
+2. As a segmentation admin try to fail a work when its state is not equal to the ones defined in **(1)**","Segmentation admins can only fail a work when its state is not: 
+
+* CANCELLED
+* FAILED
+* PHYSICIAN\_ACCEPTED
+* PHYSICIAN\_REJECTED.","","","",Work Order,"",""
+3684501,Super Admins can fail a WO at any time except when the WO is in a special state,94776,1,9,2,"","IRIS-328,IRIS-891",9,1533748395,9,1533748395,"","",5225,0,"Super Admins can fail a WO at any time except when the WO is in one of these states: CANCELLED, FAILED, PHYSICIAN_ACCEPTED or PHYSICIAN_REJECTED.","","1. As a super admin try to fail a work when its state is: 
+
+    * CANCELLED
+    * FAILED
+    * PHYSICIAN\_ACCEPTED
+    * PHYSICIAN\_REJECTED.
+
+2. As a super admin try to fail a work when its state is not equal to the ones defined in **(1)**","Super admins can only fail a work when its state is not: 
+
+* CANCELLED
+* FAILED
+* PHYSICIAN\_ACCEPTED
+* PHYSICIAN\_REJECTED.","","","",Work Order,"",""
+3684502,Clicking the 'View Original Study' button on the work order show page shall launch the PACS Viewer and query/retrieve the patient's original CT from the PACS and display it to the user,94776,1,9,2,"","IRIS-329,IRIS-892",9,1533748395,9,1533748395,"","",5225,0,Clicking the 'View Original Study' button on the work order show page shall launch the PACS Viewer and query/retrieve the patient's original CT from the PACS and display it to the user,"","1. Submit a work order for patient John Doe
+2. Go to the Show page for that work order
+3. Click the **View Original Study** button",The **View Original Study** button launches PACS Viewer and displays the patient's original CT.,"","","",Work Order,"",""
+3684505,User rejects a work order and Tech and QC users get removed from the assigned field so that the segmentation admin can assign new users to Tech and QC roles,94776,1,9,2,"","IRIS-326,IRIS-596",9,1533748395,9,1533748395,"","",5225,0,"","","1. Reject a work order 
+2. Verify that Tech and QC users get removed from the assigned field
+3. Verify that a segmentation admin can assign new users to Tech and QC roles","When a user rejects a work order, Tech and QC users get removed from the assigned field so that the segmentation admin can assign new users to Tech and QC roles","","","",Work Order,"",""
+3684507,As a user I can see time and date when the work order was created in the show WOs page,94776,1,9,2,"","IRIS-297,IRIS-880",9,1533748395,9,1533748395,"","",5225,0,"","",Verify that as a user I can see time and date when the work order was created in the show WOs page,As a user I can see time and date when the work order was created in the show WOs page,"","","",Work Order,"",""
+3684508,When an Admin re-assigns a tech the WO state should be set to 'STUDY_ASSIGNED_TECH',94776,1,9,2,"","IRIS-304,IRIS-881",9,1533748395,9,1533748395,"","",5225,0,"","",Verify that when an Admin re-assigns a tech the WO state should be set to **STUDY\_ASSIGNED\_TECH**,When an Admin re-assigns a tech the WO state should be set to **STUDY\_ASSIGNED\_TECH**,"","","",Work Order,"",""
+3684509,If a QC rejects a WO the admin can re-assign the WO to a new or same Tech,94776,1,9,2,"","IRIS-304,IRIS-882",9,1533748395,9,1533748395,"","",5225,0,"","","1. As a QC reject a WO
+2. As an admin re-assign the WO to a new or same Tech.",If a QC rejects a WO the admin can re-assign the WO to a new or same Tech,"","","",Work Order,"",""
+3684510,As a super admin I am able to download the review json of a work order,94776,1,9,2,"","IRIS-291,IRIS-871",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as Super admin.
+2. Open a WO.
+3. Click the **Download JSON** yellow button.",As a super admin I am able to download the review json of a work order,"","","",Work Order,"",""
+3684511,As a QC I have the ability to download a 3D anonymized package for review,94776,1,9,2,"","IRIS-249,IRIS-841",9,1533748395,9,1533748395,"","",5225,0,"The packages contains the following files (without PHI):
+    * Original DICOM (without PHI).
+    * Segmented DICOM (without PHI).
+    * 3D models (meshes).
+ The packages are stored in S3","","1. Login as QC
+2. Go to an assigned to you WO.
+3. Click the 'QC package link' download button.","The QC user has the ability to download a 3D anonymized package for review, package should download.
+","","","",Work Order,"",""
+3684512,As seg admin or super admin I can unassign QC,94776,1,9,2,"","IRIS-497,IRIS-682",9,1533748395,9,1533748395,"","",5225,0,"On the Super Admin's or Segmentation Admin's view 'Work Order' page, when the button next to the **Assigned QC** is clicked while in the STUDY\_ASSIGNED\_QC state, the currently assigned QC will be removed from the work order and the WO is moved to the QC\_PACKAGE\_READY state. An admin can now re-assign a QC to the work order.","","1. As a Super Admin or Segmentation Admin go to 'Work Order Show' page of a STUDY\_ASSIGNED\_QC WO
+2. Verify that there is a the button next to the *Assigned QC* labelled **Unassign qc_username**
+3. Click that button while the WO's state is STUDY\_ASSIGNED\_QC
+4. Verify that the currently assigned QC is removed from the work order 
+5. Verify that the WO is moved to the QC\_PACKAGE\_READY state. 
+6. Verify that an admin can re-assign a QC to the work order.",* An admin can re-assign a QC to the work order.,"","","",Work Order,"",""
+3684513,As and admin or segment admin I can unassign Tech,94776,1,9,2,"","IRIS-496,IRIS-681",9,1533748395,9,1533748395,"","",5225,0,"On the Super Admin's or Segmentation Admin's view 'Work Order' page, when the button next to the 'Assigned Tech' is clicked while in the STUDY\_ASSIGNED\_TECH state, the currently assigned tech will be removed from the work order and the WO is moved to the ORIGINAL\_READY state. 
+An admin can re-assign a segmentation tech to the work order.","","1. As a Super Admin or Segmentation Admin go to 'Work Order Show' page of a STUDY\_ASSIGNED\_TECH
+2. Verify that there is a the button next to the *Assigned Tech* labelled **Unassign tech_username**
+3. Click that button while the WO's state is STUDY\_ASSIGNED\_TECH
+4. Verify that the currently assigned Tech is removed from the work order 
+5. Verify that the WO is moved to the ORIGINAL\_READY state. 
+6. Verify that an admin can re-assign a Tech to the work order.",An admin can re-assign a segmentation tech to the work order.,"","","",Work Order,"",""
+3684514,QC who is not assigned to work order cannot reject the work order,94776,1,9,2,"","IRIS-544,IRIS-616",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as QC.
+2. Try to fail a WO that is not assigned to you by pasting `<base URL>/work_orders/fail/{WO id}` in the browser.
+",An 'Access Denied' error should display and you should be redirected to */work_orders*,"","","",Work Order,"",""
+3684515,QC who is assigned to work order can reject the work order,94776,1,9,2,"","IRIS-544,IRIS-615",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as QC
+2. Open a WO that is assigned to you.
+3. Click the 'Reject Work Order' button.
+4. Input a reason and submit.","You should be redirected to */work_orders*
+An error message should display saying 'Work order has been rejected.'
+WO state should change to SEGMENTED_QC_REJECTED","","","",Work Order,"",""
+3684518,QC who is not assigned to work order cannot approve the work order,94776,1,9,2,"","IRIS-544,IRIS-869",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as QC.
+2. Try to fail a WO that is not assigned to you by pasting `<base URL>/work_orders/approve/{WO id}` in the browser.",An 'Access Denied' error should display and you should be redirected to */work_orders*,"","","",Work Order,"",""
+3684519,QC who is assigned to work order can approve the work order,94776,1,9,2,"","IRIS-544,IRIS-870",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as QC
+2. Open a WO that is assigned to you.
+3. Click the 'Approve Work Order' button.
+4. Input a reason and submit.
+",WO state should change to SEGMENTED_QC_APPROVED,"","","",Work Order,"",""
+3684522,As a physician I can toggle on and off anatomical structures,94776,1,9,2,"","IRIS-260,IRIS-850",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as physician.
+2. Search for patient *Juan Perez*, and click on *create order*.
+3. In the new work order page, toggle some of the **Segmentation Types** sliders off.
+4. Click *create*.
+",WO should be created.,"","","",Work Order,"",""
+3684523,As a physician I can cancel a work order at any time and comment as to why the order was cancelled,94776,1,9,2,"","IRIS-257,IRIS-847",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as Physician.
+2. Start a new WO.
+3. Open the newly created WO.
+4. press the cancel WO button.
+5. Place a comment and submit.",Verify that as a physician I can cancel a work order at any time and comment as to why the order was cancelled.,"","","",Work Order,"",""
+3684524,As a Segmentation Tech I can download the review JSON,94776,1,9,2,"","IRIS-254,IRIS-844",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as a Tech.
+2. Open an assigned to you WO.
+3. Click the yellow download button next to the **Review JSON** label. ",Verify that as a Segmentation Tech I have a link to download the review JSON,"","","",Work Order,"",""
+3684525,As an Seg Admin I can download QC review JSON,94776,1,9,2,"","IRIS-253,IRIS-843",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as Seg Admin.
+2. Open a WO.
+3. Click the **Download JSON** yellow button",Verify that as an Seg Admin I see a link to download QC review JSON,"","","",Work Order,"",""
+3684526,As a user I have the comment box at the top of all comments so I can see the latest comment if there are over a page's worth already,94776,1,9,2,"","IRIS-242,IRIS-837",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as Seg Admin.
+2. Open a WO that has many comments.
+","1. Verify that WorkOrder show page has an add comment button at the top of all comments.
+2. Verify that users can see the latest comment at the top.","","","",Work Order,"",""
+3684529,As an admin I can see that the state of a work order goes to STUDY_ASSIGNED_TECH when assigning a tech.,94776,1,9,2,"","IRIS-240,IRIS-835",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as an admin.
+2. Open an ORIGINAL_READY WO.
+3. Assign a tech user using the 'assign tech' button.",Verify that the state of a work order goes to STUDY\_ASSIGNED\_TECH when assigning a tech,"","","",Work Order,"",""
+3684530,As a seg admin I should see failed or cancelled work orders separated form the ones that require some action,94776,1,9,2,"","IRIS-228,IRIS-755",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as Seg Admin.
+2. Go to */work_orders*.",Verify that as a seg admin I should see failed or cancelled work orders separated form the ones that require some action,"","","",Work Order,"",""
+3684532,As an admin I don't have the option to assign techs or QC if the work order is failed or cancelled,94776,1,9,2,"","IRIS-227,IRIS-754",9,1533748395,9,1533748395,"","",5225,0,"","Cancel a WO.
+Fail a WO.","1. Login as a seg admin.
+2. Open a cancelled WO.
+3. Try to assign QC and/or Tech.
+4. Open a failed WO.
+5. Try to assign QC and/or Tech.",Verify that as an admin I do not have the option to assign techs or QC if the work order is failed or cancelled,"","","",Work Order,"",""
+3684538,As a seg admin I should only be able to assign a tech once the original files are ready for download,94776,1,9,2,"","IRIS-208,IRIS-823",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as Physician and start a new WO.
+2. Login as Seg Admin, open that WO and try to assign a Tech before it reaches the ORIGINAL_READY state.",You shouldn't be able to assign a tech before ORIGINAL_READY state.,"","","",Work Order,"",""
+3684539,As a seg admin I should only be able to assign a QC once segmentations have been uploaded,94776,1,9,2,"","IRIS-208,IRIS-824",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as Seg Admin
+2. Open any WO which is not in QC_PACKAGE_READY state.
+3. Check you cannot assign a QC.
+4. Open a QC_PACKAGE_READY WO.
+5. Check you now can assign a QC.",Verify that as a seg admin I should only be able to assign a QC once segmentations have been uploaded,"","","",Work Order,"",""
+3684546,As a QC user I am able to log on and see all work orders assigned to me,94776,1,9,2,"","IRIS-124,IRIS-782",9,1533748395,9,1533748395,"","",5225,0,"","",Verify that as a QC user I am able to log on and see all work orders assigned to me,"As a QC user I am able to log on and see all work orders assigned to me
+","","","",Work Order,"",""
+3684547,As a QC I am able to download the anonymized original,94776,1,9,2,"","IRIS-125,IRIS-783",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as QC
+2. Go to an assigned to you WO.
+3. Click the 'Original Dicom' download button.",As a QC I am able to download the anonymized original,"","","",Work Order,"",""
+3684548,As a QC I am able to download segmented scans of a work order,94776,1,9,2,"","IRIS-125,IRIS-784",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as QC
+2. Go to an assigned to you WO.
+3. Click the 'Segmented study link' download button.",As a QC I am able to download segmented scans of a work order,"","","",Work Order,"",""
+3684549,As a QC I am able to accept a segmentation job and comment to describe the decision on a work order,94776,1,9,2,"","IRIS-126,IRIS-785",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as a QC 
+2. Open a WO assigned to you
+2. Click the **Approve Work Order** button 
+3. In the  */approve* page,  input a comment and submit.",Verify you are able to accept a segmentation job and comment to describe the decision on a work order,"","","",Work Order,"",""
+3684550,As a QC I am able to fail a segmentation job and comment to describe the decision on a work order,94776,1,9,2,"","IRIS-126,IRIS-786",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as QC.
+2. Open an assigned to you WO.
+3. Click the **Reject Work Order** button.
+4. Enter a reason and submit.","1. Verify that as a QC I am able to reject a segmentation job and comment to describe the decision on a work order
+2. Verify that the **Reject Work Order** button takes the user to a page where a comment can be submitted","","","",Work Order,"",""
+3684551,"As a QC, once I have accepted a work order, that scan is pushed back to the correct AAT",94776,1,9,2,"","IRIS-127,IRIS-787",9,1533748395,9,1533748395,"","",5225,0,"","","1. As a QC accept a work order
+2. Verify that the scan is pushed back to the correct AAT","As a QC, once I have accepted a work order, that scan is pushed back to the correct AAT","","","",Work Order,"",""
+3684552,As a seg administrator I can see see all work orders that are unassigned,94776,1,9,2,"","IRIS-113,IRIS-772",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as Seg Admin
+2. Check the *Verify* list in the */work_orders* page",Verify that as a seg administrator I can see see all work orders that are unassigned,"","","",Work Order,"",""
+3684553,As a seg administrator I can assign a tech to a work order,94776,1,9,2,"","IRIS-114,IRIS-773",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as Seg Admin.
+2. Open an _ORIGINAL\_READY_ WO
+3. Click the *Assign Tech* button.
+4. Select tech and submit.",Verify that as a seg administrator I can assign a tech to a work order when the state is _ORIGINAL\_READY_,"","","",Work Order,"",""
+3684554,As a seg administrator I can see all the work orders assigned to a specific tech,94776,1,9,2,"","IRIS-115,IRIS-774",9,1533748395,9,1533748395,"","",5225,0,"","","1. As a seg administrator go to Users
+2. Choose a Tech user and click the Show button
+",Verify that all the work orders assigned to a specific tech are listed,"","","",Work Order,"",""
+3684555,As an seg administrator I can comment on a work order,94776,1,9,2,"","IRIS-116,IRIS-775",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as Seg Admin.
+2. Open a WO.
+3. Click the **Add Comment** button at the bottom of the page.
+4. Write comment and submit.",As an seg administrator I can comment on a work order,"","","",Work Order,"",""
+3684556,As a seg administrator I can fail a work order and comment on it the reason,94776,1,9,2,"","IRIS-117,IRIS-776",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as Seg Admin
+2. Open an ORIGINAL_READY WO.
+3. Click the **Fail Work Order** button.
+4. Write a reason and submit.",Verify that as a seg administrator I can fail a work order and comment on it the reason,"","","",Work Order,"",""
+3684557,As a Tech I should be able to comment on a work order,94776,1,9,2,"","IRIS-121,IRIS-745",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as a Tech
+2. Open an assigned to you WO.
+3. Press the *Add Comment* button at the bottom.
+4. Write comment and submit.",As a Tech I should be able to comment on a work order,"","","",Work Order,"",""
+3684559,As a tech I want to download an original study associated with a work order,94776,1,9,2,"","IRIS-98,IRIS-742",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as Tech
+2. Go to an assigned to you WO.
+3. Click the 'Original dicom' download button.",A tech can download an original study associated with a work order,"","","",Work Order,"",""
+3684560,As a tech I can upload a segmented study to a work order,94776,1,9,2,"","IRIS-99,IRIS-743",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as a Tech
+2. Open an assigned to you WO.
+1. Verify that there is a **Upload segmented study** button that lets you upload a segmented study.
+2. Upload a file with an invalid UUID or file format (not zip)","1. As a tech I can upload a segmented study to a work order
+2. The file is not uploaded if the filename is not correct (invalid UUID or/and incorrect file extension)","","","",Work Order,"",""
+3684561,"As a SSM user after new work order is created in the SSM, I have the work order created in the correct AAT",94776,1,9,2,"","IRIS-95,IRIS-739",9,1533748395,9,1533748395,"","",5225,0,"","","1. Submit a new work order in the SSM
+2. Verify that the work order is created in the correct AAT","As a SSM user after new work order is created in the SSM, I have the work order created in the correct AAT","","","",Work Order,"",""
+3684573,Techs should only be allowed to upload from web when state is STUDY_ASSIGNED_TECH,94776,1,9,2,"","IRIS-1128,IRIS-1134",9,1533748395,9,1533748395,"","",5225,0,"","","1. Login as a Tech.
+2. Open an WO that is not in STUDY\_ASSIGNED\_TECH state.
+3. Try to upload a segmented study.
+4. Open a WO  that is in STUDY\_ASSIGNED\_TECH state.
+5. Try to upload a segmented study.",Verify that Techs are only allowed to upload from web when state is STUDY\_ASSIGNED\_TECH,"","","",Work Order,"",""
+3684576,The SSM manages the workflow of Intuitive Surgical's,94776,1,9,2,"",IRIS-1175,9,1533748395,9,1533748395,"","",5225,0,"!(index.php?/attachments/get/84)
+","",Verify SSM follows the attached workflow.,SSM follows the attached workflow.,"","","",Work Order,"",""
+3684578,As a super admin I want the ability to cancel a work order,94776,1,7,2,"","IRIS-1598,IRIS-1603",9,1533748395,9,1533748395,"","",5225,0,"","","1. Log in to SSM as a super admin.
+2. Visit the show page of work orders in various states.
+3. Verify that the cancel button works as expected (same as physicians).","* The cancel button IS present for work orders in these states:
+    * _INIT_
+    * _ORIGINAL\_PROCESSING_
+    * _ORIGINAL\_READY_
+    * _STUDY\_ASSIGNED\_TECH_
+    * _SEGMENTED\_UPLOADED_
+    * _QC\_PACKAGE\_PROCESSING_
+    * _QC\_PACKAGE\_READY_
+    * _STUDY\_ASSIGNED\_QC_
+    * _SEGMENTED\_QC\_REJECTED_
+    * _SEGMENTED\_QC\_APPROVED_
+    * _ADMIN\_APPROVED_
+    * _FINAL\_DOWNLOAD\_PROCESSING_
+    * _FINAL\_DOWNLOAD\_READY_
+* The cancel button IS NOT present for work orders in these states:
+    * _PHYSICIAN\_REJECTED_
+    * _PHYSICIAN\_ACCEPTED_
+    * _CANCELLED_
+    * _FAILED_
+    * _COMPLETED_
+* The Cancel button moves the WO to _CANCELLED_ state.","","","",Work Order,"",""
+3684579,Physician 'PHY' access and execute functions via the Web application,94776,1,9,2,"","IRIS-1241, IRIS-1242",9,1533748395,9,1533748395,"","",5225,0,"The SSM shall allow the 'PHY' to access and execute the following functions via the Web application:
+
+1. Login to the application.
+2. Search for 'OP’ DICOM studies by patient. 
+3. View a selected 'OP' DICOM study.
+4. Submit a work order for an ‘OP’ DICOM study. 
+5. Add comments to the work order before submission.","",Verify that Physician users can perform the actions described above.,Physician users can perform the actions described above.,"","","",Work Order,"",""
+3684843,Detect connections from unauthorized IPs and return a message to the user saying 'Invalid IP.',94777,1,9,2,"","IRIS-963, IRIS-1657",9,1533748396,9,1533748396,"","",5225,0,"The SSM shall have a mechanism to detect connections from unauthorized IPs and return a message to the user saying 'Invalid IP.'
+
+* Web front-end access for super admin shall only be allowed for connections from within ISI corporate network.
+* Web front-end access for segmentation administrator shall only be allowed for connections from within ISI corporate network.
+","","1. Access the Web front-end from outside ISI corporate network.
+",The SSM returns a message saying **Invalid IP.**,"","","",Users,"",""
+3684697,As a super admin I can see all user types on the users page,94779,1,9,2,"","IRIS-106,IRIS-769,IRIS-161,IRIS-801",9,1533748395,9,1533748395,"","",5225,0,"",Login with a Super Admin account.,"1. Go to the Users page.
+2. Scroll down the Users list.","There should be a list for each role: 
+
+    * Super Admins
+    * Seg Admins
+    * Techs
+    * Quality Control
+    * Physicians","","","",Users > Super Administrator,94777,""
+3684704,Super Administrator functionality via the SSM,94779,1,9,2,"","IRIS-1177, IRIS-1178",9,1533748395,9,1533748395,"","",5225,0,"The Super Administrator shall be able to access and execute the following functions via the SSM:
+1. Login to the application.
+2. Download and upload data from the SSM.
+3. Assign/Unassign Segmentation Technicians.
+4. Assign/Unassign Segmentation Quality Control Technicians.
+5. View and verify work order states.
+6. Approve and fail work orders.
+7. Review the results of the DICOM conformance checker.
+8. Create, edit, and enable/disable SSM Accounts. 
+9. Create, edit and enable/disable Programs. 
+10. Edit and enable/disable Gateways. 
+11. Create, edit and enable/disable Users. ","","1. Login as Super Admin.
+2. Open an ORIGINAL_READY WO, download the Original dicom and upload the segmented study.
+3. Open another ORIGINAL_READY WO and assign a tech using the *Assign Tech button*.
+4. Open a QC_PACKAGE_READY WO and assign a QC using the *assign QC button*.
+5. Open another QC_PACKAGE_READY WO and Approve it.
+6. Open another QC_PACKAGE_READY WO and fail it.
+7. Open any WO and check if you can see the **Conformance json** collapsible panel at the bottom.
+8. Go to the *Accounts* tab and check if you can create, edit, enable and disable an account.
+9. Go to the *Programs* tab and check if you can create, edit, enable and disable a program.
+10. Go to the *Gateways* tab and check you can edit and enable/disable Gateways. 
+11. Go to the *Users* tab and check if you can create, edit, enable and disable a user.",All functions can be completed by a Super Administrator user.,"","","",Users > Super Administrator,94777,""
+3684860,As an admin user I can see all QC users and what work they have been assigned,94780,1,9,2,"","IRIS-155,IRIS-748",9,1533748396,9,1533748396,"","",5225,0,"","","1. As an admin user go to the Users page
+2. Verify that all QC users are listed
+3. Click the Show button for a QC user
+",Verify that all the WO assigned to that QC user are listed,"","","",Users > Segmentation Administrator,94777,""
+3684862,Segmentation Administrator functionality,94780,1,9,2,"","IRIS-1179, IRIS-1180",9,1533748396,9,1533748396,"","",5225,0,"",""," 1. Login to the application.
+ 2. Open an ORIGINAL_READY WO.
+ 2. Download the Original DICOM study.
+ 4. Reject with comments which triggers notification to the 'Physician'.
+ 2. Open an ORIGINAL_READY WO.
+ 5. Assign to Tech user, then Unassign and Re-assign it.
+ 6. Open an QC_PACKAGE_READY WO.
+ 6. Assign/Unassign/Reassign a QC user. 
+ 7. Download the segmented package.
+ 8. Download the QC package.
+ 9. Approve the WO with the QC user.
+ 9. Approve a work order with the seg admin user.
+ 10. Open another work order 'Fail' it.
+","The Segmentation Administrator shall be able to access and execute the following functions via the SSM:
+1. Login to the application.
+2. Download the 'OA' DICOM study and review using a DICOM viewer (not hospital PACS Viewer).
+3. Review the segmentation work order from the 'PHY'.
+4. Reject with comments which triggers notification to the 'PHY'.
+5. Assign, or re-assign, the Segmentation Technician (SGT) of the work order.
+6. Assign/Unassign Segmentation Quality Control Technicians (QCT) to the work order. 
+7. Download the ‘SA’ DICOM study and review using a DICOM viewer (not hospital PACS Viewer).
+8. Download the (3DA) work order data package and review on the iOS application.
+9. 'Approve' a work order after QCT approved.
+10. 'Fail' a work order
+11. Review the results of the DICOM conformance checker.
+12. View and verify all work order states.","","","",Users > Segmentation Administrator,94777,""
+3684842,Segmentation Tech to access and execute the following functions via the Web Application,94783,1,9,2,"","IRIS-1181, IRIS-1182",9,1533748396,9,1533748396,"","",5225,0,"","","1. Login as a Tech.
+2. Open an assigned to you WO.
+3. Download the Original dicom.
+4. Add a comment by clicking the *Add comment* button at the bottom.
+5. Upload the segmented study.
+6. As an admin assign that WO to a QC.
+7. With the QC reject the WO. Place a comment.
+8. With the Tech download the QC package link.
+9. Check that the QC comment was added to the WO.","The SSM shall allow the Segmentation Tech to access and execute the following functions via the Web Application:
+1.Login to the Application.
+2.Review the work order.
+3.Download the 'OA' DICOM study.
+4.Add comments to the segmentation order.
+5.Upload 'SA' DICOM study when segmentation is complete.
+6.Review an (3DA) work order package rejected by 'QCT', with QC review comments.","","","",Users > Segmentation Tech,94777,""
+3684684,As an SSM user I have a REST interface for user authentication,94788,1,9,2,"","IRIS-75,IRIS-766,IRIS-362,IRIS-481",9,1533748395,9,1533748395,"","",5225,0,"**Method:** `POST`
+**URL:** `/api/v1/login`
+**Body:**
+
+	{
+		'username': '{{username}}', 
+		'password': '{{pwd}}'
+	}
+
+**Output:**
+
+	{
+		'success': 'true',
+		'api_token': 'b47f753e-6a09-49d3-8c15-826bc6a6832c',
+		'role': 'Physician',
+		'requires_change_password': 'false',
+		'username': '<username>',
+		'email': '<email>'
+	}	","","1. POST to the `/api/v1/login` path with valid credentials for a physician user
+2. Repeat step `1` for 'SuperAdmin', 'Administrator', 'Tech' and 'QC' users","* If the username and password are valid the user gets Success = `true`:
+* If the credentials are not valid the user gets Success = `false`:
+|||:Case |:Reason
+|| Wrong email and/or password | 'Email and password combination not found.'
+|| No email | 'Email cannot be blank.'
+|| No password | 'Password cannot be blank.'
+|| No email and password | 'Email and password cannot be blank.'
+|| Disabled user account | 'Your account is disabled. Please contact support at 1-800-876-1310 for help.'
+","","","",REST API > Authentication,94787,""
+3684794,Users cannot submit new work orders for disabled programs,94791,1,9,2,"","IRIS-442,IRIS-1035",9,1533748395,9,1533748395,"","",5225,0,"**Method:** `POST`
+**URL:** `/api/v1/work_order_submit`
+**Body:** See case C3064372(https://intouch.testrail.net/index.php?/cases/view/3064372) for the complete review json.
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'study_uuid':'1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161', 
+		'series_uuid':'', 
+		'pacs_name': 'PACS-PC1', 
+		'patient_name': 'Perez^Juan', 
+		'patient_dob': '19320409', 
+		'program_id': '1', 
+		'gateway_id': '1',
+		'instructions':'Instructions from {{username}}',
+		'study_date': '20070625', 
+		'study_description': 'REST API',
+		'review_json': {
+			'Work_Order_UUID': '',
+			'JSON_Review_Version': '1.0',
+			'State': 'INIT',
+			'Events': ,
+			'Current_Revision': 0,
+			'Quality_Control_Criteria': {
+			}
+		}
+	}
+
+**Output:**
+
+	{
+		'success': 'false',
+		'reason': 'The program you are attempting to access is currently disabled. Please contact support at 1-800-876-1310 for help.'
+	}","","1. As a super admin disable a program
+2. As a physician post to `/api/v1/work_order_submit` using that disabled program (`program_id`)","The physician cannot submit a new work order for a disabled program:
+
+ * `{'success': 'false', 'reason': 'The program you are attempting to access is currently disabled. Please contact support at 1-800-876-1310 for help.'}`","","","",REST API > Work Orders,94787,""
+3684795,As a user I get a link to the original anonymized study in work order description or work order list,94791,1,9,2,"","IRIS-1021,IRIS-1060",9,1533748395,9,1533748395,"","",5225,0,"• **List Work Orders**
+**Method:** `POST`
+**URL:** `/api/v1/work_order`
+**Body:**
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'page':'1', 
+		'per_page': '10'
+	}
+
+**Output:**
+
+	{
+		'success': 'true',
+		'results': 
+			{
+				'id': 'SEG00005417',
+				'uuid': '976217bb-5f2f-4533-94ae-cf8565b73781',
+				'study_instance_uuid': '1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161',
+				'series_instance_uuid': '',
+				'state': 'ORIGINAL_READY',
+				'slice_thickness': '3.000',
+				'error': '',
+				'resolution': '',
+				'rejected_at': '',
+				'rejected_by': 'None',
+				'version_number': 0,
+				'patient_name': 'Perez^Juan',
+				'patient_dob': '19320409',
+				'study_description': 'REST API',
+				'study_date': '20070625',
+				'delivery_date': '2018-05-04T14:00:01.000Z',
+				'instructions': 'Instructions from santi_phy',
+				'original_download': 'https://ith-iris-staging.s3-us-west-2.amazonaws.com/preprocess/976217bb-5f2f-4533-94ae-cf8565b73781.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJOFVCCTVIWDUDX4A%2F20180427%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20180427T141102Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=b106ee51c4403b8b27bc3aea8b9fca4e918c251a90d731ac86bea077318c87d6',
+				'created_at': '2018-04-27T14:00:01.000Z'
+			}
+		
+	}
+
+• **Show Work Order**
+**Method:** `POST`
+**URL:** `/api/v1/work_order`
+**Body:**
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'uuid':'a15b4882-0752-4e03-8c22-708a15de0dfa'
+	}
+
+**Output:**
+
+	{
+		'success': 'true',
+		'results': {
+			'id': 'SEG00005411',
+			'uuid': '14908974-2159-44fb-b149-495899dac707',
+			'study_instance_uuid': '1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161',
+			'series_instance_uuid': '',
+			'state': 'ORIGINAL_READY',
+			'error': '',
+			'resolution': '',
+			'rejected_at': '',
+			'rejected_by': 'None',
+			'version_number': 0,
+			'patient_name': 'Perez^Juan',
+			'patient_dob': '19320409',
+			'study_description': 'REST API',
+			'study_date': '20070625',
+			'delivery_date': '2018-05-03T19:29:06.000Z',
+			'instructions': 'Instructions from santi_phy',
+			'created_at': '2018-04-26T19:29:07.000Z',
+			'pacs_name': 'PACS-PC1',
+			'program_id': 1,
+			'gateway_id': 1,
+			'segmentation_type': 'KIDNEY',
+			'conformance_json': '{\'FAILED_SERIES\': , \'STUDY_STATUS\': \'PASSED\'}',
+			'package_download': '',
+			'package_checksum': '',
+			'qc_download': '',
+			'qc_package_checksum': '',
+			'pacs_viewer_link': 'https://pvstaging401.pacsviewer.net:443/e/viewer?studyUID=1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161&CLOAccessKeyID=pyyczLPFWzlEIjHRjQQe&expiry=1524776602&applicationID=IRIS&usergroup=IRIS&serviceInstance=IRIS&signature=dyG%2FC5MZ4sGfHSw9u6h0LtUOh2M%3D',
+			'measurement_json': '',
+			'original_download': 'https://ith-iris-staging.s3-us-west-2.amazonaws.com/preprocess/14908974-2159-44fb-b149-495899dac707.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJOFVCCTVIWDUDX4A%2F20180426%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20180426T203322Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=fbd510772f3be1d967fdb5dd896b2d31fc50231660cc4bd5161d81ba5815706e'
+		}
+	}","","1. As a physician post to `/api/v1/work_orders`
+2. As a physician post to `/api/v1/work_order`
+3. Repeat steps 1 and 2 for all user","Verify that the output for `/api/v1/work_orders` and `/api/v1/work_order` contains the link to the original anonymized study:
+
+* `'original_download': 'https://ith-iris-staging.s3-us-west-2.amazonaws.com/preprocess/14908974-2159-44fb-b149-495899dac707.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJOFVCCTVIWDUDX4A%2F20180426%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20180426T203322Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=fbd510772f3be1d967fdb5dd896b2d31fc50231660cc4bd5161d81ba5815706e'`","","","",REST API > Work Orders,94787,""
+3684797,Study date should be present in the work order information I get trough the REST API,94791,1,9,2,"","IRIS-454,IRIS-617",9,1533748395,9,1533748395,"","",5225,0,"","",Verify that study date should be present in the work order information I get trough the REST API,Study date should be present in the work order information I get trough the REST API,"","","",REST API > Work Orders,94787,""
+3684798,As a physician user I want to see details of previous states of work orders that are related when querying for patients,94791,1,9,2,"","IRIS-360,IRIS-635,IRIS-636",9,1533748395,9,1533748395,"","",5225,0,"1. WOs list now show details of previous states.
+2. Where we link patient DICOM studies with previous work orders for rejections, the following fields are required
+	* Previous rejection:
+		- a. Order date
+		- b. Reject date
+		- c. Rejected by (ISI or Physician only, no ISI personnel name)
+		- d. Reason (DICOM conformance, Physician comment, Seg Admin comment)
+		- e. Resolution (comments from Seg Admin only)
+
+• **List Work Orders**
+**Method:** `POST`
+**URL:** `/api/v1/work_order`
+**Body:**
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'page':'1', 
+		'per_page': '10'
+	}
+
+**Output:**
+
+	{
+		'success': 'true',
+		'results': 
+			{
+				'id': 'SEG00005417',
+				'uuid': '976217bb-5f2f-4533-94ae-cf8565b73781',
+				'study_instance_uuid': '1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161',
+				'series_instance_uuid': '',
+				'state': 'ORIGINAL_READY',
+				'slice_thickness': '3.000',
+				'error': '',
+				'resolution': '',
+				'rejected_at': '',
+				'rejected_by': 'None',
+				'version_number': 0,
+				'patient_name': 'Perez^Juan',
+				'patient_dob': '19320409',
+				'study_description': 'REST API',
+				'study_date': '20070625',
+				'delivery_date': '2018-05-04T14:00:01.000Z',
+				'instructions': 'Instructions from santi_phy',
+				'original_download': 'https://ith-iris-staging.s3-us-west-2.amazonaws.com/preprocess/976217bb-5f2f-4533-94ae-cf8565b73781.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJOFVCCTVIWDUDX4A%2F20180427%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20180427T141102Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=b106ee51c4403b8b27bc3aea8b9fca4e918c251a90d731ac86bea077318c87d6',
+				'created_at': '2018-04-27T14:00:01.000Z'
+			}
+		
+	}
+
+• **Show Work Order**
+**Method:** `POST`
+**URL:** `/api/v1/work_order`
+**Body:**
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'uuid':'a15b4882-0752-4e03-8c22-708a15de0dfa'
+	}
+
+**Output:**
+
+	{
+		'success': 'true',
+		'results': {
+			'id': 'SEG00005411',
+			'uuid': '14908974-2159-44fb-b149-495899dac707',
+			'study_instance_uuid': '1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161',
+			'series_instance_uuid': '',
+			'state': 'ORIGINAL_READY',
+			'error': '',
+			'resolution': '',
+			'rejected_at': '',
+			'rejected_by': 'None',
+			'version_number': 0,
+			'patient_name': 'Perez^Juan',
+			'patient_dob': '19320409',
+			'study_description': 'REST API',
+			'study_date': '20070625',
+			'delivery_date': '2018-05-03T19:29:06.000Z',
+			'instructions': 'Instructions from santi_phy',
+			'created_at': '2018-04-26T19:29:07.000Z',
+			'pacs_name': 'PACS-PC1',
+			'program_id': 1,
+			'gateway_id': 1,
+			'segmentation_type': 'KIDNEY',
+			'conformance_json': '{\'FAILED_SERIES\': , \'STUDY_STATUS\': \'PASSED\'}',
+			'package_download': '',
+			'package_checksum': '',
+			'qc_download': '',
+			'qc_package_checksum': '',
+			'pacs_viewer_link': 'https://pvstaging401.pacsviewer.net:443/e/viewer?studyUID=1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161&CLOAccessKeyID=pyyczLPFWzlEIjHRjQQe&expiry=1524776602&applicationID=IRIS&usergroup=IRIS&serviceInstance=IRIS&signature=dyG%2FC5MZ4sGfHSw9u6h0LtUOh2M%3D',
+			'measurement_json': '',
+			'original_download': 'https://ith-iris-staging.s3-us-west-2.amazonaws.com/preprocess/14908974-2159-44fb-b149-495899dac707.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJOFVCCTVIWDUDX4A%2F20180426%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20180426T203322Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=fbd510772f3be1d967fdb5dd896b2d31fc50231660cc4bd5161d81ba5815706e'
+		}
+	}","","1. As a physician post to `/api/v1/work_orders`
+2. As a physician post to `/api/v1/work_order`","Verify that the output for `/api/v1/work_orders` and `/api/v1/work_order` contains the following fields:
+
+|||:Name|:Field|:Value
+|| Order date | created_at | YYYY-MM-DDTHH:MM:SS.SSSZ
+|| Reject date | rejected_at | YYYY-MM-DDTHH:MM:SS.SSSZ
+|| Rejected by | rejected_by | ISI or Physician only, no ISI personnel name
+|| Reason | error | DICOM conformance, Physician comment, Seg Admin comment
+|| Resolution | resolution | Comments from Seg Admin only","","","",REST API > Work Orders,94787,""
+3684799,As a REST API user I cannot successfully submit work order with invalid review_json,94791,1,9,2,"","IRIS-919,IRIS-993",9,1533748395,9,1533748395,"","",5225,0,"A valid JSON should have the following tags:
+
+* 'Work_Order_UUID'
+* 'JSON_Review_Version'
+* 'State'
+* 'Events'
+* 'Current_Revision'
+* 'Quality_Control_Criteria'","",Verify that as a REST API user I cannot successfully submit work order with invalid review\_json,As a REST API user I cannot successfully submit work order with invalid review\_json,"","","",REST API > Work Orders,94787,""
+3684800,As a REST API user I cannot successfully update_review with invalid review_json,94791,1,9,2,"","IRIS-919,IRIS-994",9,1533748395,9,1533748395,"","",5225,0,"A valid JSON should have the following tags:
+
+* 'Work_Order_UUID'
+* 'JSON_Review_Version'
+* 'State'
+* 'Events'
+* 'Current_Revision'
+* 'Quality_Control_Criteria'","",Verify that as a REST API user I cannot successfully update_review with invalid review\_json,s a REST API user I cannot successfully update_review with invalid review\_json,"","","",REST API > Work Orders,94787,""
+3684802,Only Super Admins can delete a work order,94791,1,9,2,"","IRIS-533,IRIS-948",9,1533748395,9,1533748395,"","",5225,0,"","",Verify that only Super Admins can delete a work order (/api/v1/work_order_destroy),Only Super Admins can delete a work order,"","","",REST API > Work Orders,94787,""
+3684803,Provide a link to the PACS Viewer study when looking at a work order as a physician,94791,1,9,2,"","IRIS-296,IRIS-877",9,1533748395,9,1533748395,"","",5225,0,"**Method:** `POST`
+**URL:** `/api/v1/work_order`
+**Body:**
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'uuid':'a15b4882-0752-4e03-8c22-708a15de0dfa'
+	}
+
+**Output:**
+
+	{
+		'success': 'true',
+		'results': {
+			'id': 'SEG00005411',
+			'uuid': '14908974-2159-44fb-b149-495899dac707',
+			'study_instance_uuid': '1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161',
+			'series_instance_uuid': '',
+			'state': 'ORIGINAL_READY',
+			'error': '',
+			'resolution': '',
+			'rejected_at': '',
+			'rejected_by': 'None',
+			'version_number': 0,
+			'patient_name': 'Perez^Juan',
+			'patient_dob': '19320409',
+			'study_description': 'REST API',
+			'study_date': '20070625',
+			'delivery_date': '2018-05-03T19:29:06.000Z',
+			'instructions': 'Instructions from santi_phy',
+			'created_at': '2018-04-26T19:29:07.000Z',
+			'pacs_name': 'PACS-PC1',
+			'program_id': 1,
+			'gateway_id': 1,
+			'segmentation_type': 'KIDNEY',
+			'conformance_json': '{\'FAILED_SERIES\': , \'STUDY_STATUS\': \'PASSED\'}',
+			'package_download': '',
+			'package_checksum': '',
+			'qc_download': '',
+			'qc_package_checksum': '',
+			'pacs_viewer_link': 'https://pvstaging401.pacsviewer.net:443/e/viewer?studyUID=1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161&CLOAccessKeyID=pyyczLPFWzlEIjHRjQQe&expiry=1524776602&applicationID=IRIS&usergroup=IRIS&serviceInstance=IRIS&signature=dyG%2FC5MZ4sGfHSw9u6h0LtUOh2M%3D',
+			'measurement_json': '',
+			'original_download': 'https://ith-iris-staging.s3-us-west-2.amazonaws.com/preprocess/14908974-2159-44fb-b149-495899dac707.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJOFVCCTVIWDUDX4A%2F20180426%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20180426T203322Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=fbd510772f3be1d967fdb5dd896b2d31fc50231660cc4bd5161d81ba5815706e'
+		}
+	}","","1. As a physician, post to `/api/v1/work_order` using a UUID owned by that user",Verify that the response contains the PACS Viewer study link (`'pacs_viewer_link'`),"","","",REST API > Work Orders,94787,""
+3684805,As a QC I can see and add comments from WO I am assigned,94791,1,9,2,"","IRIS-274,IRIS-858",9,1533748395,9,1533748395,"","",5225,0,"","",Verify that as a QC I can see and add comments from WO I am assigned,As a QC I can see and add comments from WO I am assigned,"","","",REST API > Work Orders,94787,""
+3684806,As a physician I can toggle on and off anatomical structures,94791,1,9,2,"","IRIS-259,IRIS-849",9,1533748395,9,1533748395,"","",5225,0,"**Data template**
+
+
+	'Segmentation':{'kidney': 
+			{
+				'Label': '01',
+				'Anatomy': 'parenchyma',
+				'Description': 'right',
+				'Index': '1',
+				'Comment': '',
+				'Enabled': true,
+				'Issue': 
+			},
+			{
+				'Label': '02',
+				'Anatomy': 'parenchyma',
+				'Description': 'left',
+				'Index': '1',
+				'Comment': '',
+				'Enabled': true,
+				'Issue': 
+			},
+			{
+				'Label': '03',
+				'Anatomy': 'Collecting System',
+				'Description': 'right',
+				'Index': '1',
+				'Comment': '',
+				'Enabled': true,
+				'Issue': 
+			},
+			{
+				'Label': '04',
+				'Anatomy': 'Collecting System',
+				'Description': 'left',
+				'Index': '1',
+				'Comment': '',
+				'Enabled': true,
+				'Issue': 
+			},
+			{
+				'Label': '05',
+				'Anatomy': 'Vein',
+				'Description': '',
+				'Index': '1',
+				'Comment': '',
+				'Enabled': true,
+				'Issues': 
+			},
+			{
+				'Label': '06',
+				'Anatomy': 'Artery',
+				'Description': '',
+				'Index': '1',
+				'Comment': '',
+				'Enabled': true,
+				'Issues': 
+			},
+			{
+				'Label': '07',
+				'Anatomy': 'mass',
+				'Description': 'right',
+				'Index': '1',
+				'Comment': '',
+				'Enabled': true,
+				'Issues': 
+			},
+			{
+				'Label': '08',
+				'Anatomy': 'mass',
+				'Description': 'left',
+				'Index': '1',
+				'Comment': '',
+				'Enabled': true,
+				'Issues': 
+			}
+		
+	}","",Verify that as a physician I can toggle on and off anatomical structures,As a physician I can toggle on and off anatomical structures,"","","",REST API > Work Orders,94787,""
+3684807,As a QC I can approve or reject a work order that has been assign to me,94791,1,9,2,"","IRIS-258,IRIS-848",9,1533748395,9,1533748395,"","",5225,0,"**Approve:**
+**Method:** `POST`
+**URL:** `/api/v1/work_order_approve`
+**Body:**
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'uuid':'{{STUDY_ASSIGNED_QC}}'
+	}
+
+**Reject:**
+**Method:** `POST`
+**URL:** `/api/v1/work_order_reject`
+**Body:**
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'uuid':'{{STUDY_ASSIGNED_QC}}'
+	}
+
+","","1. As a QC post to `/api/v1/work_order_approve` using a WO in `STUDY_ASSIGNED_QC` state
+2. As a QC post to `/api/v1/work_order_reject` using a WO in `STUDY_ASSIGNED_QC` state","* If the WO is in `STUDY_ASSIGNED_QC` state the QC can approve the WO
+* If the WO is in `STUDY_ASSIGNED_QC` state the QC can reject the WO
+* If the WO is not in `STUDY_ASSIGNED_QC` state the QC cannot approve or reject the WO","","","",REST API > Work Orders,94787,""
+3684808,As a QC I have access to work orders from the iPad application,94791,1,9,2,"","IRIS-248,IRIS-840",9,1533748395,9,1533748395,"","",5225,0,"","",Verify that as a QC I have access to work orders from the iPad application,As a QC I have access to work orders from the iPad application,"","","",REST API > Work Orders,94787,""
+3684809,As a QC I can download the latest QC review package for a particular work order ID,94791,1,9,2,"","IRIS-255,IRIS-845",9,1533748395,9,1533748395,"","",5225,0,"**Method:** `POST`
+**URL:** `/api/v1/work_order`
+**Body:**
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'uuid':'a15b4882-0752-4e03-8c22-708a15de0dfa'
+	}
+
+**Output:**
+
+	{
+		'success': 'true',
+		'results': {
+			'id': 'SEG00005411',
+			'uuid': '14908974-2159-44fb-b149-495899dac707',
+			'study_instance_uuid': '1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161',
+			'series_instance_uuid': '',
+			'state': 'STUDY_ASSIGNED_QC',
+			'error': '',
+			'resolution': '',
+			'rejected_at': '',
+			'rejected_by': 'None',
+			'version_number': 0,
+			'patient_name': 'Perez^Juan',
+			'patient_dob': '19320409',
+			'study_description': 'REST API',
+			'study_date': '20070625',
+			'delivery_date': '2018-05-03T19:29:06.000Z',
+			'instructions': 'Instructions from santi_phy',
+			'created_at': '2018-04-26T19:29:07.000Z',
+			'pacs_name': 'PACS-PC1',
+			'program_id': 1,
+			'gateway_id': 1,
+			'segmentation_type': 'KIDNEY',
+			'conformance_json': '{\'FAILED_SERIES\': , \'STUDY_STATUS\': \'PASSED\'}',
+			'package_download': '',
+			'package_checksum': '',
+			'qc_download': 'https://ith-iris-staging.s3-us-west-2.amazonaws.com/qc/59951b07-83e1-4646-840b-34946aeae93f.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJOFVCCTVIWDUDX4A%2F20180613%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20180613T193436Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=5beb3bc23468d8b7400c402f4c14d2b4340d3154610c550411323a06d0c64826',
+			'qc_package_checksum': 'eca9a1300437fceb10c8327e990eadad0d019b63b2e03a0907134832d9f511d2',
+			'pacs_viewer_link': 'CENSORED',
+			'measurement_json': '',
+			'original_download': 'https://ith-iris-staging.s3-us-west-2.amazonaws.com/preprocess/59951b07-83e1-4646-840b-34946aeae93f.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJOFVCCTVIWDUDX4A%2F20180613%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20180613T193436Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=ffdac99b12a3414842b1b07bfc377264a73ad08a95b42b97b8eb89175439c2b4'
+		}
+	}","",1. Post to `/api/v1/work_order` using a WO owned by the QC user,* The output contains the link to download the QC package (`qc_download`),"","","",REST API > Work Orders,94787,""
+3684810,As a QC I can submit a review JSON for each work order,94791,1,9,2,"","IRIS-252, IRIS-842",9,1533748395,9,1533748395,"","",5225,0,"**Data template:**
+
+	{
+		'username': '{{username}}',
+		'api_token': '{{token}}',
+		'uuid': '{{STUDY_ASSIGNED_QC_APPROVED}}',
+		'review_json': {
+			'Work_Order_UUID': '',
+			'JSON_Review_Version': '1.0',
+			'State': 'SEGMENTED_QC_APPROVED',
+			'Events': ,
+			'Current_Revision': 1,
+			'Quality_Control_Criteria': {
+				'kidney': 
+					{
+						'Anatomy': 'parenchyma',
+						'Criteria': 
+							{
+								'Name': 'Outer Boundary'
+							}
+						
+					}
+				,
+				'Revisions': 
+					{
+						'Version': 0,
+						'Timestamp': 'UTC of revision creation',
+						'Segmentation': {
+							'kidney': 
+								{
+									'Label': '01',
+									'Anatomy': 'parenchyma',
+									'Description': 'right'
+								}
+							
+						}
+					}
+				
+			}
+		}
+	}","",1. As a QC user post to `/api/v1/work_order_update_review` using a valid review json,The QC user submits the review JSON for the specified work order,"","","",REST API > Work Orders,94787,""
+3684815,As an SSM user I can pass JSON conformance information to the REST API for a work order,94791,1,9,2,"","IRIS-145,IRIS-793",9,1533748395,9,1533748395,"","",5225,0,"**Method:** `POST`
+**URL:** `/api/v1/work_order`
+**Body:**
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'uuid':'a15b4882-0752-4e03-8c22-708a15de0dfa'
+	}
+
+**Output:**
+
+	{
+		'success': 'true',
+		'results': {
+			'id': 'SEG00005411',
+			'uuid': '14908974-2159-44fb-b149-495899dac707',
+			'study_instance_uuid': '1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161',
+			'series_instance_uuid': '',
+			'state': 'ORIGINAL_READY',
+			'error': '',
+			'resolution': '',
+			'rejected_at': '',
+			'rejected_by': 'None',
+			'version_number': 0,
+			'patient_name': 'Perez^Juan',
+			'patient_dob': '19320409',
+			'study_description': 'REST API',
+			'study_date': '20070625',
+			'delivery_date': '2018-05-03T19:29:06.000Z',
+			'instructions': 'Instructions from santi_phy',
+			'created_at': '2018-04-26T19:29:07.000Z',
+			'pacs_name': 'PACS-PC1',
+			'program_id': 1,
+			'gateway_id': 1,
+			'segmentation_type': 'KIDNEY',
+			'conformance_json': '{\'FAILED_SERIES\': , \'STUDY_STATUS\': \'PASSED\'}',
+			'package_download': '',
+			'package_checksum': '',
+			'qc_download': '',
+			'qc_package_checksum': '',
+			'pacs_viewer_link': 'https://pvstaging401.pacsviewer.net:443/e/viewer?studyUID=1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161&CLOAccessKeyID=pyyczLPFWzlEIjHRjQQe&expiry=1524776602&applicationID=IRIS&usergroup=IRIS&serviceInstance=IRIS&signature=dyG%2FC5MZ4sGfHSw9u6h0LtUOh2M%3D',
+			'measurement_json': '',
+			'original_download': 'https://ith-iris-staging.s3-us-west-2.amazonaws.com/preprocess/14908974-2159-44fb-b149-495899dac707.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJOFVCCTVIWDUDX4A%2F20180426%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20180426T203322Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=fbd510772f3be1d967fdb5dd896b2d31fc50231660cc4bd5161d81ba5815706e'
+		}
+	}","",As a physician post to `/api/v1/work_order`,Verify that the output has `'conformance_json'` which contains the conformance json.,"","","",REST API > Work Orders,94787,""
+3684816,As a Physician user I have an interface to approve a work order,94791,1,9,2,"","IRIS-141,IRIS-747",9,1533748395,9,1533748395,"","",5225,0,"**Method:** `POST`
+**URL:** `/api/v1/work_order_accept`
+**Body:**
+
+
+# Body
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'uuid':'{{FINAL_DOWNLOAD_READY}}'
+	}
+","","1. Search for a WO in `FINAL_DOWNLOAD_READY` state and copy its uuid
+2. POST to `api/v1/work_order_accept` using that `uuid`
+3. POST to `api/v1/work_order_accept` using WO in different states","* For WO in `FINAL_DOWNLOAD_READY` state:
+  * Success: `{'success':'true'}`
+  * The WO is moved to `PHYSICIAN_ACCEPTED` state
+* For WO in other states:
+  * `{ 'success':'false', 'reason':'Unable to update work order. }`
+* Failure Output:
+  * `{ 'success':'false', 'reason':'Bad parameters.' }`
+  * `{ 'success':'false', 'reason':'Invalid username/token combination.' }`
+  * `{ 'success':'false', 'reason':'The IRIS service is inaccessible. Please contact support at 1-800-876-1310 for help.' }`","","","",REST API > Work Orders,94787,""
+3684817,As a Physician user I have an interface to reject a work order,94791,1,9,2,"","IRIS-141,IRIS-747",9,1533748395,9,1533748395,"","",5225,0,"**Method:** `POST`
+**URL:** `/api/v1/work_order_reject`
+**Body:**
+
+
+# Body
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'uuid':'{{FINAL_DOWNLOAD_READY}}'
+	}
+
+","","1. Search for a WO in `FINAL_DOWNLOAD_READY` state and copy its uuid
+2. POST to `api/v1/work_order_accept` using that `uuid`
+3. POST to `api/v1/work_order_accept` using WO in different states","* For WO in `FINAL_DOWNLOAD_READY` state:
+  * Success: `{'success':'true'}`
+  * The WO is moved to `PHYSICIAN_REJECTED` state
+* For WO in other states:
+  * `{ 'success':'false', 'reason':'Unable to update work order. }`
+* Failure Output:
+  * `{ 'success':'false', 'reason':'Bad parameters.' }`
+  * `{ 'success':'false', 'reason':'Invalid username/token combination.' }`
+  * `{ 'success':'false', 'reason':'The IRIS service is inaccessible. Please contact support at 1-800-876-1310 for help.' }`","","","",REST API > Work Orders,94787,""
+3684818,As an SSM user I am provided with a PACS Viewer URL link to a study in the REST interface,94791,1,9,2,"","IRIS-144,IRIS-792",9,1533748395,9,1533748395,"","",5225,0,"**Method:** `POST`
+**URL:** `/api/v1/work_order`
+**Body:**
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'uuid':'a15b4882-0752-4e03-8c22-708a15de0dfa'
+	}
+
+**Output:**
+
+	{
+		'success': 'true',
+		'results': {
+			'id': 'SEG00005411',
+			'uuid': '14908974-2159-44fb-b149-495899dac707',
+			'study_instance_uuid': '1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161',
+			'series_instance_uuid': '',
+			'state': 'ORIGINAL_READY',
+			'error': '',
+			'resolution': '',
+			'rejected_at': '',
+			'rejected_by': 'None',
+			'version_number': 0,
+			'patient_name': 'Perez^Juan',
+			'patient_dob': '19320409',
+			'study_description': 'REST API',
+			'study_date': '20070625',
+			'delivery_date': '2018-05-03T19:29:06.000Z',
+			'instructions': 'Instructions from santi_phy',
+			'created_at': '2018-04-26T19:29:07.000Z',
+			'pacs_name': 'PACS-PC1',
+			'program_id': 1,
+			'gateway_id': 1,
+			'segmentation_type': 'KIDNEY',
+			'conformance_json': '{\'FAILED_SERIES\': , \'STUDY_STATUS\': \'PASSED\'}',
+			'package_download': '',
+			'package_checksum': '',
+			'qc_download': '',
+			'qc_package_checksum': '',
+			'pacs_viewer_link': 'https://pvstaging401.pacsviewer.net:443/e/viewer?studyUID=1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161&CLOAccessKeyID=pyyczLPFWzlEIjHRjQQe&expiry=1524776602&applicationID=IRIS&usergroup=IRIS&serviceInstance=IRIS&signature=dyG%2FC5MZ4sGfHSw9u6h0LtUOh2M%3D',
+			'measurement_json': '',
+			'original_download': 'https://ith-iris-staging.s3-us-west-2.amazonaws.com/preprocess/14908974-2159-44fb-b149-495899dac707.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJOFVCCTVIWDUDX4A%2F20180426%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20180426T203322Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=fbd510772f3be1d967fdb5dd896b2d31fc50231660cc4bd5161d81ba5815706e'
+		}
+	}","","As physician, post to `/api/v1/work_order` using a valid UUID",The response contains the PACS Viewer link (`pacs_viewer_link`),"","","",REST API > Work Orders,94787,""
+3684820,As a super admin or seg admin I can approve a work order,94791,1,9,2,"","IRIS-965,IRIS-1072",9,1533748395,9,1533748395,"","",5225,0,"**Method:** `POST`
+**URL:** `/api/v1/work_order_approve`
+**Body:**
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'uuid':'{{SEGMENTED_QC_APPROVED}}'
+	}","","1. As an admin post to `/api/v1/work_order_approve` using a WO in `STUDY_ASSIGNED_QC` state
+2. As an admin post to `/api/v1/work_order_approve` using a WO in `SEGMENTED_QC_APPROVED` state
+3. As an admin post to `/api/v1/work_order_approve` using a WO in a different state","* If the WO is in `STUDY_ASSIGNED_QC` or `SEGMENTED_QC_APPROVED` states the admin can approve the WO
+* If the WO is not in `STUDY_ASSIGNED_QC` or `SEGMENTED_QC_APPROVED` states the admin gets: 
+  * `{'success': 'false', 'reason': 'Work Order has invalid state.'}`","","","",REST API > Work Orders,94787,""
+3684821,As a seg admin I can do assignments of QC via the REST API,94791,1,9,2,"","IRIS-381,IRIS-1075",9,1533748395,9,1533748395,"","",5225,0,"**Method:** `POST`
+**URL:** `/api/v1/work_order_assign_qc`
+**Body:**
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'uuid':'{{QC_PACKAGE READY}}', 
+		'qc_username': 'qc_username'
+	}","","1. As an admin post to `/api/v1/work_order_assign_qc` using a WO in `QC_PACKAGE_READY` state
+2. As an admin post to `/api/v1/work_order_assign_qc` using a WO in a different state","* If the WO is in `QC_PACKAGE_READY` state the admin assign the WO to the specified QC
+* If the WO is not in `QC_PACKAGE_READY` state the admin gets: 
+  * `{'success': 'false', 'reason': 'Work Order has invalid state.'}`","","","",REST API > Work Orders,94787,""
+3684822,As a seg admin I can do assignments of Tech via the REST API,94791,1,9,2,"","IRIS-381,IRIS-1076",9,1533748395,9,1533748395,"","",5225,0,"**Method:** `POST`
+**URL:** `/api/v1/work_order_assign_tech`
+**Body:**
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'uuid':'{{ORIGINAL_READY}}', 
+		'tech_username': 'tech_username'
+	}
+
+
+","","1. As an admin post to `/api/v1/work_order_assign_tech` using a WO in `ORIGINAL_READY` state
+2. As an admin post to `/api/v1/work_order_assign_tech` using a WO in a different state","* If the WO is in `ORIGINAL_READY` state the admin assign the WO to the specified tech
+* If the WO is not in `ORIGINAL_READY` state the admin gets: 
+  * `{'success': 'false', 'reason': 'Work Order has invalid state.'}`","","","",REST API > Work Orders,94787,""
+3684823,As a seg admin I can fail a work order via the REST API,94791,1,9,2,"","IRIS-395,IRIS-1073",9,1533748395,9,1533748395,"","",5225,0,"**Method:** `POST`
+**URL:** `/api/v1/work_order_fail`
+**Body:**
+
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'uuid':'{{UUID}}', 
+		'reason': '{{reason}}',
+		'resolution': '{{resolution}}'
+	}
+
+**Output:**
+
+	{
+		'success': 'true'
+	}","","1. As an admin post to `/api/v1/work_order_fail`
+2. As a super admin post to `/api/v1/work_order_fail`
+3. Repeat 1 with tech, phy and QC users","1. Super admin and admins can fail WO
+2. Non admin users cannot fail WO:
+  * 	`{'success': 'false', 'reason': 'Invalid user role.'}`","","","",REST API > Work Orders,94787,""
+3684824,As a tech or super admin I can upload a segmentation for a work order via the REST API,94791,1,9,2,"","IRIS-382,IRIS-1074",9,1533748395,9,1533748395,"","",5225,0,"• 1. **Upload POST:**
+
+**Method:** `POST`
+**URL:** `/api/v1/work_order_url_upload`
+**Body:**
+
+		{
+			'username': '{{username}}', 
+			'api_token': '{{token}}', 
+			'uuid':'{{STUDY_ASSIGNED_TECH}}'
+		}
+
+**Output:**
+
+		{
+			'success': 'true',
+			'upload_link': 'https://ith-iris-staging.s3-us-west-2.amazonaws.com/postprocess/14908974-2159-44fb-b149-495899dac707.zip?x-amz-server-side-encryption=AES256&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJOFVCCTVIWDUDX4A%2F20180426%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20180426T215846Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=5f0a2008199dead89b4924a50ced5b0b55f7dab23312887cc519394637b735c5'
+		}
+
+• 2. **Upload Script:** `upload.rb`
+
+		require 'net/https'
+			# ARGV 0 = upload uri
+			# ARGV 1 = tar file
+			uri = ARGV0
+			Net::HTTP.start('ith-iris-development.s3-us-west-2.amazonaws.com', 443, :use_ssl => true) do |http|
+				req = Net::HTTP::Put.new(uri)
+				req.body_stream = File.open(ARGV1)
+				req'Content-Length' = req.body_stream.size
+				req'Content-Type' = ' application/x-gzip' # Prevents Net::HTTP from adding content-type
+				#req'x-amz-server-side-encryption' = 'AES256'
+				response = http.request(req)
+				puts 'Status code: #{response.code}'
+				puts 'Response body: #{response.body}'
+			end
+
+• 3. **Callback Upload POST:**
+
+**Method:** `POST`
+**URL:** `/api/v1/work_order_callback_upload`
+**Body:**
+
+		{
+			'username': '{{username}}', 
+			'api_token': '{{token}}', 
+			'uuid':'{{STUDY_ASSIGNED_TECH}}'
+		}
+
+**Output:**
+
+		{
+			'success': 'true'
+		}","","1. As a tech or super admin do a Upload post (Description #1) and copy the link from `upload_link`
+2. As a tech or super admin upload a zip file by running the upload script (Description #2) with the link from 1
+  * Run `ruby upload.rb <upload_uri> <uuid>.zip`
+3. As a tech or super admin do a Callback post (Description #3)","* As a tech or super admin I can upload a segmentation for a work order via the REST API
+* Verify that the WO is moved to `SEGMENTED_UPLOADED` state","","","",REST API > Work Orders,94787,""
+3684825,The submitted data for a new study matches the study UUID in the PACS it came from,94791,1,9,2,"","IRIS-1066,IRIS-1118",9,1533748395,9,1533748395,"","",5225,0,"**Method:** `POST`
+**URL:** `/api/v1/work_order_submit`
+**Body:** See case C3064372(https://intouch.testrail.net/index.php?/cases/view/3064372) for the complete review json.
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'study_uuid':'1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161', 
+		'series_uuid':'', 
+		'pacs_name': 'PACS-PC1', 
+		'patient_name': 'Perez^Juan', 
+		'patient_dob': '19320409', 
+		'program_id': '1', 
+		'gateway_id': '1',
+		'instructions':'Instructions from {{username}}',
+		'study_date': '20070625', 
+		'study_description': 'REST API',
+		'review_json': {
+			'Work_Order_UUID': '',
+			'JSON_Review_Version': '1.0',
+			'State': 'INIT',
+			'Events': ,
+			'Current_Revision': 0,
+			'Quality_Control_Criteria': {
+			}
+		}
+	}
+
+**Output:**
+
+	{
+		'success': 'true',
+		'uuid': '14908974-2159-44fb-b149-495899dac707',
+		'id': 'SEG00005411'
+	}	
+
+	{
+		'success': 'false',
+		'reason': 'The study does not exist.'
+	}
+","","1. As a physician submit a new WO with data that belongs to a study:
+  * Patient Name: 'Perez^Juan'
+  * DOB: '19320409'
+  * Study UUID: '1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161'
+  * Study date: '20070635'
+2. Submit a WO with incorrect data for:
+  * Patient Name
+  * DOB
+  * Study UUID
+  * Study date","1. A new WO is submitted if data belongs to an existing study
+2. A WO is not submitted if data does not belong to an existing study:
+  * `{'success': 'false', 'reason': 'The study does not exist.'}`","","","",REST API > Work Orders,94787,""
+3684826,Patient data is CENSORED for non Physician users,94791,1,9,2,"","IRIS-248,IRIS-1087,IRIS-1119",9,1533748395,9,1533748395,"","",5225,0,"**Method:** `POST`
+**URL:** `/api/v1/work_order`
+**Body:**
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'uuid':'a15b4882-0752-4e03-8c22-708a15de0dfa'
+	}
+
+**Output:**
+
+	{
+		'success': 'true',
+		'results': {
+			'id': 'SEG00005411',
+			'uuid': '14908974-2159-44fb-b149-495899dac707',
+			'study_instance_uuid': '1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161',
+			'series_instance_uuid': '',
+			'state': 'ORIGINAL_READY',
+			'error': '',
+			'resolution': '',
+			'rejected_at': '',
+			'rejected_by': 'None',
+			'version_number': 0,
+			'patient_name': 'CENSORED',
+			'patient_dob': 'CENSORED',
+			'study_description': 'CENSORED',
+			'study_date': 'CENSORED',
+			'delivery_date': '2018-05-03T19:29:06.000Z',
+			'instructions': 'Instructions from santi_phy',
+			'created_at': '2018-04-26T19:29:07.000Z',
+			'pacs_name': 'PACS-PC1',
+			'program_id': 1,
+			'gateway_id': 1,
+			'segmentation_type': 'KIDNEY',
+			'conformance_json': '{\'FAILED_SERIES\': , \'STUDY_STATUS\': \'PASSED\'}',
+			'package_download': '',
+			'package_checksum': '',
+			'qc_download': '',
+			'qc_package_checksum': '',
+			'pacs_viewer_link': 'CENSORED',
+			'measurement_json': '',
+			'original_download': 'https://ith-iris-staging.s3-us-west-2.amazonaws.com/preprocess/14908974-2159-44fb-b149-495899dac707.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJOFVCCTVIWDUDX4A%2F20180426%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20180426T203322Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=fbd510772f3be1d967fdb5dd896b2d31fc50231660cc4bd5161d81ba5815706e'
+		}
+	}","","1. As a QC post to `/api/v1/work_order`
+2. Repeat step 1 with Super Admin, Segmentation Admin, and Tech users
+","Verify that the following patient data is *CENSORED* for non Physician users:
+
+* patient_name
+* patient_dob
+* study_description
+* study_date
+* pacs_viewer_link","","","",REST API > Work Orders,94787,""
+3684827,As a physician user I am able to send 'Instructions' when submitting a new work order request.,94791,1,9,2,"","IRIS-1220,IRIS-1131",9,1533748395,9,1533748395,"","",5225,0,"**Method:** `POST`
+**URL:** `/api/v1/work_order_submit`
+**Body:** See case C3064372(https://intouch.testrail.net/index.php?/cases/view/3064372) for the complete review json.
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'study_uuid':'1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161', 
+		'series_uuid':'', 
+		'pacs_name': 'PACS-PC1', 
+		'patient_name': 'Perez^Juan', 
+		'patient_dob': '19320409', 
+		'program_id': '1', 
+		'gateway_id': '1',
+		'instructions':'Instructions from {{username}}',
+		'study_date': '20070625', 
+		'study_description': 'REST API',
+		'review_json': {
+			'Work_Order_UUID': '',
+			'JSON_Review_Version': '1.0',
+			'State': 'INIT',
+			'Events': ,
+			'Current_Revision': 0,
+			'Quality_Control_Criteria': {
+			}
+		}
+	}
+
+**Output:**
+
+	{
+		'success': 'true',
+		'uuid': '14908974-2159-44fb-b149-495899dac707',
+		'id': 'SEG00005411'
+	}","",As a physician post to `/api/v1/work_order_submit` and include your *instructions* in `'instructions'`,As a physician user I am able to send 'Instructions' when submitting a new work order request.,"","","",REST API > Work Orders,94787,""
+3684828,Techs should only be allowed to upload from API when state is STUDY_ASSIGNED_TECH,94791,1,9,2,"","IRIS-1128,IRIS-1133",9,1533748395,9,1533748395,"","",5225,0,"• 1. **Upload POST:**
+
+**Method:** `POST`
+**URL:** `/api/v1/work_order_url_upload`
+**Body:**
+
+		{
+			'username': '{{username}}', 
+			'api_token': '{{token}}', 
+			'uuid':'{{STUDY_ASSIGNED_TECH}}'
+		}
+
+**Output:**
+
+		{
+			'success': 'true',
+			'upload_link': 'https://ith-iris-staging.s3-us-west-2.amazonaws.com/postprocess/14908974-2159-44fb-b149-495899dac707.zip?x-amz-server-side-encryption=AES256&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJOFVCCTVIWDUDX4A%2F20180426%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20180426T215846Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=5f0a2008199dead89b4924a50ced5b0b55f7dab23312887cc519394637b735c5'
+		}
+
+		{
+			'success': 'true',
+			'reason': 'Tech has not been assigned this work order or the work order is in an invalid state.'
+		}
+
+• 2. **Upload Script:** `upload.rb`
+
+		require 'net/https'
+			# ARGV 0 = upload uri
+			# ARGV 1 = tar file
+			uri = ARGV0
+			Net::HTTP.start('ith-iris-development.s3-us-west-2.amazonaws.com', 443, :use_ssl => true) do |http|
+				req = Net::HTTP::Put.new(uri)
+				req.body_stream = File.open(ARGV1)
+				req'Content-Length' = req.body_stream.size
+				req'Content-Type' = ' application/x-gzip' # Prevents Net::HTTP from adding content-type
+				#req'x-amz-server-side-encryption' = 'AES256'
+				response = http.request(req)
+				puts 'Status code: #{response.code}'
+				puts 'Response body: #{response.body}'
+			end
+
+• 3. **Callback Upload POST:**
+
+**Method:** `POST`
+**URL:** `/api/v1/work_order_callback_upload`
+**Body:**
+
+		{
+			'username': '{{username}}', 
+			'api_token': '{{token}}', 
+			'uuid':'{{STUDY_ASSIGNED_TECH}}'
+		}
+
+**Output:**
+
+		{
+			'success': 'true'
+		}
+
+		{
+			'success': 'true',
+			'reason': 'Tech has not been assigned this work order or the work order is in an invalid state.'
+		}","","1. As a tech or super admin do a Upload post (Description #1) to a WO in STUDY\_ASSIGNED\_TECH
+2. Copy the link from `upload_link`
+3. As a tech or super admin upload a zip file by running the upload script (Description #2) with the link from 1
+  * Run `ruby upload.rb <upload_uri> <uuid>.zip`
+4. As a tech or super admin do a Callback post (Description #3)
+5. Repeat steps 1 and 4 with a WO not in STUDY\_ASSIGNED\_TECH","1. Techs are only allowed to upload from API when state is STUDY\_ASSIGNED\_TECH
+2. If the WO is not STUDY\_ASSIGNED\_TECH in the tech gets:
+  * `{'success': 'true', 'reason': 'Tech has not been assigned this work order or the work order is in an invalid state.'}`","","","",REST API > Work Orders,94787,""
+3684829,QCs can only update review JSON when work order date is STUDY_ASSIGNED_QC,94791,1,9,2,"","IRIS-1123,IRIS-1125",9,1533748395,9,1533748395,"","",5225,0,"• 1. **Upload POST:**
+
+**Method:** `POST`
+**URL:** `/api/v1/work_order_update_review`
+**Body:**
+
+		{
+			'username': '{{username}}', 
+			'uuid':'14908974-2159-44fb-b149-495899dac707',
+			'review_json':{'Work_Order_UUID':'','JSON_Review_Version':'1.0','State':'INIT','Events':,'Current_Revision':0,'Quality_Control_Criteria':{'kidney':{'Anatomy':'parenchyma','Criteria':{'Name':'Outer Boundary'}},'Revisions':{'Version':0,'Timestamp':'UTC of revision creation','Segmentation':{'kidney':{'Label':'01','Anatomy':'parenchyma','Description':'right'}}}}}
+		}
+
+**Output:**
+
+		{
+			'success': 'true'
+		}","","1. As a QC post to `/api/v1/work_order_update_review` using a work order in STUDY\_ASSIGNED\_QC state
+2. Repeat step 1 with a WO not in STUDY\_ASSIGNED\_QC state","1. The QC user gets `{'success':'true'}` only if the WO is in STUDY\_ASSIGNED\_QC state
+2. For WO not in STUDY\_ASSIGNED\_QC state the user gets:
+  * `{'success': 'false', 'reason': 'The IRIS service is inaccessible. Please contact support at 1-800-876-1310 for help.'}`","","","",REST API > Work Orders,94787,""
+3684830,Techs can only update review JSON when work order state is STUDY_ASSIGNED_TECH,94791,1,9,2,"","IRIS-1123,IRIS-1126",9,1533748395,9,1533748395,"","",5225,0,"• 1. **Upload POST:**
+
+**Method:** `POST`
+**URL:** `/api/v1/work_order_update_review`
+**Body:**
+
+		{
+			'username': '{{username}}', 
+			'uuid':'14908974-2159-44fb-b149-495899dac707',
+			'review_json':{'Work_Order_UUID':'','JSON_Review_Version':'1.0','State':'INIT','Events':,'Current_Revision':0,'Quality_Control_Criteria':{'kidney':{'Anatomy':'parenchyma','Criteria':{'Name':'Outer Boundary'}},'Revisions':{'Version':0,'Timestamp':'UTC of revision creation','Segmentation':{'kidney':{'Label':'01','Anatomy':'parenchyma','Description':'right'}}}}}
+		}
+
+**Output:**
+
+		{
+			'success': 'true'
+		}","","1. As a Tech post to `/api/v1/work_order_update_review` using a work order in STUDY\_ASSIGNED\_TECH state
+2. Repeat step 1 with a WO not in STUDY\_ASSIGNED\_TECH state","1. The Tech user gets `{'success':'true'}` only if the WO is in STUDY\_ASSIGNED\_TECH state
+2. For WO not in STUDY\_ASSIGNED\_TECH state the user gets:
+  * `{'success': 'false', 'reason': 'The IRIS service is inaccessible. Please contact support at 1-800-876-1310 for help.'}`","","","",REST API > Work Orders,94787,""
+3684832,As a physician I want to fetch a PACS Viewer link upon a search to the study I am trying to view,94791,1,9,2,"","IRIS-1371,IRIS-1409",9,1533748395,9,1533748395,"","",5225,0,"The PACS Viewer link is only valid for 30 minutes. We want to give the iOS application the ability to re-fetch this link when its been clicked without having to do a new study search and parsing the results.
+
+**Method:** `POST`
+**URL:** `/api/v1/work_order_refetch_pacs_link`
+**Body:**
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'study_uuid':'{{study_uuid}}',
+		'gateway_id': '{{gateway_id}}'
+	}
+
+**Output:**
+
+	{
+		'success': 'true',
+		'pacs_viewer_link': 'https://pvstaging404.pacsviewer.net:443/e/viewer?studyUID=1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161&CLOAccessKeyID=pyyczLPFWzlEIjHRjQQe&expiry=1524839142&applicationID=IRIS&usergroup=IRIS&serviceInstance=IRIS&signature=E437k5UOHqawuoOf0dCoFdu%2BNWc%3D'
+	}","",As a physician post to `/api/v1/work_order_refetch_pacs_link` with a valid `study_uuid` and `gateway_id`,A new 30-minutes Study PACS link is returned.,"","","",REST API > Work Orders,94787,""
+3684833,"After a new work order is submitted through the REST API, the work order's review JSON contains exactly one event",94791,1,9,2,"","IRIS-536,IRIS-539",9,1533748395,9,1533748395,"","",5225,0,"After a new work order is submitted through the REST API, the work order's review JSON contains exactly one event with the following attributes: 
+1. Timestamp: the time the new work order was submitted. 
+2. Actor: the username of the user who submitted the work order.
+3. Metadata: the username of the user who submitted the work order.
+4. Event_Type: 'INIT'
+
+**• Submit Work Order** 
+**Method:** `POST`
+**URL:** `/api/v1/work_order_submit`
+**Body:** See case C3064372(https://intouch.testrail.net/index.php?/cases/view/3064372) for the complete review json.
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'study_uuid':'1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161', 
+		'series_uuid':'', 
+		'pacs_name': 'PACS-PC1', 
+		'patient_name': 'Perez^Juan', 
+		'patient_dob': '19320409', 
+		'program_id': '1', 
+		'gateway_id': '1',
+		'instructions':'Instructions from {{username}}',
+		'study_date': '20070625', 
+		'study_description': 'REST API',
+		'review_json': {
+			'Work_Order_UUID': '',
+			'JSON_Review_Version': '1.0',
+			'State': 'INIT',
+			'Events': ,
+			'Current_Revision': 0,
+			'Quality_Control_Criteria': {
+			}
+		}
+	}
+
+**Output:**
+
+	{
+		'success': 'true',
+		'uuid': '976217bb-5f2f-4533-94ae-cf8565b73781',
+		'id': 'SEG00005411'
+	}	
+
+**• Show Work Order** 
+**Method:** `POST`
+**URL:** `/api/v1/work_order`
+**Body:**
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'uuid': '976217bb-5f2f-4533-94ae-cf8565b73781'
+	}","","1. As a physician submit a WO (`/api/v1/work_order_submit`)
+2. Copy the UUID
+3. Post to `/api/v1/work_order` using the UUID in 2","* The review JSON should contain the following attributes:
+
+|||:Name|:Description
+||  Timestamp | The time the new work order was submitted. 
+|| Actor | The username of the user who submitted the work order.
+|| Metadata | The username of the user who submitted the work order.
+|| Event_Type | 'INIT'
+","","","",REST API > Work Orders,94787,""
+3684834,Physicians can see the Study Description in the WO Show and Index pages and also through the work_orders and work_order API,94791,1,9,2,"","IRIS-397,IRIS-652",9,1533748395,9,1533748395,"","",5225,0,"Physicians can see the Study Description in the WO Show and Index pages and also through the work_orders and work_order API
+
+• **List Work Orders**
+**Method:** `POST`
+**URL:** `/api/v1/work_order`
+**Body:**
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'page':'1', 
+		'per_page': '10'
+	}
+
+**Output:**
+
+	{
+		'success': 'true',
+		'results': 
+			{
+				'id': 'SEG00005417',
+				'uuid': '976217bb-5f2f-4533-94ae-cf8565b73781',
+				'study_instance_uuid': '1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161',
+				'series_instance_uuid': '',
+				'state': 'ORIGINAL_READY',
+				'slice_thickness': '3.000',
+				'error': '',
+				'resolution': '',
+				'rejected_at': '',
+				'rejected_by': 'None',
+				'version_number': 0,
+				'patient_name': 'Perez^Juan',
+				'patient_dob': '19320409',
+				'study_description': 'REST API',
+				'study_date': '20070625',
+				'delivery_date': '2018-05-04T14:00:01.000Z',
+				'instructions': 'Instructions from santi_phy',
+				'original_download': 'https://ith-iris-staging.s3-us-west-2.amazonaws.com/preprocess/976217bb-5f2f-4533-94ae-cf8565b73781.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJOFVCCTVIWDUDX4A%2F20180427%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20180427T141102Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=b106ee51c4403b8b27bc3aea8b9fca4e918c251a90d731ac86bea077318c87d6',
+				'created_at': '2018-04-27T14:00:01.000Z'
+			}
+		
+	}
+
+• **Show Work Order**
+**Method:** `POST`
+**URL:** `/api/v1/work_order`
+**Body:**
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'uuid':'a15b4882-0752-4e03-8c22-708a15de0dfa'
+	}
+
+**Output:**
+
+	{
+		'success': 'true',
+		'results': {
+			'id': 'SEG00005411',
+			'uuid': '14908974-2159-44fb-b149-495899dac707',
+			'study_instance_uuid': '1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161',
+			'series_instance_uuid': '',
+			'state': 'ORIGINAL_READY',
+			'error': '',
+			'resolution': '',
+			'rejected_at': '',
+			'rejected_by': 'None',
+			'version_number': 0,
+			'patient_name': 'Perez^Juan',
+			'patient_dob': '19320409',
+			'study_description': 'REST API',
+			'study_date': '20070625',
+			'delivery_date': '2018-05-03T19:29:06.000Z',
+			'instructions': 'Instructions from santi_phy',
+			'created_at': '2018-04-26T19:29:07.000Z',
+			'pacs_name': 'PACS-PC1',
+			'program_id': 1,
+			'gateway_id': 1,
+			'segmentation_type': 'KIDNEY',
+			'conformance_json': '{\'FAILED_SERIES\': , \'STUDY_STATUS\': \'PASSED\'}',
+			'package_download': '',
+			'package_checksum': '',
+			'qc_download': '',
+			'qc_package_checksum': '',
+			'pacs_viewer_link': 'https://pvstaging401.pacsviewer.net:443/e/viewer?studyUID=1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161&CLOAccessKeyID=pyyczLPFWzlEIjHRjQQe&expiry=1524776602&applicationID=IRIS&usergroup=IRIS&serviceInstance=IRIS&signature=dyG%2FC5MZ4sGfHSw9u6h0LtUOh2M%3D',
+			'measurement_json': '',
+			'original_download': 'https://ith-iris-staging.s3-us-west-2.amazonaws.com/preprocess/14908974-2159-44fb-b149-495899dac707.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJOFVCCTVIWDUDX4A%2F20180426%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20180426T203322Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=fbd510772f3be1d967fdb5dd896b2d31fc50231660cc4bd5161d81ba5815706e'
+		}
+	}","","1. Go to the work order Show and Index pages
+2. List work orders through REST API (`/api/v1/work_orders`)
+3. Show a work order through REST API (`/api/v1/work_order`)","The following pages/outputs show the **Study Description** (`study_description`) for a WO:
+
+* Show and Index pages
+* List work orders path (/api/v1/work_orders)
+* Show a work order path (/api/v1/work_order)","","","",REST API > Work Orders,94787,""
+3684836,As a super admin I want the ability to cancel a work order,94791,1,7,2,"","IRIS-1599,IRIS-1605",9,1533748395,9,1533748395,"","",5225,0,"**Method:** `POST`
+**URL:** `/api/v1/work_order_cancel`
+**Body:**
+
+	{
+		'username': '{{username}}', 
+		'api_token': '{{token}}', 
+		'uuid':'{{wo_uuid}}', 
+		'reason': '{{reason}}'
+	}","","1. As a super admin post to `/api/v1/work_order_cancel`
+2. As a physician post to `/api/v1/work_order_cancel`
+3. Repeat step 1 for segmentation admin, tech and QC users","* Super admin and physician users can cancel WOs in the following states (`{ 'success' : 'true' }`):
+    * _INIT_
+    * _ORIGINAL\_PROCESSING_
+    * _ORIGINAL\_READY_
+    * _STUDY\_ASSIGNED\_TECH_
+    * _SEGMENTED\_UPLOADED_
+    * _QC\_PACKAGE\_PROCESSING_
+    * _QC\_PACKAGE\_READY_
+    * _STUDY\_ASSIGNED\_QC_
+    * _SEGMENTED\_QC\_REJECTED_
+    * _SEGMENTED\_QC\_APPROVED_
+    * _ADMIN\_APPROVED_
+    * _FINAL\_DOWNLOAD\_PROCESSING_
+    * _FINAL\_DOWNLOAD\_READY_
+* Super admin and physician users cannot cancel WOs in the following states (`{ 'success' : 'false' , 'reason' : 'Work Order has invalid state.' }`):
+    * _PHYSICIAN\_REJECTED_
+    * _PHYSICIAN\_ACCEPTED_
+    * _CANCELLED_
+    * _FAILED_
+    * _COMPLETED_
+* Response can include the following error messages:
+    * `{ 'success':'false', 'reason':'Bad parameters.' `
+    * `{ 'success':'false', 'reason':'Unknown work order.' }`
+    * `{ 'success':'false', 'reason':'Invalid user role.' }`
+    * `{ 'success':'false', 'reason':'Invalid username/token combination.' }`
+    * `{ 'success':'false', 'reason':'Work Order has invalid state.' }`
+    * `{ 'success':'false', 'reason':'Reason parameter is required.'}`
+    * `{ 'success':'false', 'reason':'Unable to update work order.' }`","","","",REST API > Work Orders,94787,""
+3684839,Physicians can only ACCEPT or REJECT work orders when the state is FINAL_DOWNLOAD_READY,94791,1,9,2,"","IRIS-325,IRIS-889",9,1533748395,9,1533748395,"","",5225,0,Physicians can only ACCEPT or REJECT work orders when the state is FINAL_DOWNLOAD_READY,"","1. Attempt to **Accept** or **Reject** a work order when the state is **FINAL\_DOWNLOAD\_READY**
+2. Attempt to **Accept** or **Reject** a work order when the state is different from **FINAL\_DOWNLOAD\_READY**","1. Physician can **Accept** and **Reject** work orders when the state is **FINAL\_DOWNLOAD\_READY**
+2. Physician cannot **Accept** or **Reject** work orders when the state is not **FINAL\_DOWNLOAD\_READY**","","","",REST API > Work Orders,94787,""
+3684783,"Once billing is updated with the status of a PHYSICIAN_ACCEPTED work order, that work order state should be moved to COMPLETED",94797,1,9,2,"","IRIS-950,IRIS-973",9,1533748395,9,1533748395,"","",5225,0,"","","Verify that after sending billing the status of a PHYSICIAN\_ACCEPTED work order, the WO's state is moved to **COMPLETED**",After sending a billing update the WO state is changed from **PHYSICIAN\_ACCEPTED** to **COMPLETED**,"","","",Billing API,"",""

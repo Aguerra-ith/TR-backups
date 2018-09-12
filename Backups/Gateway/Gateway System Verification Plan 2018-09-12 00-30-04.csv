@@ -1,0 +1,4 @@
+id,title,section_id,template_id,type_id,priority_id,milestone_id,refs,created_by,created_on,updated_by,updated_on,estimate,estimate_forecast,suite_id,custom_automation_type,custom_description,custom_preconds,custom_steps,custom_expected,custom_steps_separated,custom_mission,custom_goals,section_hierarchy,section_parent_id,section_description
+3296013,Remote reboot of KVM Host with automated guest boot,87411,1,7,2,"","IRIS-1250,IRIS-1424",9,1525730653,9,1525730653,"","",4444,0,"","","1. SSH into staging VM box
+2. Check that VMs are set to auto start with `virsh list --autostart`
+3. Reboot host",Confirm that VMs are automatically running when the host comes back up with `virsh list`,"","","",Moved Test Cases,"",""

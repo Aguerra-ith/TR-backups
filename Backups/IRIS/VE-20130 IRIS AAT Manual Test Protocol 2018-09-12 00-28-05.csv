@@ -1,0 +1,395 @@
+id,title,section_id,template_id,type_id,priority_id,milestone_id,refs,created_by,created_on,updated_by,updated_on,estimate,estimate_forecast,suite_id,custom_automation_type,custom_description,custom_preconds,custom_steps,custom_expected,custom_steps_separated,custom_mission,custom_goals,section_hierarchy,section_parent_id,section_description
+3046045,As a physician user I want to be able to wild card searches for patient studies,7406,1,9,2,"","IRIS-500,IRIS-685",9,1493667155,9,1520248333,"","",3416,0,"","","1. Login into AAT
+2. Go to `DICOM Search` page
+3. Search a study for first and/or last name fields
+4. Search a study using an incomplete name (example: if real name is `Perez` use `Pere`)","When searching for a patient study, the search prepends and/or appends with a wildcard search for the first and/or last name fields","","","",Search,"",""
+3113701,The AAT maps work orders to specific studies/series for the SSM,7406,1,9,2,"","IRIS-1157, IRIS-1156",14,1499973785,9,1520248417,"","",3416,0,The AAT maps work orders to specific studies/series for the SSM,"","1. Go to `Work Orders` page
+2. View a particular work order",The Study/Series UUID and the work order ID match what is listed on the SSM when the same work order is viewed there.  ,"","","",Search,"",""
+3055173,"As an AAT admin, I can query with wildcard searching for the first and last name fields",7406,1,9,2,"","IRIS-483,IRIS-667",9,1494891335,9,1520248851,"","",3416,0,"","","1. Go to `DICOM Search`
+2. Search using a wildcard in the first or last name fields (example: `J*an`)","* I can use wildcard for first/last name searches
+* Example: searching for `J*an` returns matches for `Jane`, `Janez`, and `Juan`)","","","",Search,"",""
+3038532,Admin user will see pagination if there are more than 12 work orders in the page,7471,1,9,2,"","IRIS-303,IRIS-594,IRIS-595",9,1492787397,9,1520248579,"","",3416,0,"",Have more than 12 work orders in AAT,"1. Go to `Work Orders` page
+2. Scroll to the bottom of the page","* The user see pagination if there are more than 12 work orders in the page
+* Format: `← Previous 1 2 3 4 Next →`","","","",Work Orders,"",""
+3062594,Dates on all WOs are displayed in yyyy-mm-dd format,7471,1,9,2,"","IRIS-367,IRIS-637",9,1495029267,9,1520349664,"","",3416,0,"","",1. Go to `Work Orders` page,Dates on all WOs are displayed in yyyy-mm-dd format,"","","",Work Orders,"",""
+3063143,When cancelling a work order from SSM push its state to AAT,7471,1,9,2,"","IRIS-285,IRIS-863",9,1495223112,9,1520350206,"","",3416,0,"","","1. As an SSM physician, cancel a WO (`/work_order_cancel`)
+2. Login to AAT
+3. Go to `Work Orders` page
+4. Search for the WO cancelled in `1`",The SSM WO cancel state is pushed to AAT,"","","",Work Orders,"",""
+3064342,AAT checks on the return values of the packer and surfer to catch any errors during runtime,7471,1,9,2,"","IRIS-232,IRIS-761,IRIS-762",9,1495223978,9,1511502534,"","",3416,0,"Add checks on the return values of the packer and surfer to catch any errors during runtime. The check will be performed on the exit of the process. If it is not zero, it will return a message saying 'Unable to create download package'.
+Using old segmented files fails the WO with error message 'Unable to generate 3D model.'","","1. Verify that AAT checks on the return values of the packer and surfer to catch any errors during runtime
+2. Verify that old segmented files fails the WO",AAT checks on the return values of the packer and surfer to catch any errors during runtime,"","","",Work Orders,"",""
+3064381,Provide the 3D final package as a zipfile,7471,1,9,2,"","IRIS-231,IRIS-757,IRIS-758,IRIS-759,IRIS-760",9,1495235479,14,1530825472,"","",3416,0,"1. When the AAT receives the segmented DICOM from the SSM, it shall execute the Intuitive utility to generate the 3D model with the Patient PHI.	 
+2. The 3D model, original CT, and segmented CT, all with PHI, shall be combined into one zipfile.
+3. The final zipfile shall be uploaded to the SSM.	
+4. The zipfile can be retrieved via a link from the iOS Application by the originating physician of accompanying Work Order.","","1. From SSM, run an end to end test","* The 3D final package is provided and successfully downloaded on iOS.
+* The 3D package includes un-anonymized versions (have PHI) of the 3D model, original CT, and segmented CT.","","","",Work Orders,"",""
+3064382,Use conformance checker result and update the work order at the study level with the results,7471,1,9,2,"","IRIS-226,IRIS-753",9,1495235593,9,1520944257,"","",3416,0,"","","1. From SSM, submit a WO for 'Mustermann^Max'
+2. From SSM, submit a WO for 'Perez^Juan'","* AAT fails the WO with the following error (example: 'Mustermann^Max'): `Study did not pass conformance check.`
+* AAT does not fail the WO is the conformance checker passed (example: 'Perez^Juan')","","","",Work Orders,"",""
+3064498,Final packages are uploaded to the cloud storage (/ith-iris-development/package),7471,1,9,2,"","IRIS-178,IRIS-807",9,1495481840,9,1520877726,"","",3416,0,"",Have a WO in **FINAL_DOWNLOAD_READY** stage,"1. Go to AWS S3
+2. Go to `ith-iris-staging/package`",The final package is uploaded to the cloud storage (`package` bucket),"","","",Work Orders,"",""
+3070120,SSM triggers a new anonymization process via a REST interface,7471,1,9,2,"","IRIS-7,IRIS-8,IRIS-11,IRIS-21,IRIS-24,IRIS-26",9,1495720495,9,1510699857,"","",3416,0,Segmentation Service Manager (SSM) will trigger an anonymization of a given DICOM study given its Study Instance UUID. The request will have a work order associated with it. The request will be authenticated using an API key.,"","1. Submit a new WO via REST API
+2. Verify that a new WO is created in AAT","1. A new anonymization process is trigger via a REST interface
+2. A new WO is created in AAT","","","",Work Orders,"",""
+3070122,As a AAT user I am able to push events to the SSM,7471,1,9,2,"","IRIS-71,IRIS-731",9,1495723214,9,1520877633,"","",3416,0,"","","1. Do an end to end test
+2. Go to that WO show page
+2. SSH into AAT server
+3. Run `grep 'uuid' staging.log`","* Verify that you see the following lines in the logs:
+  * `Work order <uuid> state changed to ORIGINAL_PROCESSING`
+  * `Work order <uuid> state changed to ORIGINAL_READY`
+  * `Work order <uuid> state changed to QC_PACKAGE_PROCESSING`
+  * `Work order <uuid> state changed to QC_PACKAGE_READY`
+  * `Work order <uuid> state changed to FINAL_DOWNLOAD_PROCESSING`
+  * `Work order <uuid> state changed to FINAL_DOWNLOAD_READY`
+* Verify that those stages are sent to SSM","","","",Work Orders,"",""
+3070126,AAT creates zip file of anonymized original study,7471,1,9,2,"","IRIS-14,IRIS-707,IRIS-708",9,1495724527,9,1520876845,"","",3416,0,"","","1. As a physician submit a new WO
+2. SSH into AAT server
+3. Go to `/tmp/AAT/preprocess/` folder","* A `<uuid>.zip`is created in `/tmp/AAT/preprocess/` folder
+* The file is removed after it is uploaded to S3","","","",Work Orders,"",""
+3070127,AAT retrieves the anonymized segmented study from the storage proxy,7471,1,9,2,"","IRIS-16,IRIS-709",9,1495724652,9,1520873860,"","",3416,0,Have a WO in **STUDY_ASSIGNED_TECH**,"","1. Upload a segmented study
+2. SSH into AAT
+3. Run `grep '<work_order_id> staging.log`
+4. Go to AWS S3
+5. Search for that WO UUID in `ith-iris-staging/postprocess` bucket","* AAT retrieves the anonymized segmented study from the storage proxy:
+  * `Running scp -P 22 -o StrictHostkeyChecking=no 2>&1 staging319@35.160.86.61:/home/staging319/storage_proxy/postprocess/<uuid>.zip /tmp/AAT/QC/<uuid>.zip`
+* S3 `ith-iris-staging/postprocess` bucket contains the anonymized segmented study","","","",Work Orders,"",""
+3070128,AAT pushes zip'ed anonymized original study to cloud storage,7471,1,9,2,"",IRIS-15,9,1495727732,9,1520868495,"","",3416,0,"","","1. Go to AWS S3
+2. Go to `th-iris-staging/preprocess` bucket
+3. SSH into AAT server
+4. Go to `/tmp/AAT/preprocess` directory","1. AAT pushes zip'ed anonymized original study to cloud storage
+2. Local files are removed after the file has been updated","","","",Work Orders,"",""
+3071005,Fetch a requested study from PACS storage to a local SCP,7471,1,9,2,"","IRIS-9,IRIS-10,IRIS-22,IRIS-27,IRIS-30",9,1495809390,9,1520955166,"","",3416,0,"This requires that the local SCP be registered with PACS storage:
+
+	command = '#{DCM4CHEE_TOOLS_DIR}/#{SCP_TOOL} -b '
+		'#{my_ae_title}:#{my_scp_port} --dicomdir '
+		'#{dicom_dir}/#{work_order.identifier}.dcm --filepath'
+		' '#{work_order.identifier}/#{FILE_PATTERN}''","1. Submit a WO
+2. Get the WO UUID","1. SSH into AAT server
+2. Run `grep '<wo_uuid>' ~/AAT/log/staging.log`","A line simolar to this one appears in AAT logs:
+
+* `Starting SCP with command: /home/ubuntu/dcm4che-3.3.7/bin/dcmqrscp -b IRIS_STAGING:11112 --dicomdir /tmp/AAT/preprocess/<wo_uuid>.dcm --filepath '<wo_uuid>/{0020000D}/{0020000E}/{00200013}.dcm'`","","","",Work Orders,"",""
+3071020,As an AAT user I see the values for anonymized fields encrypted,7471,1,9,2,"","IRIS-31,IRIS-765",9,1495823585,9,1506383472,"","",3416,0,"","","Verify that anonymized field is encrypted in database:
+
+1. SSH into AAT server
+2. Run “`rails console`”
+3. Run “`AnonymizedField.last`”
+4. Verify the value attribute is correctly encrypted (“`encrypted_value`”)
+",The values for anonymized fields encrypted in the database are encrypted.,"","","",Work Orders,"",""
+3071021,AAT cleans up remote files after doing cloud download,7471,1,9,2,"","IRIS-39,IRIS-713",9,1495823737,9,1520881725,"","",3416,0,"To test:
+Run the post processor and verify that no files are in /tmp/proxy_post/ on the storage proxy.","","1. Perform an end to end test from SSM
+2. SSH into one of the SP servers
+3. `cd /home/<gateway_name>/storage_proxy/preprocess`
+4. `cd /home/<gateway_name>/storage_proxy/QC`
+5. `cd /home/<gateway_name>/storage_proxy/postprocess`","* Verify AAT cleans up SP files after doing cloud download
+* The following SP directories do not contain files from the WO created in 1:
+  * `/home/<gateway_name>/storage_proxy/preprocess`
+  * `/home/<gateway_name>/storage_proxy/QC`
+  * `/home/<gateway_name>/storage_proxy/postprocess`
+","","","",Work Orders,"",""
+3071022,Locks are queried for and created transactionally,7471,1,9,2,"","IRIS-202,IRIS-818",9,1495823867,9,1520943008,"","",3416,0,Timeout = 60000,"","1. SSH into AAT
+2. Run `tail -f ~/AAT/log/staging.log`","There are entries for these queries every minute:
+
+* `Checking for new work orders...`
+* `Checking on processed studies waiting...`","","","",Work Orders,"",""
+3071025,Create meshes from segmented DICOM in postprocess,7471,1,9,2,"","IRIS-134,IRIS-788",9,1495824138,9,1520867411,"","",3416,0,The final package contains meshes.,"","1. Log into AWS S3
+2. Download a final package
+3. Unzip the file",The package contains a SurfaceMeshesSTL folder,"","","",Work Orders,"",""
+3071027,Clean up de-anonymized dicom after storing them in PACS,7471,1,9,2,"","IRIS-40,IRIS-714",9,1495824283,9,1520865140,"","",3416,0,"","","1. SSH into staging AAT
+2. Go to `/tmp/AAT` folder",AAT cleans up de-anonymized dicom after a successful work order process.,"","","",Work Orders,"",""
+3113702,Recursively anonymize all files and store fields in the DB,7471,1,7,2,"","IRIS-12,IRIS-23",14,1499974153,23,1530227930,"","",3416,0,"","","* Rails console:
+    1. SSH into AAT
+    2. Run `rails console`
+    3. Run `AnonymizedField.last`
+
+* IRIS website and dcmdump tool:
+    1. Run a new work order
+    2. Download the original dicom file and unzip it
+    3. Run `bash ~/AAT/bin/dcm4che-3.3.7/bin/dcmdump {path_to_file.dcm}`
+","* AnonymizedField has the PHI information
+* There is no PHI in the headers
+* PHI data is replaced as follows
+|||:Field|:Value
+||StudyDate | 19010101
+||StudyTime | 000000.00
+||StudyDescription | CONFIDENTIAL
+||PatientName | CONFIDENTIAL
+||PatientID | CONFIDENTIAL
+||PatientBirthDate | 19010101
+||PatientBirthTime | 000000.00
+","","","",Work Orders,"",""
+3046028,"The 'AAT' favicon appears on the browser tab in Chrome, Safari, and IE",8180,1,9,2,"","IRIS-515,IRIS-696",9,1493664536,9,1520351304,"","",3416,0,"","",1. Go to https://aatstaging.intouchiris.com/,"The following 'AAT' favicon appears on the browser tab in Chrome:
+!(index.php?/attachments/get/111)","","","",General,"",""
+3063034,Cookies shall be secured,8180,1,9,2,"","IRIS-320,IRIS-885",9,1495207512,9,1520351396,"","",3416,0,Force SSL for staging and production,"","1. Go to https://aatstaging.intouchiris.com/login
+2. Open browser development tools
+3. Go to `Cookies`",Verify that _Secure_ is **True**,"","","",General,"",""
+3064343,As a ISI user I know what version of the AAT I am using,8180,1,9,2,"","IRIS-276,IRIS-859",9,1495224102,9,1520351491,"","",3416,0,"","","1. Go to https://aatstaging.intouchiris.com/login
+2. Scroll to the bottom of the page",The current AAT version is shown: **Version X.X**,"","","",General,"",""
+3070123,Have log rolling for AAT/log and /var/log/nginx,8180,1,9,2,"","IRIS-29,IRIS-712",9,1495723826,9,1520562195,"","",3416,0,"","","1. SSH into staging AAT server
+2. Run `ls AAT/log`
+3. Run `ls /var/log/nginx`","Verify that the following AAT logs are logrotated:
+
+* `AAT/log`
+* `/var/log/nginx`","","","",General,"",""
+3070124,The AAT can register with the SSM setting the auth key which is used for further communication,8180,1,9,2,"","IRIS-82,IRIS-732",9,1495723894,24,1529360729,"","",3416,0,"","","1. SSH into SSM server
+2. Run `cd SSM`
+3. Execute `rails console`
+4. Run `Gateway.first.aat_public_key` (or any other AAT)","Verify that AAT's public key is the same as the one stored in SSM (`Gateway.first.aat_public_key`)
+_Note: to get AAT public key  SSH into AAT server and run `cat ~/.ssh/id_rsa.pub`_","","","",General,"",""
+3070125,Have a login and top level web interface for administrators,8180,1,9,2,"","IRIS-44,IRIS-717",9,1495724042,9,1520351761,"","",3416,0,"","","1. Go to https://aatstaging.intouchiris.com/login
+2. Login with valid credentials","* AAT has a login web interface
+* The user sees configuration pages when logged in","","","",General,"",""
+3106150,User is logged out after 30 minutes of inactivity.,8180,1,9,2,"","IRIS-1137,IRIS-1143",9,1499274161,9,1520351816,"","",3416,0,"","","1. Login to AAT staging
+2. Wait for 30 minutes without any activity",User is logged out after 30 minutes of inactivity.,"","","",General,"",""
+3138692,TCP timestamp response is disabled,8180,1,9,2,"","IRIS-1259,IRIS-1279",9,1502484776,9,1520562267,"","",3416,0,"","","1. SSH into AAT staging server
+2. Open `/etc/sysctl.conf` file
+3. Search for `net.ipv4.tcp_timestamps`",File **/etc/sysctl.conf** contains the following line: **net.ipv4.tcp_timestamps=0**,"","","",General,"",""
+3227019,As an admin I want to be rate limited on login,8180,1,9,2,"","IRIS-1351,IRIS-1369",9,1507237022,9,1520352533,"","",3416,0,"After 5 bad attempts, lock out the user for 1 minute.","","1. Do 5 bad login attempts
+2. Try to login with valid credentials
+3. Wait 1 minute
+4. Log in with valid credentials","1. AAT users are locked for 1 minute due to 5 bad login attempts.
+2. The user sees the following message: `You have been locked out for 1 minute due to successive invalid login attempts.`
+3. After 1 minute the account is unlock
+4. User can login with valid credentials","","","",General,"",""
+3228733,Successfully log in and create user accounts,8180,1,9,2,"","IRIS-1357,IRIS-1377",33,1507569351,24,1529346197,"","",3416,0,"As an existing user you should be able to create new user accounts.
+
+Passwords must have:
+
+* 8 characters in length
+* Contain at least 3 of the following 4 types of characters:
+    * Lower case letters (a-z),
+    * Upper case letters (A-Z),
+    * Numbers (i.e. 0-9),
+    * Special characters (e.g. !@#$%^&* )","","* AAT portal:
+    1. Log in as an existing AAT user.
+    2. Go to '/users'
+    3. Try to create a new account with a valid password.
+* Rails Console
+    1. Do `rails c`
+    2. `user = User.new`
+    3. `user.username = 'username'`
+    4. `user.password = 'Password!'`
+    5. `user.password_confirmation = 'Password!'`
+    6. Verify that `user.valid?` returns `true`",User is created if it meets the password policies mentioned in the description.,"","","",General,"",""
+3228734,Fail to create user accounts due to invalid passwords,8180,1,9,2,"","IRIS-1357,IRIS-1378",33,1507569627,24,1529346447,"","",3416,0,"User accounts should not be created if they don't meet the password criteria and an error message should be displayed.
+
+Passwords must have:
+
+* 8 characters in length
+* Contain at least 3 of the following 4 types of characters:
+    * Lower case letters (a-z),
+    * Upper case letters (A-Z),
+    * Numbers (i.e. 0-9),
+    * Special characters (e.g. !@#$%^&* )","","* AAT portal:
+    1. Log in as an existing AAT user.
+    2. Go to '/users'
+    3. Try to create a new account with an invalid password.
+* Rails Console
+    1. Do `rails c`
+    2. `user = User.new`
+    3. `user.username = 'username'`
+    4. `user.password = 'password'`
+    5. `user.password_confirmation = 'password'`
+    6. Verify that `user.valid?` returns `false`",No new user accounts should be created.,"","","",General,"",""
+3296011,Rake process which cleans out the pre and post process directories of any failed studies,8180,1,7,2,"","IRIS-143,IRIS-1425",9,1510862378,9,1520956051,"","",3416,0,"","","1. Check to make sure your `/tmp/AAT` directory has some directories in it (e.g. preprocess, postprocess, ...)
+2. `cd` into AAT and run `rake process_dir_cleaner:clean`
+3. Check `tmp/AAT` and make sure all directories were deleted except for `lock`
+4. Make a `postprocess` directory in `tmp/AAT`
+5. In SSM create a new work order and then run `rake study_processor:preprocess`
+6. While this is running try to run `rake process_dir_cleaner:clean`
+7. Run `tail -f ~/AAT/log/staging.log`","* Rake process cleans out the pre and post process directories of any failed studies
+* `lock` directory is not deleted
+* The log shows a message saying `Lock has already been attained!` indicating that the dir cleaner didn't work because preprocess already locked the `tmp/AAT` directory","","","",General,"",""
+3678310,As an AAT I don't want my reporting to interfere with work orders,8180,1,7,2,"","IRIS-1726, IRIS-1727",23,1529613331,9,1529671912,"","",3416,0,"1. AAT has uses whenever gem to run various processes. One of them is reporting. This card is to ensure that reporting happens in a thread safe manner to avoid race conditions or deadlocks.
+2. Also time out the report creation/sending process after a minute if it takes too long.
+
+
+Here's a few things to know:
+
+1. Two types of reports: work order report, and connectivity report.
+2. Work order reports don't get sent automatically, they get created on every relevant work order event, but do not get sent.
+3. There is a cron job that runs every 5 minutes that does 2 things:
+  * Tt creates a `connectivity` report
+  * Sends `_all_` reports (both work order and connectivity)
+4. The job won't run if there are work orders being processed.
+","","1. ssh into AAT 404.
+2. Do `tail -f AAT/log/staging.log`
+3. Go to SSM and start a WO in AAT 404.
+4. Perform a full e2e test.
+5. Check the AAT logs.
+
+Repeat steps for AAT 319, and AAT 401.
+ ","The should be two type of reports being sent, one form connectivity reports and one form WO state reports.
+
+You should see these entries:
+
+`2018-06-19T10:30:13.650120 #5184  INFO -- : Successfully sent CONNECTIVITY report!`
+`2018-06-19T09:35:18.778898 #1874  INFO -- : Successfully sent WORK_ORDER report!`
+
+Verify WO reports are not being sent if there are WOs being processed.
+
+
+","","","",General,"",""
+3065327,As an AAT user I can check if PACS Storage instances are able to echo,9507,1,9,2,"","IRIS-111,IRIS-771",9,1495494452,9,1520361248,"","",3416,0,"","","1. Go to `Pacs Storages`
+2. Click the **Echo** link 
+3. Refresh the page","* The link takes the user to the `Output of DICOM ECHO command` page
+* The ECHO commands is run again when refreshing the page","","","",PACS Storages,"",""
+3070205,As an AAT user I have a PACS Name which maps the pacs to the name stored in ResMD,9507,1,9,2,"","IRIS-93,IRIS-738",9,1495757276,9,1520961033,"","",3416,0,"","","1. Go to `Pacs Storages` page
+2. Click `New Pacs Storage`
+3. Fill in the fields:
+  * Name
+  * AE Title
+  * IP
+  * Port
+4. Click `Create Pacs storage`","* PACS Storages are listed
+* AAT users can add PACS Name which maps the pacs to the name stored in ResMD","","","",PACS Storages,"",""
+3070206,As a user I do not want the segmented DICOM to return to the PACS,9507,1,9,2,"","IRIS-1714,IRIS-1715",9,1495757389,23,1530309088,"","",3416,0,Run a post process and see that the segmented study is not stored in DCM4CHEE.,"","1. Do an end to end test for patient `Perez^Juan`
+2. Login to DCM4CHEE
+3. Search for `Perez`
+4. Expand the results, and look for segmented studies, using the magnifying glass icon.",The segmented study is not stored in DCM4CHEE,"","","",PACS Storages,"",""
+3233868,As an AAT admin I want to verify that I can send and receive DICOM to or from PACS,9507,1,7,2,"","IRIS-580,IRIS-1355",9,1507745000,9,1520361310,"","",3416,0,"As a AAT admin I want a feature to verify that the AAT can place DICOM studies onto, and then pull out from the customer PACS (secondary capture device), by moving a test study from the AAT to the PACS, fetch the same study back, and then cleaning up by deleting the temporary study.
+Logged in as an AAT admin, invoke a test feature that:
+
+1. Places the IRIS test CT study on the customers PACS
+2. Fetches the IRIS test CT study from the PACS and places it on the AAT.
+3. Message to the user of the success or failure of the test","","1. Go to `Pacs Storages` page
+2. Verify that next to each configured PACS on the PACS Storage configuration page, there is a link 'Send/Receive DICOM'.","* The flash message shows success or fail
+* If the test succeeded the message shows send and receive latency
+* If a WO is being processed the message also says `Receive command could not attain lock`","","","",PACS Storages,"",""
+3070207,"As an admin, when I register a new gateway my password for the PACS viewer is set correctly on the SSM",9944,1,9,2,"","IRIS-166,IRIS-803",9,1495759916,9,1520953830,"","",3416,0,"To QA, start with a fresh database and have the AAT register with the SSM. Then go and enable it on the SSM. Check the password and see that it is still correctly set for the Gateway on the SSM.
+PACS' password should be stored correctly for the Gateway on the SSM.","","1. Create a new AAT or edit an existing one
+2. Set the `PACS Viewer Password`",Verify that the correct `PACS Viewer Password` is set correctly on the SSM,"","","",Gateway,"",""
+3113700,The AAT runs as a virtual machine,9944,1,9,2,"","IRIS-1155,  IRIS-1154",14,1499972389,9,1506382200,"","",3416,0,"","","Verify that SW-20093 is the part number for the Image of the IRIS AAT.
+Deploy SW-20093 onto an InTouch Gateway and verify that it is the IRIS AAT. ",The VM deployed using SW-20039 is an IRIS AAT.,"","","",Gateway,"",""
+3131994,Deploy new versions of the AAT Rails application and supporting libraries with a central management tool,9944,1,9,2,"",IRIS-1170,14,1501709671,9,1506383483,"","",3416,0,"As a systems administrator, I shall be able to deploy new versions of the AAT Rails applications and supporting libraries to staging/production environments from a central management tool.","","1. SSH into deployment server
+2. Run deployment scripts for current version: 
+    * Usage: '`./deploy.sh {SSM|SP|Turnstyle} {staging|production} {version}`'
+3. Verify the new version is running
+",A new version of AAT Rails application is deployed by a deployment script run from the deployment server.,"","","",Gateway,"",""
+3132000,HTTPS (443) and SSH (22) ports to be open bi-directional on the dedicated IP,9944,1,9,2,"",IRIS-1193,14,1501712999,9,1520562019,"","",3416,0,AAT shall be located on the hospital premises and network access shall be protected by firewalls managed by hospital IT. The AAT requires a public facing IP address,"","Verify that AAT requires HTTPS (443) and SSH (22) ports to be open bi-directional on the dedicated IP:
+
+1. Run “`curl https://aatstaging.intouchiris.com/login`” and verify it resolves 
+2. SSH to staging AAT to verify port 22 is opened
+3. Verify that AAT has a public facing IP address:
+    * Access AAT web front end from outside ITH network
+","* Curl command resolves
+* Ports 443 and 22 are opened for AAT","","","",Gateway,"",""
+3156723,Public key is sent to SSM when the Gateway is registered,9944,1,9,2,"","IRIS-576,IRIS-1194",9,1503686748,9,1520953956,"","",3416,0,"","","1. Create a new AAT
+2. Register the Gateway
+3. SSH into SSM server
+4. Run `cd SSM`
+5. Execute `rails console`
+6. Run `Gateway.last.aat_public_key`
+",Verify that the AAT's public key is stored in SSM,"","","",Gateway,"",""
+3161172,"As a AAT user, when I update gateway info, that info is sent to SSM",9944,1,9,2,"","IRIS-1270,IRIS-1313",9,1503944992,9,1520954068,"","",3416,0,"","","1. Go to `Gateway Configuration` page
+2. Click `Edit
+3. Update gateway's information
+4. Click `Update Gateway`",The updated information is sent to SSM,"","","",Gateway,"",""
+3110758,"AAT makes a REST request to SSM to refresh its auth-key, every 30 days",13213,1,9,2,"","IRIS-309,IRIS-1114",9,1499720136,9,1520960753,"","",3416,0,"AAT makes a REST request to SSM to refresh its auth-key, every 30 days.
+","1. SSH into AAT server
+2. Run `vi ~/AAT/config/schedule.rb`
+3. Change `30.days` to `1.minutes` 
+
+	every 1.minutes do
+		rake 'reset_auth_keys:reset_keys'
+	end
+
+4. Run `whenever -c`
+5. `whenever --set 'environment=staging' -w`","1. Go to `Segmentation Service Managers`
+2. Wait 30 days
+3. Go to `Segmentation Service Managers`
+4. Login into SSM and go to `Gateways`
+5. Click `Show` icon
+
+# Fast steps
+1. Run the steps in the **Preconditions** section
+2. Go to `Segmentation Service Managers`
+3. Wait 30 days
+4. Go to `Segmentation Service Managers`
+5. Login into SSM and go to `Gateways`
+6. Click `Show` icon
+","* Verify that after 30 days AAT sends the new auth key to SSM
+* For fast steps: 
+  * Verify that after 30 days AAT sends the new auth key to SSM","","","",SSM,"",""
+3228949,As a user I want to verify connection with SSM,13213,1,9,2,"","IRIS-1334,IRIS-1336",9,1507587381,9,1507743218,"","",3416,0,"On the SSM configuration page, there is a 'Test Connection' link next to the configured SSM.
+When the link is clicked, there is a flash message informing whether or not the connection test was successful.","","1. Go to *Segmentation Service Managers* page
+2. Verify that there is a *Test Connection* link
+3. Verify that when the link is click a flash message shows the results of the connection test","The Test Connection returns one of the following outputs:
+
+|||:Condition|:Output
+||Good set up|Connection verified! Gateway name/auth key combination is valid! Latency: 0.023s.
+||Wrong DNS|Failed to verify connection.
+||Wrong Port|Failed to verify connection. 404 Not Found. Latency: 0.067s.
+||Wrong Name|Connection verified! Invalid gateway name/auth key combination. Latency: 0.178s.
+||Wrong Auth Key|Connection verified! Invalid gateway name/auth key combination. Latency: 0.178s.
+
+
+
+","","","",SSM,"",""
+3126131,As an AAT Admin I get a list of storage proxies from the SSM,14479,1,9,2,"","IRIS-1098,IRIS-1226",9,1501204007,9,1520882757,"","",3416,0,"","","1. Go to `Storage Proxies` page
+2. Click the **Fetch proxies** link","* **Fetch proxies** link fetches all the SP proxies from SSM
+* The refreshes the list of existing SP in AAT","","","",Storage Proxies,"",""
+3211996,As a user I want to verify connection with all configured storage proxies,14479,1,9,2,"","IRIS-1337,IRIS-1352",9,1506538181,9,1520550488,"","",3416,0,AAT can send and receive files from all configured storage proxies.,"","1. Go to Storage Proxies page
+2. Click the *Test Connections* link","* AAT tests the connection with all the SPs in the list
+* AAT displays the results in the following format:
+
+|||:Results
+|| SP1_IP: - SUCCESS Latency: Xms
+|| SP2_IP: - FAILURE Reason: execution expired","","","",Storage Proxies,"",""
+3326380,As an AAT user I want to be able to enable/disable storage proxies,14479,1,9,2,"","IRIS-1099,IRIS-1498",9,1512762867,9,1512762867,"","",3416,0,"","","1. Go to `Storage Proxies`
+2. Chose an entry and click `Edit`",There is an Enabled checkbox that enables/disables the selected storage proxy.,"","","",Storage Proxies,"",""
+3213907,As a user I want to verify the connection with Turnstyle,25196,1,9,2,"","IRIS-1340,IRIS-1344,IRIS-1345",9,1506632514,9,1517256481,"","",3416,0,"","","1. Verify that there is a *Test Connection* link
+2. Verify that clicking that link tests the connection between AAT and Turnstyle",* AAT users can test AAT-Turnstyle connection,"","","",Turnstyle,"",""
+3423018,Turnstyle client ID and client secret are user configurable,25196,1,7,2,"","IRIS-1564,IRIS-1593",9,1517256410,23,1530039612,"","",3416,0,"","**WARNING!!!!!!!!!!!!!!!!**
+
+ * Before deleting Turnstyle do a local backap of the data found in the AAT web UI for Turnstyle (https://aatstaging404.intouchiris.com/turnstyles/{:id}/edit)
+
+Now proceed to delete Turnstyle:
+
+1. ssh into AAT 404
+2. `cd AAT`
+3. `rails c`
+4. `t = Turnstyle.first`
+5. `t.delete`","* Add/Show/Edit/Destroy
+    1. Go to *Turnstyle* tab
+    2. Verify that if there are no Turnstyles configured there is a *New Turnstyle* link to add a new one
+    3. Verify that that link takes the user to a form to add a new Turnstyle
+    4. Verify that `Client can't be blank`, `Client secret`, and `Work order topic` are required fields
+    5. Verify that the user can show and edit Turnstyles
+
+_Note: Tursntyle deletion is done via rails console_",* AAT users can add/edit/list/destroy Turnstyles,"","","",Turnstyle,"",""
+3423019,A report is sent whenever a work order is saved,25196,1,7,2,"","IRIS-1564,IRIS-1592",9,1517256569,23,1529966331,"","",3416,0,"","","1. shh into AAT 404 and do `tail -f AAT/log/staging.log`, this will show the logs in real time.
+2. Start a new WO.
+3. Wail until it finishes initializing and then check the logs after 5 minutes.","Reports are sent automatically every 5 minutes, only while there are no WOs being processed.
+
+You should see something like this:
+
+`2018-06-19T09:35:18.778898 #1874 INFO -- : Successfully sent WORK_ORDER report!` 
+","","","",Turnstyle,"",""
+3640981,Device 'Connectivity Status' Reporting,25196,1,7,2,"","IRIS-1037, IRIS-1716",23,1526931160,23,1529966748,"","",3416,0," AAT periodically reports connectivity information to the message bus.
+ Connectivity metrics include:
+
+* pacs_send_verified
+* pacs_send_latency
+* pacs_receive_verified
+* pacs_receive_latency
+* pacs_lock_attained
+* sp_connection_verified
+* sp_latency
+* sp_reason
+* ssm_connection_verified
+* ssm_auth_key_verified
+* ssm_latency reason
+* turnstyle_connection_verified
+* turnstyle_latency
+* turnstyle_reason
+ PACS and SP connectivity metrics can include connections to multiple PACS or SP instances.","","2. ssh into AAT 404 and do `tail -f AAT/log/staging.log`
+1. Log into AAT 404 web UI and verify that connection tests to other services all pass.
+3. Wait for 5 minutes.
+
+
+","A rake task will send connectivity reports every 5 minutes.
+
+You should see something like this:
+
+`2018-06-19T10:30:13.650120 #5184 INFO -- : Successfully sent CONNECTIVITY report!`","","","",Turnstyle,"",""

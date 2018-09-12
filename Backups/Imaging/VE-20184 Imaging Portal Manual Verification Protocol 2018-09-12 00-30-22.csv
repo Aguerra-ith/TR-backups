@@ -1,0 +1,578 @@
+id,title,section_id,template_id,type_id,priority_id,milestone_id,refs,created_by,created_on,updated_by,updated_on,estimate,estimate_forecast,suite_id,custom_automation_type,custom_description,custom_preconds,custom_steps,custom_expected,custom_steps_separated,custom_mission,custom_goals,section_hierarchy,section_parent_id,section_description
+3641786,As a user I should be able to view a list of studies with a links to those studies,91674,1,7,2,"","IMG-13, IMG-17",9,1527190548,24,1534455595,"","",4892,0,Web front end should allow users to view a list of studies with links to the Imaging Viewer for those studies.,"Generate an 'Access Token':
+
+- Set up a DEV environment for Imaging.
+- Generate an access token by placing a **byebug** in the **app/helpers/sessions_helper.rb** file, specifically in the 'log_in' method. Grab the token by typing 'tokens'access_token''. Copy that string and type 'c' to continue.
+- Logout so that your DM and IdP sessions are removed.
+
+Another way of getting Staging Access Token:
+- go to https://idptest.intouchstaging.com/
+- on the top menu, click 'Log in'
+- login with THE SAME USER you'll use to test. The access token will be generated for that user. if the user owner of the token is not enabled for Imaging app, the token will be useless.
+- after login you'll see the access token available to copy it.
+
+_(Note: Access Tokens expire after 1 hour. And are good only for 1 use only. When testing different things you'll need to generate different Access Tokens)_","Test steps:
+
+1. Log in at Imaging Staging.
+2. Query for studies from a location that uses an eUnity viewer. You can tell by clicking to view the study link and seeing what type of viewer the link takes you to.
+3. Click on a 'view study' btn to view the study.
+4. Repeat for ResMD. _(Note: **Eastern General Hospital** location uses ResMD)_
+6. Test that at least 1 param must be provided to return a list of studies.
+7. Sign out, and test that you can sign back in by providing an access token in the url with `https://imaging-stg.intouchstaging.com/?access_token={access_token}`.
+8. Test that you can also initiate a study list query by going to `https://imaging-stg.intouchstaging.com/studies?access_token={access_token}&geolocation={geoloc_id}&other_params` with other params being the same sort of params you provide for a study_list API call. (for example: https://imaging-stg.intouchstaging.com/studies?geolocation=4513&patient_first_name=John&access_token={Access_Token} .   The order in which the parameters are arranged doesn't matter.)","You should be able to see studies in both platforms eUnity and ResMD. 
+
+You should be able to sign in using the token, and perform queries using it.
+
+You should be getting a list of patients only when at least 1 valid param is provided.","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3642745,As a physician user I want to be able to log in with username and password,91674,1,7,2,"","IMG-14, IMG-35",24,1527516124,24,1531433878,"","",4892,0,Provide a log in page using IdP. Have sessions timeout after 30 minutes,"1. Have a users created on FMS and make sure it's enabled for imaging app.
+","1. Go to https://imaging-devops.intouchstaging.com
+2. Attempt to login with that user.",Verify users enabled for 'Imaging' application in FMS have access to the app.,"","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3642749,Redirect users to the requested URL after they sign in,91674,1,7,2,"","IMG-33, IMG-43",24,1527529153,9,1527533691,"","",4892,0,Imaging should retain the requested URL and redirect once the user is logged in. This will enable SSO for users with an existing IdP session.,"1. Login to Imaging app.
+2. Make a search for any patient. (e.g. Location: `ITH Eastern General Hospital`, First name: `barry`, Last name: `brown`)
+3. Copy the URL of the search result for later use.","1. Make sure all IdP sessions are ended.
+2. Being logged out, request the Imaging's url that you saved before (simply paste the URL on the browser).
+3. You should be redirected to IdP's login page.
+4. Login with your credentials.
+5. Logout from Imaging app and Login to another app that uses IdP such as DM or IO (This will create and IdP session).
+6. Being logged out from Imaging app but with the IdP session generated, try requesting that Imaging URL again. ","* For 4: After entering username and password you should be redirected to the originally requested url
+  * You should be presented with the results from the search for `Barry Brown`, performed on the Preconditions section
+* For 6: You should be automatically redirected to the requested page because the existing IdP session will redirect you through
+  * You should be presented with the results from the search for `Barry Brown` again).","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3643435,Do not autofill Study search fields,91674,1,7,2,"","IMG-32, IMG-49",24,1527634336,9,1527685752,"","",4892,0,As a user of the Imaging Portal I do not want the data entered into the search fields to be saved for autofill by the application or the browser so that past patient search information is not displayed to minimize the potential PHI exposure.,1. Have a user created on Imaging app.,"1. Login to Imaging app.
+2. Perform a search via the UI. (e.g.  first name = 'barry')
+3. After getting the results, proceed to delete de fields from the previous search and try to make another one. (e.g. write 'ba' in the First Name field)
+
+","In your next search attempt, the previous searched data ('barry' for Fist Name) should not be suggested by the browser to fill the input.","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3643437,Auto-logout for inactivity,91674,1,7,2,"","IMG-29, IMG-48, IMG-98, IMG-100",24,1527635274,9,1531502188,"","",4892,0,"As a human user of InTouch Imaging, I want to be auto-logged out after a period of inactivity within the application so that an unattended session is closed to minimize the likelihood of an unauthorized user gaining access to the application.
+
+The default auto-logout timeout shall be 30 minutes.",1. Have a user created on Imaging app.,"1. Login to the Imaging app.
+2. Be idle for 28 min (do not click or do anything)
+3. After the 28 min period, you should see a pop-up with a timer counting down (from 2 min to 0).
+4. Let the counter get to 0.
+5. Log back in and stay idle for another 28 mins.
+6. After the 28 min period, you should seethe same pop-up with a timer counting down (from 2 min to 0).
+7. Before it reaches 0, click on `stay logged in`","* General: After 28 minutes of inactivity, you should see a pop-up with a timer counting down (from 2 min to 0).
+* For 4: After the timer reaches 0, you should be logged out automatically. 
+* For 7: clicking the `stay logged in` on the pop-up window prevents from automatically logging out","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3643440,Allow InTouch applications to use the Imaging application in an iFrame,91674,1,7,2,"","IMG-20, IMG-21",24,1527703270,24,1531509219,"","",4892,0,"Content security policies should be set such that other ITH applications can embed the Imaging Portal UI in an iframe
+","1. Have a user created on Smart Notes DEV server.  
+
+(This functionality will eventually be available on Smart Note's Staging server)","1. Go to SN dev server:  https://notes-devops.intouchstaging.com (Or SN Stg server: https://notes-stg.intouchstaging.com )
+2. Login with user `slittle`(on Dev, or any other user on Stg)
+3. From the list of users, select `John Doe` with Location = `PACS Location`  to create an encounter.
+4. From the encounter view, click the 'Imaging' button from the menu on the left.
+5. Click the `View Imaging` button on the upper right.
+","For 5: Imaging app should pop-up on an iframe and it should display the equivalent of a study search for John Doe on Imaging app. 
+","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3645575,Error messages should provide helpful information,91674,1,7,2,"","IMG-46, IMG-50, IMG-51",23,1527721913,24,1534459845,"","",4892,0,"* Add front end validation.
+* Provide error responses that will be useful to physician users.","","1. Login to Imaging and perform a successful patient search.
+2. Change the geolocation value in the URL to some random value and hit enter.
+3. Cause a different error. You can use the **QA Test** geolocation (or any other location), then go to DM and change the `imaging_url` field on the corresponding device, to an invalid one. Then try a patient  search.
+
+_(Note: To apply some changes, you may need to clear the cache 'server side'. To do so, use this URL:  https://imaging-stg.intouchstaging.com/clear_cache?secret=978e477f-2b44-40ca-b7ed-e8101e6ba83d )_","For (2) you should receive an error message indicating that the date format is invalid.
+
+For (3) you should see error message `Unauthorized. Please contact support...`
+
+For (4) you should see error message `Error. Please contact support...`","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3647710,Study links should be available on page load and regenerated every 10 minutes,91674,1,7,2,"","IMG-42, IMG-44",23,1527784501,9,1527858883,"","",4892,0,Study links should be included for each study in the study list on page load and should be regenerated every 10 minutes to avoid expired links.,"","1. Login to Imaging web app.
+2. Search for a patient (e.g. Juan Perez)
+3. Click the on study.
+4. Right click the study and select `Inspect` (use Chrome).
+5. You should see a `data-study-link` attribute which contains the link to the study.
+6. Wait 10 minutes after the study list has loaded and re-check this link.
+","* For 3: A new window should open pointing to the correct study in the PACS Viewer.
+* For 6: The link should have updated. You can tell it has updated when the hash for the `signature` for eUnity or `password` for ResMD changes.","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3647711,Application should provide a good UX,91674,1,7,2,"","IMG-39, IMG-52, IMG-53",24,1527785618,9,1527859042,"","",4892,0,"- Improve study list UI/UX.
+- Adjust the iframe settings to improve display of iframe in Smart Notes","1. have a user created on Smart Notes DEV server.  
+
+(This functionality will eventually be available on Smart Note's Staging server)","1. Go to SN server
+2. Login with user `slittle`
+3. From the list of users, select `John Doe` with Location = `PACS Location`  to create an encounter.
+4. From the encounter view, click the `Imaging` button from the menu on the left.
+5. click the `View Imaging` button on the upper right.
+6. reduce the size of the browser window","* If the screen size is reduced, the '+' button shows to expand table to view more info about the patient. 
+* Clicking on this button or right around it should cause the row to expand. 
+* Clicking anywhere else should open the study in the viewer but not cause the row to expand.","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3647712,Post User Imaging activity to 'InTouch Data System',91674,1,7,2,"","IMG-15, IMG-30",23,1527785809,9,1527858946,"","",4892,0,"As a telehealth administrator, I shall be able to audit the user activities within the Imaging Module so that I can include these imaging related activities in the patients episode of care.
+
+1. The Data team will aggregate user's Imaging events from the InTouch Message Bus.  
+2. Based on the activity type, different data elements maybe reported
+
+* User Activity Type: Login, Search, View, Logout
+* Provider ID
+* Encounter ID
+* Geolocation ID
+* Device ID
+* Search parameters of submitted search
+     * First Name (string)
+     * Last Name (string)
+     * Date of Birth (string)
+     * MRN/Patient ID (string)
+     * Study start time (UTC string)
+     * Study end time (UTC string)
+* Timestamp (UTC)
+* Study ID of each viewed study","1. Open Splunk in two windows. In one search for imaging logs and in the other for IO logs.
+","1. Sign in to Imaging Web App.
+2. Sign in using SSO by providing an access token in the url. (`<base URL>/studies?access_token={access_token}`)
+3. Perform a patient search.
+4. View a study.
+5. Sign out.
+6. Do an SSO sign in (provide access token) and also provide encounter_id and appointment_id in the params. For their values, choose a positive integer. (`<base URL>/studies?access_token={access_token}&encounter_id=1&appointment_id=1`)
+","For each of the obove steps, verify that a you see a POST to the messages API in the IO logs and you see a successful report message in the Imaging logs. Also, verify that for a given session flow (sign in -> search -> view -> sign out) every message has the same tracking id
+
+* For 1: you should see two reports, one 'SignIn' and also Imaging automatically does a 'Search'.
+* For 2: you should see two reports, one 'SignIn' and also Imaging automatically does a 'Search'.
+* For 3: you should get one report. Verify that search params are included in the report content.
+* For 4: you should get one report.
+* For 5: you should get one report.
+* For 6: verify that those values were included in the report content.
+
+
+","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3647713,Imaging portal follows ITH style guide,91674,1,7,2,"","IMG-28, IMG-54",24,1527786736,9,1527859257,"","",4892,0,"As a User of the InTouch Imaging application, I want the user interface to follow the InTouch style guides so that the look and feel of the Imaging portal parallels the other InTouch applications for a unified experience.
+
+The standalone application shall have the InTouch blue banner across the top with the InTouch Pins icon, 'InTouch Imaging', the username, and a logout button.
+The background shall be a light grey
+Follow the Header and Body text types
+The 'Search' card shall have a white background and use the defined form elements from the ITH styleguide.
+The 'Results' card shall have a white background and use a grid layout similar to the Smart Notes records page.
+https://invis.io/YNJ5CH2VBCZ",1. Have a user created on Imaging app.,"1. Login to the Imaging app
+2. Inspect all the elements the UI presents, such as banners, buttons, cards, the chosen colors for each element, etc.",Make sure Imamging app follows the InTouch style guides in the description.,"","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3647714,Disable browser side caching of any sort,91674,1,7,2,"","IMG-45, IMG-55",23,1527792087,9,1527859299,"","",4892,0,The client side browser shall not cache any data so that the unintended exposure to PHI is minimzed.,"","1. Curl the Imaging App using `curl -v <base uri>?access_token=(access_token)` 
+
+* Note: you have to check this with curling via access token SSO otherwise the curl will be redirected to IdP and you will get the IdP headers instead of the Imaging headers.","Check the Cache-Control headers and make sure you see `Cache-Control: no-cache, no-store, must-revalidate`.","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3647715,Mobile friendly user experience on iPads,91674,1,7,2,"","IMG-23, IMG-36",24,1527803947,9,1527859370,"","",4892,0,"As a user of the Imaging application, I want the experience to be optimized for my iPad mobile device with a 'search' and 'results' view which follows the manufacturers mobile flow so that the layout is auto-scaled to my device and easily navigated using the touchscreen. iPad model support should include:
+
+* iPad Mini
+* iPad Air
+* iPad Pro",1. Have an IPad,"1. Open safari and go to Imaging site
+2. Inspect how all the elements are displayed on the screen","* `search` card and `result` card should have proper visualization. 
+* There shouldn't be overlapping/hidden elements. ","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3649856,Show 'None' for blank values in the study list,91674,1,7,2,"","IMG-56, IMG-57",24,1527859981,9,1527860291,"","",4892,0,n the Imaging App UI show 'None' for any blank values in the study list.,1. Have a user created on Imaging app,"1. Login to Imaging app
+2. Search for studies in any location
+3. Inspect the results","* The results table shows information on different columns such as: `Patient name`, `Patient DOB`, `Patient ID/MRN` , etc. 
+* When some of those columns has no info to show, the word `None` should be present, instead of just a blank space.","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3664926,(Android) Mobile theme color should be consistent with ITH styling,91674,1,7,2,"","IMG-47, IMG-68",24,1528402051,23,1531502812,"","",4892,0,The app should present the same colors on both computer browsers and Android mobiles.,"1. Have an Android mobile
+","1. Login on the web app (on a computer)
+2. Login on your android phone using Chrome.
+3. Compare the colors on both apps.
+","for 3.: Both applications should present the same colors. _(Note: It's possible that different screen brightness make colors look slightly lighter )_
+","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3664927,Health checks to root path should be silenced in logs,91674,1,7,2,"","IMG-62, IMG-63",23,1528404313,23,1528404975,"","",4892,0,"Requests to the root path '/' shall not be logged to prevent spamming of Splunk logs.
+
+","","1. Go to Splunk and filter for Imaging staging logs (enter `host='*imaging-stg*'` in the search box).
+2. On the right to the search bar, set the search to realtime with a 5 minute window.
+3. Go to imaging web app, and login.
+4. Go to the homepage.
+5. Go back to splunk logs.","There should be no entries that look like these:
+
+* `Processing by StudiesController#index as '/'`
+
+* `Filter chain halted as :verify_session rendered or redirected`
+
+* `Started GET '/' for 209.236.100.196 at 2018-06-03 06:59:59 +0000`","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3678181,InTouch Imaging logo or 'search' button should redirect the user to the home page,91674,1,7,2,"","IMG-71,IMG-72",9,1529000761,9,1529000998,"","",4892,0,"","
+
+When the screen size is small enough that the dashboard/search toggling icon shows in the navbar, make sure that ","1. Reduce the screen size
+2. Click the ITH logo
+3. Go to `/unauthorized`
+4. Go to `/error`","* When the screen size is small the logo shows as just the 'pins' from the ITH logo
+* The logo redirects the user to the root path (`/`)
+* When the screen size is small enough the dashboard/search toggling icon appears in the navbar
+* When the user goes to `/unauthorized` or `/error` pages the icon in the navbar does not show","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3678199,ITH applications should be able to select what should be shown in iframe,91674,1,7,2,"","IMG-75, IMG-77",24,1529012784,23,1530819237,"","",4892,0,"As an InTouch application I shall determine which components of the Imaging Portal are displayed based on parameters passed in the URL when launching the portal in an iframe so that the application can render the required components in the iframe.
+
+By default when displayed in an iframe, the navbar and buttons, search panel, and footer shall be hidden.
+The navbar should be hidden, but a 'search/results toggle button' should be displayed if the 'include_search' parameter is included in the URL.","Have an FMS user enabled for these apps:
+
+* Imaging
+* SN
+* PAS
+
+_(Note: if testing on Staging use IMG staging and DM staging and SN staging. Same if you're testing on devops servers - make it all devops servers.)_","1. Log into PAS and Smart Notes and view Imaging app from both.
+2. While having Imaging on sight, reduce the size of the browser window on both SN and PAS.
+3. Cause an error: 
+  * On SN open Chrome's 'inspect element' tools and change the IMG's URL to something invalid. (i.e.: add `/e/` in the middle of the URL)
+  * For PAS: on FMS change the health care URL (i.e.: `/e?access_token=<jwt>&iframe_layout=true`)
+4. Open PAS for iOS on an iPad, open Imaging.","* For 1.: 
+  * For both SN and PAS: Make sure that the Imaging app adjusts for the iframe. You should see just the search/results panel for larger screens.
+* For2.:
+  * SN: For smaller screens in Smart Notes you should first see the results for the patient. 
+  * PAS: You see the search panel. You should be able to toggle between them with the button in the upper right corner. If on the search panel you should see the rectangle icon and if in the results panel you should see the search icon.
+* For 3.: You should see a `home` icon and when clicked this should redirect you back to the root path, which is the studies page (for small screens it should show the search panel).
+* For 4.: You should be able to see Imaging app in PAS for iOS.","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3679163,Change from config files to FMS API for authorization,91674,1,7,2,"","IMG-79, IMG-89",23,1530646891,23,1530648341,"","",4892,0,As a user of the InTouch applications I want to access the Imaging portal at the customer facilities (GeoLocations) for which I am authorized and then have the associated Imaging instance serving that facility (GeoLocation) perform the requested queries so that queries are performed only for authorized users at a patients specified (geo)location.,"Use an existing FMS user or create a new one.
+
+if using an already existing user disable it from Imaging app and remove it from all programs before testing this case.","1. Log in to Imaging, you should see no locations listed in the dropdown.
+2. In FMS staging make sure your user is allowed for the 'Imaging' application. 
+3. In FMS go to **Access > Program**s and add yourself to the 'Imaging Test' program.
+4. In FMS go to **Access > Access Maps**, select 'Imaging Test' program, click edit and 'paint' all the locations for your user, then click save.
+3. Re-login to Imaging and now you should see the locations assigned in the access map.
+4. Query for studies. ",You should be able to see a study list and view the studies as usual.,"","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3679164,Improve mobile results display,91674,1,7,2,"","IMG-85, IMG-88",24,1530651409,24,1530651805,"","",4892,0,"- Table on results panel should not overflow with long data for any screen size, including mobile.
+- (When screen is small and they don't fit on the same line) 'Filter' and 'Search' inputs for the table should line up (to the left).
+- Gray background when results are shown, white background when search is shown.","This test will be performed on pc and mobile phones (such as Android phones and IPhones). Tablets could be included, but their screen is usually not that small.","1. Open Imaging app on a computer
+2. Perform any search.
+3. Open Imaging app on a mobile phone
+4. Perform any search.",Verify that requirements described in the description have been met.,"","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3679842,Notify the user on login if they have no locations available,91674,1,7,2,"","IMG-97, IMG-99",24,1531420452,24,1534448273,"","",4892,0,"As a user of the Imaging Portal, if I have not been given access to any Imaging locations I want to receive a distinct message that, 'Your account has not been granted access to an Imaging location, please contact your telehealth administrator.'
+
+On a mobile device, I shall see this message on login when applicable.",1. have a user created on FMS that is NOT enabled for Imaging app.,"1. Log in with a user the does not have access to the 'Imaging' application in FMS.
+2. Go to FMS and give 'Imaging' application access to the user. 
+3. Log out and log in. 
+4. Go to FMS and add the user to the 'Imaging test' program
+5. (Also on FMS) give the user access via the Imaging access map to one more locations. 
+6. Log out and log back in. 
+7. Go to FMS, don't edit the access map or program, but remove 'Imaging' application access from the user. 
+8. log out and then log back in.
+","for 1.: You should be able to log in, but you should see a message across the top of the screen indicating that you don't have access to any locations. And the location dropdown should have no options.
+
+for 3.: You should get the same message from the previous expected result.
+
+for 6.: You should not get the error anymore and you should be able to select the locations that the user is enabled for from the dropdown.
+
+for 8.: You should now see the same message for 1. and 3. again.","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3684873,Search inputs should fit on screen without having to scroll for mobile,91674,1,7,2,"","IMG-116, IMG-122",23,1533855697,23,1535476613,"","",4892,0,An Imaging Portal user on a mobile device shall be able to see all of the study search inputs and click the 'Search' button without scrolling the screen so that the user can see all of the search inputs at once and easily find the 'search' button.,"","1. Login to Imaging app
+2. Resize the window, make it smaller.
+3. Login to Imaging app from a mobile device. You can also use chrome mobile emulator for this purpose.
+","Search form should adjust for screens below 400px width to look like the picture below.
+This version of the search form should fit on iPhone 6/7 or larger phones.
+
+!(index.php?/attachments/get/138)
+","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3684875,Reduce the eUnity signature expiry time to account for differences in server times,91674,1,7,2,"","IMG-112, IMG-115",23,1533938089,23,1533938259,"","",4892,0,"Because the default 'maximum signature expiry time' in eUnity is 30 minutes, the Imaging portal should use an expiry time a slightly less than this to account for minor differences in the time of the Imaging portal server and eUnity server.","","1. Click a study to view in the Imaging viewer.
+2. Copy this link.
+3. Wait 24 minutes and try to access it.
+4. Then wait 1 minute more and try to access it again.
+
+","The link should work for 24 minutes, and after 25 minutes you should get a message saying that the link is expired.","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3685017,Cache querying dependencies to improve robustness,91674,1,7,2,"","IMG-101, IMG-118, IMG-121",23,1534190227,23,1534191542,"","",4892,0,"Imaging Portal should cache data from DM and FMS that is required for querying Imaging Viewers (e.g. device uid, imaging viewer url, etc.). This will improve robustness of the application in the situation the DM or FMS is down.","","1. Login and make a study request. The DM values for that location and your 'auth maps' should now be cached.
+2. Change the values in DM for that location to something bad.
+3. Logout, change your access rights on FMS, and then log back in. 
+4. Hit the 'clear_cache' path `https://imaging-stg.intouchstaging.com/clear_cache?secret={secret}` (Ask devops for the secret).
+5. Block FMS inputting a bad value for 'fms_api_domain' and/or 'authorization_domain' in config/secrets.yml. (You will need help from devops to do this).
+6. Go to FMS, take away all location access for that user. Login and log out. ","For 2:  The query should still work because the cached values should be used by default.
+For 3: The location access rights should be reflected in Imaging portal because that cached values should only be used as back up.
+For 4: The bad DM values should now be reflected and the query should fail.
+For 5: If FMS is not reachable the cached auth maps should be used.
+For 6:  The FMS cached auth maps should not be used if all location access rights for that user are removed. You should see the message indicating that the user does not have access to any locations.","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3685028,Timeframe is used for all queries and requeries,91674,1,7,2,"","IMG-106, IMG-124",23,1534352245,23,1534353545,"","",4892,0,"A User of the Imaging Portal shall be able to query via any single attribute or combination of attributes from the following list:
+1. Patient first name, last name, birthdate, a medical record number (MRN), study time/date range.
+
+Additionally, in order to provide a good UX and account for mistyped or incorrect queries, the following shall be implemented:
+1. A wildcard shall be appended to the patient first and last name fields.
+2. Default study range shall be 24 hours ago to 24 hours in the future, and a datetime selector will allow the following:
+
+  * Option of selecting a custom 'from' and/or 'to' date.
+  * Option of selecting NO 'from' and/or 'to' date.
+  * Option of 'Yesterday' with a study date range from '1 day ago' to '1 day in the future'.
+  * Option of 'Last 7 Days' with a study date range from '7 days ago' to '1 day in the future'.
+  * Option of 'Clear' to empty the study date range inputs.
+
+If no results are returned the Imaging viewer will be requeried with the modifications in the following order. Note (patient id = MRN):
+1. Try with only patient id and timeframe.
+2. Try without patient id.
+
+If study list is still empty remove patient id from all following queries:
+
+1. Try without patient first name.
+2. Try without patient dob.
+3. Try without patient first name or dob.
+4. Try without patient last name.
+5. Try without patient last name or dob.
+6. Try with patient last and first name switched.
+7. Try with patient last and first name switched and without last name.
+8. Try with patient last and first name switched and without first name.
+9. Try with patient last and first name switched and without dob.
+10. Try with patient last and first name switched and without last name or dob.
+11. Try with patient last and first name switched and without first name or dob.
+12. Try without patient last and first name.",You can enter DCM4CHEE for PACS-PC2 and edit a couple of study's dates.,"1. Login to Imaging
+2. Select 'from' and 'to' study dates, where only a couple of studies will be queried.
+3. Try to reproduce all the queries/requeries described in the description section by inputting data in the first name, last name, DOB and MRN fields.","Verify that the study date is used for all queries/requeries. Meaning that if it doesn't find results because the patient name or something else doesn't match it will ALWAYS still use the study date.
+
+So for this test case, results will only contain studies queried in step 2, if any other studies show up while reproducing any of the queries/requeries this case will fail.","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3685029,"Today, Yesterday, Last 7 Days, and Clear buttons are provided for study date inputs",91674,1,7,2,"","IMG-106, IMG-125",23,1534353626,23,1534354102,"","",4892,0,"A User of the Imaging Portal shall be able to query via any single attribute or combination of attributes from the following list:
+1. Patient first name, last name, birthdate, a medical record number (MRN), study time/date range.
+
+Additionally, in order to provide a good UX and account for mistyped or incorrect queries, the following shall be implemented:
+1. A wildcard shall be appended to the patient first and last name fields.
+2. Default study range shall be 24 hours ago to 24 hours in the future, and a datetime selector will allow the following:
+
+  * Option of selecting a custom 'from' and/or 'to' date.
+  * Option of selecting NO 'from' and/or 'to' date.
+  * Option of 'Yesterday' with a study date range from '1 day ago' to '1 day in the future'.
+  * Option of 'Last 7 Days' with a study date range from '7 days ago' to '1 day in the future'.
+  * Option of 'Clear' to empty the study date range inputs.
+
+If no results are returned the Imaging viewer will be requeried with the modifications in the following order. Note (patient id = MRN):
+1. Try with only patient id and timeframe.
+2. Try without patient id.
+
+If study list is still empty remove patient id from all following queries:
+
+1. Try without patient first name.
+2. Try without patient dob.
+3. Try without patient first name or dob.
+4. Try without patient last name.
+5. Try without patient last name or dob.
+6. Try with patient last and first name switched.
+7. Try with patient last and first name switched and without last name.
+8. Try with patient last and first name switched and without first name.
+9. Try with patient last and first name switched and without dob.
+10. Try with patient last and first name switched and without last name or dob.
+11. Try with patient last and first name switched and without first name or dob.
+12. Try without patient last and first name.","","1. Login to Imaging.
+2. Check the initial 'From' and 'To' study date fields.
+3. Click the Today, Yesterday, Last 7 Days, and Clear buttons.
+4. Click in the fields and select a date using the datepicker.","Verify that the initial study range shall be 24 hours ago to 24 hours in the future.
+Verify you can select a custom 'from' and/or 'to' date, using the datepickers.
+Verify the 'Clear' button removes the data from the study range input fields.
+Verify the 'Yesterday' button will set a study date range from '1 day ago' to '1 day in the future'.
+Verify the 'Last 7 Days' button will set a study date range from '7 days ago' to '1 day in the future'.
+Verify the 'Today' button will set a study date range from 24 hours ago to 24 hours in the future.","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3685030,Backend code should adjust the date by adding 1 day as a buffer,91674,1,7,2,"",IMG-106,23,1534355885,23,1534356476,"","",4892,0,If the study 'to' date is set to the current day the backend code should adjust the date by adding 1 day as a buffer in requests to PACS Viewer,"","1. Login to Imaging.
+2. Set the 'to' study date to today (it must be set by default).
+3. Perform a search.
+4. Check Splunk logs.","Looking in the Splunk logs you should see the request sent to the Pacs Viewer, the date range of the request should have one day added in the 'To' part of the **dateRange** param.
+
+For example for a study search from 2018-08-15 to 2018-08-15, the request sent to PACS viewer should look like this:
+
+    	
+    GET /e/cacheManagement?CLOAccessKeyID=pyyczLPFWzlEIjHRjQQe&expiry=1534355822&dateRange=2018%2F08%2F15-2018%2F08%2F16&patientName=%2A%2A%5E&serviceInstance=INTOUCH_LIST&signature=KDGf7b8iZpIaYeHgLcGCvxyH%2BR8%3D 
+    HTTP/1.1\r\nConnection: close\r\nHost: pvstaging404.pacsviewer.net\r\n\r\n'
+
+You want to check this param:
+
+`dateRange=2018%2F08%2F15-2018%2F08%2F16`","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3685061,Do not cache values from DM if they cause errors,91674,1,7,2,"","IMG-135, IMG-136",24,1534880356,24,1534978343,"","",4892,0,Incorrect values from DM should not be cached (e.g. an invalid Imaging Viewer url).,"1. have a user created on DM.
+2. have a user created on Imaging.
+
+_(Note: this test case will be tested on the same type of server for both. i.e.:  Imaging dev / DM dev , Imaging stg / DM stg)_","1. Clear cache (on stg) with: `https://imaging-stg.intouchstaging.com/clear_cache?secret={secret}`
+2. Go to DM and set a **wrong** URL for 'Imaging Url' on one of the devices . _Note: to make a bad Imaging URL just make changes to the url on the last part:  from **.pacsviewer.net** on_
+3. Go to Imaging and perform a search using the corresponding location that matches the device edited on the previous step.
+4. Go to DM and change the value for 'Imaging Url' to a valid url.
+5. Go to Imaging and perform a search on the same location.
+6. Repeat steps from 1 to 5 but this time edit a different attribute on the device: 'Subtype'","for 3.: Search should fail, citing an invalid imaging url.
+
+for 5.: Search should succeed. This means the 'Imaging Url' value was updated without clearing cache on Imaging, hence the bad data didn't get cached. 
+
+for 6.: Exact same expected behavior(s) than before.","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3685062,Authorization map and geolocation to device maps should fallback to cache on connection errors and bad responses,91674,1,7,2,"","IMG-131, IMG-132",23,1534881225,23,1534883345,"","",4892,0,"* Authorization maps and geolocation to device maps retrieval should fallback to cache on connection errors and bad responses.
+* If auth maps can't be retrieved (including from cache) tell the user that their location access could not be retrieved.
+* If geolocation to device maps can't be retrieved still load the location drop-down. The user shouldn't know anything about devices, so an error will only be thrown once a study request is made and it cannot find the expected device mapping.
+* Logging should be improved to report the specific error/error msg and indicate that cached data is being used.","","1. Login to Imaging when the connection to all servers is stable, this should allow it to cache data.
+2. Logout.
+3. Break connection to FMS's Authorization service.
+4. Login again.
+5. Clear cache using the URL (https://imaging-stg.intouchstaging.com/clear_cache?secret={secret} )
+6. Logout and login again.
+7. Fix the connection with auth service, logout and login again, things should get cached again.
+8. Break connection with FMS's API.
+9. Logout and login again.
+10. Clear cache using the URL (https://imaging-stg.intouchstaging.com/clear_cache?secret={secret} )
+11.  Logout and login again.
+12. Test some patient searches","* If auth service returns an error response or is unreachable the cache should be used. If cache does not contain auth map the 'unable to retrieve info' message should be shown.
+* If FMS API returns an error response or is unreachable cache should be used. If cache value is not available no error will be thrown on login, but when querying for a study list the error 'device not found' will be produced because there is no geolocation to device map to find the device in. You can verify the error msg in splunk logs.
+","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3685063,Logging should be improved to indicate that cached data is being used,91674,1,7,2,"",IMG-131,23,1534883457,23,1534884173,"","",4892,0,"",Open splunk and query for host='Imaging-stg',"1. Login to Imaging.
+2. Logout.
+3. Break connection with FMS.
+4. Login again.
+5. Check splunk logs.","* When cache is being used you should see a message in the logs indicating as such. It will look like this:
+
+ `Service unreachable. Falling back to cache for data.`
+
+* Auth map and geolocation to device maps should always be logged (when not using cache and when using cache).
+
+
+
+
+
+**Auth Map example:**
+
+
+
+    {'id'=>4513, 'name'=>'ITH West Medical Center'}, {'id'=>4514, 'name'=>'ITH Central Valley Clinic'}, {'id'=>4515, 'name'=>'ITH Mountain Regional Medical Center'}, {'id'=>4516, 'name'=>'ITH Eastern General Hospital'}, {'id'=>4522,
+    'name'=>'QA Test'}, {'id'=>4545, 'name'=>'Pawnee Valley Community Hospital'}, {'id'=>4546, 'name'=>'Hays Medical Center'}, {'id'=>4547, 'name'=>'Hays Ambulatory Clinic'}
+
+**Geolocation Map example:**
+
+
+
+    {'geolocation_id'=>4513, 'geolocation_name'=>'ITH West Medical Center', 'imaging_product_serial_numbers'=>100020, 129997}, {'geolocation_id'=>4514, 'geolocation_name'=>'ITH Central Valley Clinic', 'imaging_product_serial_numbers'=> 
+    100021, 129997}, {'geolocation_id'=>4515, 'geolocation_name'=>'ITH Mountain Regional Medical Center', 'imaging_product_serial_numbers'=>100022, 129997}, {'geolocation_id'=>4516, 'geolocation_name'=>'ITH Eastern General Hospital', 
+    'imaging_product_serial_numbers'=>100023, 100319, 129997}, {'geolocation_id'=>4522, 'geolocation_name'=>'QA Test', 'imaging_product_serial_numbers'=>100008, 129997, 100999}, {'geolocation_id'=>4545, 'geolocation_name'=>'Pawnee 
+     Valley Community Hospital', 'imaging_product_serial_numbers'=>100024}, {'geolocation_id'=>4546, 'geolocation_name'=>'Hays Medical Center', 'imaging_product_serial_numbers'=>100025}, {'geolocation_id'=>4547, 
+     'geolocation_name'=>'Hays Ambulatory Clinic', 'imaging_product_serial_numbers'=>100026}
+
+","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3685087,Date inputs should not allow typing. They should only allow use of the datepicker.,91674,1,7,2,"","IMG-116, IMG-140",23,1535476243,23,1535476559,"","",4892,0,Date inputs should not allow typing. They should only allow use of the datepicker.,"","1. Login to Imaging.
+2. Click on the date inputs for DOB and Study dates.
+3. Enter a date using the datepicker.
+4. Try to enter a date by typing in the text field.","* Verify a datepicker is opened.
+* Verify you can set a desired date and the input text field gets correctly completed.
+* Verify you cannot input text directly into the text field.","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3685088,The datepicker should include a 'clear' button,91674,1,7,2,"","IMG-116, IMG-141",23,1535476645,23,1535476772,"","",4892,0,The datepicker should include a 'clear' button,"","1. Login to Imaging.
+2. Click in the DOB field and use the datepicker to enter a date.
+3. Click the **Clear** button in the datepicker.","Verify that when you click the **Clear** button in the datepicker, the corresponding text field gets cleared.","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3685089,The patient DOB input should start with the 'decades' view,91674,1,7,2,"","IMG-116, IMG-142",23,1535476814,23,1535476969,"","",4892,0,The patient DOB input should start with the 'decades' view,"","1. Login to Imaging.
+2. Click the DOB field, a datepicker should show up.","Verify the DOB datepicker starts with the **decades** view (eg, 1890,1900,1910, etc)","","","",Imaging App,"","As a physician using the InTouch Imaging solution, I need to directly access the Imaging module from the other InTouch Software Modules (IE Provider Access Software, Smart Notes, Facility Intake, or Consumer) in addition to a standalone InTouch Imaging app so that I can view the DICOM study of a patient where ever I may be in the InTouch workflow."
+3641212,Design the API authentication mechanism,91675,1,7,2,"","IMG-4, IMG-7",9,1527190548,9,1527190548,"","",4892,0,API requests should be authenticated using IdP Access Token,"To get an IdP access token:
+
+1. Clone the Imaging repo on you local VM.
+2. Do 
+`cd Imaging` /
+`bundle install` /
+`rails db:create` /
+`rails db:migrate`
+3. Add required variables to `.bashrc`, you can check what variables are needed by looking at `Imaging/config/secrets.yml`
+4. Install byebug `gem install byebug`
+5. Go to `/app/helpers/sessions_helper.rb` and write `byebug` inside the `sign_in` method.
+6. Start the rails server `rails s -b 0.0.0.0 -p 5000`
+7. Open `localhost:5000` on your web browser and login using FMS credentials.
+8. Go back to the console and type `tokens'access_token'`
+9. Copy the token.","# URL
+
+    <base uri>/api/v1/pacs_viewer/study_list
+
+# Headers:
+
+    ITH-Authentication: IDP_ACCESS_TOKEN
+    Content-Type: application/json
+
+# Parameters:
+
+    { 
+    'geolocation': '4516',
+    'timeframe': '20150604-20180318'
+    }",Verify you can perform the above API call only while using a valid access token. Otherwise you will get an *Unauthorized* response.,"","","",Imaging API,"",""
+3643432,API for fetching studies,91675,1,7,2,"","IMG-5, IMG-11",23,1527545983,23,1527614556,"","",4892,0,The Imaging API shall provide routes for retrieving a list of studies from a ResMD PACS Viewer and for generating a link to view a particular study.,"","**Get Study List:**
+
+URL: <base url>/api/v1/pacs_viewer/study_list
+
+**Headers:**
+
+`ITH-Authenticatio: IDP_ACCESS_TOKEN`
+`Content-Type: application/json`
+
+**Parameters:**
+
+    { 
+    'geolocation': '4513',
+    'timeframe': '20150604-20180318'
+    'patient_id': 'HumanSample0009',
+    'patient_first_name': 'Juan',
+    'patient_last_name': 'Perez',
+    'patient_dob': '19320409'
+    }
+","**Study List Success:**  
+
+
+    {
+        'success': true,
+        'study_list': 
+            {
+                'patient_id': 'HumanSample0009',
+                'patient_name': 'Perez^Juan',
+                'patient_dob': '19320409',
+                'study_instance_uid': '1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161',
+                'study_date': '20070625',
+                'study_time': '010100.000000',
+                'study_description': 'Kidney Protocol'
+            }
+        
+    }
+
+**Study List Failure:**  
+
+    { 'success': false,
+      'reason': 'Unauthorized' }
+    
+    { 'success': false,
+      'reason': 'Missing params' }
+    
+    { 'success': false,
+      'reason': 'Missing authentication header' }
+    
+    { 'success': false,
+      'reason': 'Not authorized for the provided geolocation' }
+
+     • NOTE: This is returned when you try to get from an unregistered geolocation.
+ 
+    { 'success': false,
+      'reason': 'Error encountered when trying to connect to Device Manager' }
+
+     • NOTE: This is returned when the connection to DM breaks. To do so you can change the DM URL in Imaging/config/secrets.yml from 'https://devices-devops.intouchstaging.com' to 'http://devices-devops.intouchstaging.com'
+    
+    { 'success': false,
+      'reason': 'Error encountered when trying to retrieve the value for subtype|imaging_url|clo_access_key_id|clo_secret_key|resmd_sso_password: {ERROR MESSAGE FROM DM}' }
+
+     • NOTE: This is returned when the device in DM does not have a field for subtype and/or imaging_url, etc. To get this return you can change the device type of the testing geolocation to a new empty one, via DM API.
+    
+    { 'success': false,
+      'reason': 'The device with device uid {IMAGING DEVICE UID} does not have a field value for subtype|imaging_url|clo_access_key_id|clo_secret_key|resmd_sso_password' }
+
+     • NOTE: This is returned when the device in DM does have the fields, but those fields don't have values. To get this return you can add the fields to the above created device type, but don't give them a value.
+    
+    { 'success': false,
+      'reason': 'Error encountered when trying to fetch studies from the Imaging Viewer: {ERROR MESSAGE}' }
+
+     • NOTE: This is returned when the device has a bad PACS URL. To get this return you can complete the above values correctly, but give the imaging_url a bad URL address.","","","",Imaging API,"",""
+3643433,API for generating links,91675,1,7,2,"","IMG-5, IMG-10",23,1527547212,23,1527614591,"","",4892,0,"","","**Get Study Link:**
+
+URL: <base url>/api/v1/pacs_viewer/study_link
+
+**Headers:**
+
+`ITH-Authenticatio: IDP_ACCESS_TOKEN`
+`Content-Type: application/json`
+
+**Parameters:**
+
+    { 
+    'geolocation': '4513',
+    'study_instance_uid': '1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161'
+    }
+","**Study Link Success:**
+
+    {
+      'success': true,
+      'study_link': 'https://t2.pacsviewer.net:8443/launch?                             
+                           username=authtoken&password=YWRtaW46MTUyNzU0NjM0ODphMzIyNGY5YzgxMmMyYTFjZDAzZTA4Y2I5YWM0%0AOWNhNw%3D%3D%0A&StudyInstanceUID=1.2.826.0.1.3680043.2.1125.1.14063359957464435438978364930633161'
+    }
+
+**Study Link Failure:**
+
+    { 'success': false,
+      'reason': 'Unauthorized' }
+    
+    { 'success': false,
+      'reason': 'Missing params' }
+    
+    { 'success': false,
+      'reason': 'Missing authentication header' }
+    
+    { 'success': false,
+      'reason': 'Not authorized for the provided geolocation' }
+
+      • NOTE: This is returned when you try to get from an unregistered geolocation.
+ 
+    { 'success': false,
+      'reason': 'Error encountered when trying to connect to Device Manager' }
+
+     • NOTE: This is returned when the connection to DM breaks. To do so you can change the DM URL in Imaging/config/secrets.yml from 'https://devices-devops.intouchstaging.com' to 'http://devices-devops.intouchstaging.com'
+    
+    { 'success': false,
+      'reason': 'Error encountered when trying to retrieve the value for subtype|imaging_url|clo_access_key_id|clo_secret_key|resmd_sso_password: {ERROR MESSAGE FROM DM}' }
+
+     • NOTE: This is returned when the device in DM does not have a field for subtype and/or imaging_url, etc. To get this return you can change the device type of the testing geolocation to a new empty one, via DM API.
+    
+    { 'success': false,
+      'reason': 'The device with device uid {IMAGING DEVICE UID} does not have a field value for subtype|imaging_url|clo_access_key_id|clo_secret_key|resmd_sso_password' }
+
+     • NOTE: This is returned when the device in DM does have the fields, but those fields don't have values. To get this return you can add the fields to the above created device type, but don't give them a value.
+    
+    { 'success': false,
+      'reason': 'Error encountered when trying to fetch studies from the Imaging Viewer: {ERROR MESSAGE}' }
+
+     • NOTE: This is returned when the device has a bad PACS URL. To get this return you can complete the above values correctly, but give the imaging_url a bad URL address.","","","",Imaging API,"",""
